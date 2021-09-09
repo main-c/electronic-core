@@ -1,0 +1,22 @@
+window_sizes 1366 709 320 1040 553 104
+cleanlooks_style
+diagrams
+  usecasediagram_ref 128005 // use case diagram
+    833 444 100 A4 0 0
+  active  classdiagram_ref 134533 // class diagram
+    1040 553 100 A4 46 0
+end
+show_stereotypes
+selected attribute_ref 131333 // paid_on
+open
+  usecaseview_ref 128005 // use case view
+  class_ref 134789 // Customer
+  class_ref 134917 // Order
+  class_ref 135045 // Product
+  class_ref 135173 // Category
+  class_ref 135429 // FeedBack
+  class_ref 135685 // Payment
+  class_ref 135813 // Post
+  class_ref 135941 // Comment
+end
+end
