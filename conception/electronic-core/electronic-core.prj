@@ -1,6 +1,6 @@
 format 224
 "electronic-core"
-  revision 3
+  revision 5
   modified_by 5 "main-c"
 
 
@@ -866,7 +866,7 @@ ${docstring}${members}
 	    classrelation_ref 135045 // (have)
       end
 
-      classrelation 135557 // (make)
+      classrelation 135557 // make
 	relation_ref 134917 // make
       end
 
@@ -943,18 +943,6 @@ ${docstring}${members}
 	MysqlColumn
       end
 
-      attribute 129669 "adress"
-	private explicit_type "string"
-	cpp_decl ""
-	java_decl ""
-	php_decl ""
-	python_decl "${comment}${self}${name} = ${value}
-"
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
       attribute 129797 "phone"
 	private explicit_type "string"
 	cpp_decl ""
@@ -1003,12 +991,24 @@ ${docstring}${members}
 	MysqlColumn
       end
 
-      classrelation 134789 // (contains)
+      classrelation 134789 // contains
 	relation_ref 134533 // contains
       end
 
       classrelation 135045 // (have)
 	relation_ref 134661 // have
+      end
+
+      classrelation 144389 // (have)
+	relation 142597 ---- name "have"
+	  a role_name "" multiplicity "1" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 144389 // (have)
+	  b role_name "" multiplicity "*" private
+	    python "${comment}${self}${name} = ${stereotype}()
+"
+	    classrelation_ref 144517 // (have)
       end
     end
 
@@ -1097,10 +1097,10 @@ ${docstring}${members}
 	  b role_name "" multiplicity "*" private
 	    python "${comment}${self}${name} = ${stereotype}()
 "
-	    classrelation_ref 134789 // (contains)
+	    classrelation_ref 134789 // contains
       end
 
-      classrelation 135301 // (have)
+      classrelation 135301 // have
 	relation_ref 134789 // have
       end
 
@@ -1196,6 +1196,30 @@ ${docstring}${members}
       
       classrelation 136325 // (have)
 	relation_ref 135301 // have
+      end
+
+      attribute 144389 "image"
+	private explicit_type ""
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 144517 "title"
+	private explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
       end
     end
 
@@ -1330,7 +1354,7 @@ ${docstring}${members}
 	  b role_name "" multiplicity "1" private
 	    python "${comment}${self}${name} = ${value}
 "
-	    classrelation_ref 135301 // (have)
+	    classrelation_ref 135301 // have
       end
 
       classrelation 135429 // (make)
@@ -1342,7 +1366,7 @@ ${docstring}${members}
 	  b role_name "" multiplicity "*" private
 	    python "${comment}${self}${name} = ${stereotype}()
 "
-	    classrelation_ref 135557 // (make)
+	    classrelation_ref 135557 // make
       end
     end
 
@@ -1484,6 +1508,59 @@ ${docstring}${members}
       explicit_switch_type ""
       mysql_decl ""
       
+    end
+
+    class 148997 "ShippingAdress"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 144645 "region"
+	private explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 144773 "city"
+	private explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 144901 "street"
+	private explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 144517 // (have)
+	relation_ref 142597 // have
+      end
     end
   end
 end
