@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Electronic core</title>
+		<link rel="shortcut icon" type="image/x-icon" href="img/logo.jpg">
+		<link rel="stylesheet" type="text/css" href="/static/core/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/core/css/style.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	</head>
+	<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Button trigger modal -->
+    <div class="d-flex justify-content-center my-5">
+      <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal" data-bs-target="#signup">
+        Inscription
+      </button>
+      <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal" data-bs-target="#signin">
+        Connexion
+      </button>
+    </div>
+
+    <!-- Modal inscription -->
+    <div class="modal fade" id="signup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signupLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h3 class="modal-title fw-bold ms-auto text-white text-uppercase" id="signupLabel">Inscription</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="form">
+            <div class="container">
+              <div id="userform" class="p-5 my-3">
+                    <form> 
+                      <div class="form-group">
+                        <!--<label class="highlight">Nom<span class="req">*</span> </label>-->
+                        <input type="text" class="form-control bg-transparent text-white p-3 border-1" id="username" required data-validation-required-message="Entrez un username" autocomplete="on" placeholder="Username">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="form-group">
+                        <!--<label class="highlight"> Adresse Email<span class="req">*</span> </label>-->
+                        <input type="email" class="form-control bg-transparent text-white p-3 border-1" id="email" required data-validation-required-message="Entrez votre adresse Email" autocomplete="on" placeholder="Adresse Email">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="form-group">
+                        <!--<label class="highlight"> Mot de passe<span class="req">*</span> </label>-->
+                        <input type="password" class="form-control bg-transparent text-white p-3 border-1" id="password" required data-validation-required-message="Mot de passe requis" autocomplete="off" placeholder="Mot de passe">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="mrgn-30-top d-flex justify-content-center">
+                        <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+                        S'inscrire
+                        </button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+            <!-- /.container --> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal connexion -->
+    <div class="modal fade" id="signin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signinLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h3 class="modal-title fw-bold ms-auto text-white text-uppercase" id="signinLabel">Connexion</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="form2">
+            <div class="container">
+              <div id="userform2" class="p-5 my-3">
+                    <form> 
+                      <div class="form-group">
+                        <!--<label class="highlight">Nom<span class="req">*</span> </label>-->
+                        <input type="text" class="form-control bg-transparent text-white p-3 border-1" id="username" required data-validation-required-message="Entrez un username" autocomplete="on" placeholder="Username">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="form-group">
+                        <!--<label class="highlight"> Mot de passe<span class="req">*</span> </label>-->
+                        <input type="password" class="form-control bg-transparent text-white p-3 border-1" id="password" required data-validation-required-message="Mot de passe requis" autocomplete="off" placeholder="Mot de passe">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="mrgn-30-top d-flex justify-content-center">
+                        <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+                        Se connecter
+                        </button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+            <!-- /.container --> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <footer>
+      <div class="content p-5">
+        <div class="top d-flex justify-content-between mb-4">
+          <div class="logo-details">
+            <h2 class="logo_name text-white">Electronic Core</h2>
+            <p class="mt-4 text-secondary">
+              Electronic for all
+            </p>
+          </div>
+          <div class="media-icons d-flex">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="link-boxes">
+          <ul class="box">
+            <p class="text-light">Livraison gratuite et sécurisée</p>
+            <a href="#" class="text-secondary text-decoration-none"><i class="fa fa-location-arrow"></i>
+              Yaoundé, Douala et Bafoussam
+            </a><br /><br/>
+            <a href="#" class="text-secondary text-decoration-none"><i class="fa fa-phone"></i>
+              Tel: +237 655443388
+            </a><br /><br/>
+            <a href="#" class="text-secondary text-decoration-none"><i class="fa fa-envelope"></i>
+              email: contact@electroniccore.com
+            </a>      
+          </ul>
+          <ul class="box">
+            <li class="link_name">Liens Rapides</li>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Mon panier</a></li>
+            <li><a href="#">Boutique</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <ul class="box">
+            <li class="link_name">Catégories</li>
+            <li><a href="#">Smartphones et tablettes</a></li>
+            <li><a href="#">Ordinateurs et laptop</a></li>
+            <li><a href="#">Téléviseurs</a></li>
+            <li><a href="#">Accessoires</a></li>      
+          </ul>
+          <ul class="box">
+            <li class="link_name">Contact</li>
+            <li><a href="#">+237 654 371 312</a></li>
+            <li><a href="#">+237 693 039 514</a></li>
+            <li><a href="#">jugalux111@gmail.com</a></li>
+            
+          
+          </ul>
+        </div>
+      </div>
+          <div class="bottom-details">
+          <div class="bottom_text">
+            <span class="copyright_text">Copyright © 2021 <a href="#">YaknemaStage</a></span>
+            <span class="policy_terms">
+              <a href="#">Privacy policy</a>
+              
+            </span>
+          </div>
+        </div>
+    </footer>
+
+
+
+    <script type="text/javascript" src="/static/core/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/static/core/js/script.js"></script>
+  </body>
+</html>
