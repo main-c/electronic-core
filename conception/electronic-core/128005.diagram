@@ -1,0 +1,164 @@
+format 224
+
+classcanvas 128005 class_ref 128005 // Admin
+  simpleclassdiagramsettings end
+  xyz 361.2 744.5 2000
+end
+classcanvas 128261 class_ref 128133 // Visitor
+  simpleclassdiagramsettings end
+  xyz -17.6 255 2000
+end
+classcanvas 128389 class_ref 128261 // Client
+  simpleclassdiagramsettings end
+  xyz 810.3 313.9 2000
+end
+subject 128517 ""
+  xyzwh 60.6 70.6 2000 742 667
+usecasecanvas 128645 usecase_ref 128005 // Signin
+  xyzwh 104.3 99.7 3005 117 39 label_xy 144 105
+end
+usecasecanvas 128773 usecase_ref 128133 // Contact compagny
+  xyzwh 258.7 342 3005 137 39 label_xy 276 348
+end
+usecasecanvas 128901 usecase_ref 128261 // see all articles
+  xyzwh 216.9 495.3 3005 145 39 label_xy 242 505
+end
+usecasecanvas 129029 usecase_ref 128389 // filter by price
+  xyzwh 262.8 261.9 3005 111 39 label_xy 280 270
+end
+usecasecanvas 129157 usecase_ref 128517 // signup
+  xyzwh 694.8 67.6 3010 109 39 label_xy 724 73
+end
+usecasecanvas 129285 usecase_ref 128645 // add an article to cart
+  xyzwh 253.4 451.9 3005 141 39 label_xy 266 459
+end
+usecasecanvas 129413 usecase_ref 128773 // buy a product
+  xyzwh 268.3 298.6 3010 109 39 label_xy 279 304
+end
+usecasecanvas 129541 usecase_ref 128901 // confirm a product
+  xyzwh 229.8 97.5 3005 137 39 label_xy 242 104
+end
+usecasecanvas 129669 usecase_ref 129029 // like a product
+  xyzwh 261.6 211.9 3005 109 39 label_xy 276 217
+end
+usecasecanvas 129797 usecase_ref 129157 // see detail of an article
+  xyzwh 250.1 156.4 3010 141 39 label_xy 258 164
+end
+usecasecanvas 129925 usecase_ref 129285 // search a product
+  xyzwh 289.4 412 3010 109 39 label_xy 292 422
+end
+usecasecanvas 130053 usecase_ref 129413 // sort articles
+  xyzwh 279 383.7 3005 121 31 label_xy 305 388
+end
+usecasecanvas 130181 usecase_ref 129541 // subscribe to newsletter
+  xyzwh 153.8 548.1 3010 153 39 label_xy 170 555
+end
+usecasecanvas 133893 usecase_ref 129669 // give a feedback
+  xyzwh 506.8 536 3005 103 31 label_xy 512 541
+end
+usecasecanvas 134021 usecase_ref 129797 // see all feedback on a product
+  xyzwh 620.1 490.7 3005 183 35 label_xy 621 497
+end
+usecasecanvas 134149 usecase_ref 129925 // go to dashboard
+  xyzwh 377.2 530.5 3005 129 33 label_xy 394 537
+end
+usecasecanvas 134405 usecase_ref 130181 // see command list
+  xyzwh 501.3 473.8 3005 123 33 label_xy 513 479
+end
+usecasecanvas 134533 usecase_ref 130309 // add payment method
+  xyzwh 638.8 552.8 3005 139 35 label_xy 645 558
+end
+usecasecanvas 134789 usecase_ref 130565 // add delivery
+  xyzwh 600.2 75.1 3022 83 35 label_xy 608 84
+end
+usecasecanvas 134917 usecase_ref 130693 // modify account
+  xyzwh 379.1 78.3 3016 123 33 label_xy 398 83
+end
+usecasecanvas 135045 usecase_ref 130821 // logout
+  xyzwh 489.5 72.7 3027 111 33 label_xy 522 80
+end
+usecasecanvas 141701 usecase_ref 131077 // post a new article
+  xyzwh 75.3 641.7 3005 135 35 label_xy 87 648
+end
+usecasecanvas 141829 usecase_ref 131205 // put on solde
+  xyzwh 308.3 633 3005 107 33 label_xy 325 636
+end
+usecasecanvas 141957 usecase_ref 131333 // add a product
+  xyzwh 481 638.6 3005 125 31 label_xy 506 645
+end
+line 130309 ----
+  from ref 128645 z 3006 to ref 128261
+line 130437 ----
+  from ref 129541 z 3006 to ref 128261
+line 130565 ----
+  from ref 128261 z 3011 to ref 129413
+line 130693 ----
+  from ref 129669 z 3006 to ref 128261
+line 131845 ----
+  from ref 129157 z 3011 to ref 128389
+line 132229 ----
+  from ref 129669 z 3006 to ref 128389
+line 132997 ----
+  from ref 129029 z 3006 to ref 128389
+line 133253 ----
+  from ref 130053 z 3006 to ref 128389
+line 133381 ----
+  from ref 129925 z 3011 to ref 128389
+line 133509 ----
+  from ref 129285 z 3006 to ref 128389
+line 133637 ----
+  from ref 130181 z 3011 to ref 128389
+line 133765 ----
+  from ref 128901 z 3006 to ref 128389
+line 135173 ---- decenter_end 537
+  from ref 129413 z 3011 to ref 128389
+line 135685 ----
+  from ref 128773 z 3006 to ref 128389
+line 136453 ----
+  from ref 129797 z 3011 to ref 128389
+line 136581 ----
+  from ref 129541 z 3006 to ref 128389
+line 137349 ----
+  from ref 129797 z 3011 to ref 128261
+line 137477 ----
+  from ref 129029 z 3006 to ref 128261
+line 137605 ----
+  from ref 128773 z 3006 to ref 128261
+line 137989 ----
+  from ref 130053 z 3006 to ref 128261
+line 138373 ----
+  from ref 130053 z 3006 to ref 128261
+line 138501 ----
+  from ref 129925 z 3011 to ref 128261
+line 138629 ----
+  from ref 129285 z 3006 to ref 128261
+line 139141 ----
+  from ref 128901 z 3006 to ref 128261
+line 139397 ----
+  from ref 134917 z 3017 to ref 128389
+line 139525 ----
+  from ref 135045 z 3028 to point 558.1 99
+  line 141189 z 3028 to point 575.8 117.8
+  line 141317 z 3028 to ref 128389
+line 139653 ----
+  from ref 134789 z 3023 to point 665.8 149
+  line 141445 z 3023 to point 675.8 163.4
+  line 141573 z 3023 to ref 128389
+line 140165 ----
+  from ref 134405 z 3006 to ref 128389
+line 140293 ----
+  from ref 134149 z 3006 to point 575.8 501.2
+  line 141061 z 3006 to ref 128389
+line 140421 ----
+  from ref 133893 z 3006 to ref 128389
+line 140805 ----
+  from ref 134021 z 3006 to ref 128389
+line 140933 ----
+  from ref 134533 z 3006 to ref 128389
+line 142213 ----
+  from ref 141701 z 3006 to ref 128005
+line 142341 ---- decenter_begin 615
+  from ref 141829 z 3006 to ref 128005
+line 142469 ----
+  from ref 141957 z 3006 to ref 128005
+end

@@ -1,0 +1,268 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+      {% block title %}
+      {% endblock %}
+    </title>
+		<link rel="shortcut icon" type="image/x-icon" href="/static/core/images/logo.jpg">
+		<link rel="stylesheet" type="text/css" href="/static/core/css/bootstrap.min.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/core/css/style.css">
+    <style type="text/css">
+      /* Product card */
+
+.product{
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+.product:hover .overlay{
+  opacity: 1;
+  transform: scale(1);
+}
+
+.overlay{
+  position: absolute;
+  background-color: rgba(65, 105, 255, .3);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(1.3);
+  opacity: 0;
+  transition: transform .4s ease 0s;
+}
+
+.overlay span{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: #fff;
+  font-family: Sans-serif;
+}
+
+.product img{
+  transition: transform .8s ease;
+}
+
+.product:hover img{
+  transform: scale(0.9);
+}
+
+    </style>
+	</head>
+	<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+      <div class="container-fluid">
+        <a class="navbar-brand fs-3 fw-bold text-primary" href="#">Electronic Core</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">Boutique</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Catégories
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Ordinateurs & Laptops</a></li>
+                <li><a class="dropdown-item" href="#">Téléphones & Tablettes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Accessoires</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">Contact</a>
+            </li>
+          </ul>
+          <!-- Button trigger modal -->
+          <div class="d-flex">
+
+<<<<<<< HEAD
+    <!-- Button trigger modal -->
+    <div class="d-flex justify-content-center my-5">
+      <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal" data-bs-target="#signup">
+        Inscription
+      </button>
+      <button type="button" class="btn btn-primary mx-auto mt-5" data-bs-toggle="modal" data-bs-target="#signin">
+        Connexion
+      </button>
+    </div>
+
+    <!-- Modal inscription -->
+    <div class="modal fade" id="signup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signupLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h3 class="modal-title fw-bold ms-auto text-white text-uppercase" id="signupLabel">Inscription</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="form">
+            <div class="container">
+              
+              <div id="userform" class="p-5 my-3">
+                    <form method="POST">
+                      {% csrf_token %}
+                     <div class="form-group">
+                        <input type="text" class="form-control bg-transparent text-white p-3 border-1" name="last_name"id="last_name" required data-validation-required-message="Entrez votre nom" autocomplete="on" placeholder="Nom et prénom">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="form-group">
+                        <input type="email" class="form-control bg-transparent text-white p-3 border-1" name="email" id="email" required data-validation-required-message="Entrez votre adresse Email" autocomplete="on" placeholder="Adresse mail">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="form-group">
+                      <input type="tel" class="form-control bg-transparent text-white p-3 border-1" id="phone",name='phone' required data-validation-required-message="Ajoutez votre numero de téléphone" autocomplete="on" placeholder="Numéro de téléphone ">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-control bg-transparent text-white p-3 border-1" id="password" required data-validation-required-message="Mot de passe requis" autocomplete="off" placeholder="Mot de passe">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="mrgn-30-top d-flex justify-content-center">
+                        <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+                        S'inscrire
+                        </button>
+                      </div>
+                    </form>
+              </div>
+
+            </div>
+            <!-- /.container --> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal connexion -->
+    <div class="modal fade" id="signin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signinLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h3 class="modal-title fw-bold ms-auto text-white text-uppercase" id="signinLabel">Connexion</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="form2">
+            <div class="container">
+              <div id="userform2" class="p-5 my-3">
+                    <form method="POST">
+                      {% csrf_token %} 
+                      <div class="form-group">
+                        <!--<label class="highlight">Nom<span class="req">*</span> </label>-->
+                        <input type="email" name = 'email' class="form-control bg-transparent text-white p-3 border-1" id="email" required data-validation-required-message="Entrez votre adresse mail" autocomplete="on" placeholder="Email">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="form-group">
+                        <!--<label class="highlight"> Mot de passe<span class="req">*</span> </label>-->
+                        <input type="password" name = "password"
+                        class="form-control bg-transparent text-white p-3 border-1" id="password" required data-validation-required-message="Mot de passe requis" autocomplete="off" placeholder="Mot de passe">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="mrgn-30-top d-flex justify-content-center">
+                        <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+                        Se connecter
+                        </button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+            <!-- /.container --> 
+=======
+            {% include "core/signup.html" %}
+            {% include "core/login.html" %}
+            
+>>>>>>> 3426528d25c16934ea6ffabb49cab9bddee947d7
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+      <div class="content p-5">
+        <div class="top d-flex justify-content-between mb-4">
+          <div class="logo-details">
+            <h2 class="logo_name text-white">Electronic Core</h2>
+            <p class="mt-4 text-secondary">
+              Electronic for all
+            </p>
+          </div>
+          <div class="media-icons d-flex">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="link-boxes">
+          <ul class="box">
+            <p class="text-light">Livraison gratuite et sécurisée</p>
+            <a href="#" class="text-secondary text-decoration-none"><i class="fa fa-location-arrow"></i>
+              Yaoundé, Douala et Bafoussam
+            </a><br /><br/>
+            <a href="#" class="text-secondary text-decoration-none"><i class="fa fa-phone"></i>
+              Tel: +237 655443388
+            </a><br /><br/>
+            <a href="#" class="text-secondary text-decoration-none"><i class="fa fa-envelope"></i>
+              email: contact@electroniccore.com
+            </a>      
+          </ul>
+          <ul class="box">
+            <li class="link_name">Liens Rapides</li>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Mon panier</a></li>
+            <li><a href="#">Boutique</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <ul class="box">
+            <li class="link_name">Catégories</li>
+            <li><a href="#">Smartphones et tablettes</a></li>
+            <li><a href="#">Ordinateurs et laptop</a></li>
+            <li><a href="#">Téléviseurs</a></li>
+            <li><a href="#">Accessoires</a></li>      
+          </ul>
+          <ul class="box">
+            <li class="link_name">Contact</li>
+            <li><a href="#">+237 654 371 312</a></li>
+            <li><a href="#">+237 693 039 514</a></li>
+            <li><a href="#">jugalux111@gmail.com</a></li>
+            
+          
+          </ul>
+        </div>
+      </div>
+          <div class="bottom-details">
+          <div class="bottom_text">
+            <span class="copyright_text">Copyright © 2021 <a href="#">YaknemaStage</a></span>
+            <span class="policy_terms">
+              <a href="#">Privacy policy</a>
+              
+            </span>
+          </div>
+        </div>
+    </footer>
+
+
+
+    <script type="text/javascript" src="/static/core/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/static/core/js/script.js"></script>
+  </body>
+</html>
