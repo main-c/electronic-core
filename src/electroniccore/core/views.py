@@ -4,7 +4,7 @@ from django.views import View
 
 
 class HomeView(TemplateView):
-	template_name = "core/base.html"
+	template_name = "core/home.html"
 
 
 class AccountView(TemplateView): #Dashboard
@@ -31,13 +31,13 @@ class PaymentView(TemplateView):
 
 
 class LoginView(TemplateView):
-	template_name = "core/base.html"
+	template_name = "core/login.html"
 
 
 class LogoutView(TemplateView):
-	template_name = "core/base.html"
+	template_name = "core/logout.html"
 
 
-class SigninView(TemplateView):
-	template_name = "core/base.html"
+class SignupView(TemplateView):
+	template_name = "core/signup.html"
 

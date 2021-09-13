@@ -1,0 +1,136 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+	Boutique
+{% endblock %}
+
+{% block content %}
+
+	<div class="container-fluid py-3">
+		<div class="row">
+			<div class="col-lg-4 py-5 ms-lg-5 ps-5  rounded mx-auto">
+				<h5 class="text-danger">Produit en solde</h5>
+				<h2 class="fw-bold text-secondary">Ordinteur KTS</h2>
+				<p class="text-success">120 000 XFA</p>
+				<div class="mt-auto d-flex mb-1">
+					<a href="#" class="p-2 fw-bold text-light bg-primary text-decoration-none rounded">Ajouter au panier</a>
+				</div>
+				<a href="#" class="text-secondary">Voir les produits en solde</a>
+			</div>
+			<div class="col-lg-6 mx-auto">
+				<img src="/static/core/images/ecran2.png" class="w-100">
+			</div>
+		</div>
+
+		<div class="row mt-3">
+			<div class="col-lg-3 mx-auto py-5">
+				<p class="fw-bold">Filtrer par prix</p>
+
+				<div class="bg">
+					<input type="hidden" name="min">
+					<input type="hidden" name="max">
+					<label>
+					  <span id="min"></span> à <span id="max"></span>
+					</label> 
+					<br><br>
+					<div id="slider-range" class="w-75"></div>
+				</div>
+
+				<div class="d-flex justify-content-around">
+					<p class="my-auto">Prix: 100F à 1000000F</p>
+					<a href="#" class="py-1 px-2 text-decoration-none border border-1 border-primary">Filtrer</a>
+				</div>
+
+				<div class="mt-5 d-grid">
+					<p class="fw-bold mb-3">Catégories</p>
+					<a href="#" class="text-secondary my-2 text-decoration-none">
+						Ordinateurs & Laptops
+					</a>
+					<a href="#" class="text-secondary my-2 text-decoration-none">
+						Caméras & Photos
+					</a>
+					<a href="#" class="text-secondary my-2 text-decoration-none">
+						Smartphone & Tablettes
+					</a>
+					<a href="#" class="text-secondary my-2 text-decoration-none">
+						Matériaux informatique
+					</a>
+					<a href="#" class="text-secondary my-2 text-decoration-none">
+						TV & Audios
+					</a>
+					<a href="#" class="text-secondary my-2 text-decoration-none">
+						Accessoires
+					</a>
+				</div>
+			</div>
+
+			<div class="col-lg-8 mx-auto py-5">
+
+				<div class="d-flex justify-content-between mb-5 border border-secondary border-top-0 border-start-0 border-end-0">
+					<p class="text-secondary"><span class="text-danger">150</span> Produits trouvés</p>
+					<div class="d-flex">
+						<div>
+							<a class="nav-link dropdown-toggle text-secondary" href="#" id="sortBy" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Trier par
+							</a>
+							<ul class="dropdown-menu dropdown-menu-light" aria-labelledby="sortBy">
+								<li><a class="dropdown-item" href="#">Les plus notés</a></li>
+								<li><a class="dropdown-item" href="#">Nom</a></li>
+								<li><a class="dropdown-item" href="#">Prix</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 mx-lg-4 mt-3">
+						<div class="product">
+						  <img src="/static/core/images/souris2.png" class="w-100" alt="" />
+						  <div class="overlay">
+						    <span class="fs-5">Souris 2</span>
+						  </div>
+						</div>
+						<div class="bg-primary ps-1 w-100">
+							<p class="text-light">Prix: 20 000 XFA</p>
+						 </div>
+					</div>
+					<div class="col-lg-3 mx-lg-4 mt-3">
+						<div class="product">
+						  <img src="/static/core/images/ecran4.png" class="w-100" alt="" />
+						  <div class="overlay">
+						    <span class="fs-5">Ecran 4</span>
+						  </div>
+						</div>
+						<div class="bg-primary ps-1 w-100">
+							<p class="text-light">Prix: 20 000 XFA</p>
+						 </div>
+					</div>
+					<div class="col-lg-3 mx-lg-4 mt-3">
+						<div class="product">
+						  <img src="/static/core/images/camera1.png" class="w-100" alt="" />
+						  <div class="overlay">
+						    <span class="fs-5">Camera 1</span>
+						  </div>
+						</div>
+						<div class="bg-primary ps-1 w-100">
+							<p class="text-light">Prix: 20 000 XFA</p>
+						 </div>
+					</div>
+					<div class="col-lg-3 mx-lg-4 mt-3">
+						<div class="product">
+						  <img src="/static/core/images/clavier2.png" class="w-100" alt="" />
+						  <div class="overlay">
+						    <span class="fs-5">Clavier 2</span>
+						  </div>
+						</div>
+						<div class="bg-primary ps-1 w-100">
+							<p class="text-light">Prix: 20 000 XFA</p>
+						 </div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>	
+
+{% endblock %}
