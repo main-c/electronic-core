@@ -15,49 +15,47 @@
     
 	</head>
 	<body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-      <div class="container-fluid">
-        <a class="navbar-brand fs-3 fw-bold text-primary" href="#">Electronic Core</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Boutique</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Catégories
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Ordinateurs & Laptops</a></li>
-                <li><a class="dropdown-item" href="#">Téléphones & Tablettes</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Accessoires</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Contact</a>
-            </li>
-          </ul>
-          <!-- Button trigger modal -->
-          <div class="d-flex">
-
-            {% include "core/signup.html" %}
-            {% include "core/login.html" %}
-            
+    <div class="container-fluid px-0 me-lg-5">
+      <div class="bg-dark p-1 d-flex">
+        <div class="w-50">
+          <div class="d-flex align-items-center ms-lg-auto mt-lg-0 mt-3 pe-2">
+            <i class=" me-2 fa fa-phone text-info"></i>
+              <p class="fw-bold text-info my-auto">+237 654 371 312</p>
           </div>
         </div>
+        <div class="w-25"></div>
+        <div class="d-flex justify-content-end pe-2 w-25">
+            <i class="fa fa-heart text-danger mx-2"> <span class="num rounded-circle">1</span> </i>
+            <i class="fa fa-shopping-bag text-info mx-2"> <span class="num rounded-circle">3</span> </i>
+        </div>
       </div>
-    </nav>
+      <nav class="navbar navbar-expand-lg navbar-light command mb-2">
+        <div class="container-fluid pe-lg-2 p-0"> <a class="navbar-brand fw-bold ms-2 fs-3" href="#">Electronic Core</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarcontent" aria-controls="navbarcontent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+              <div class="collapse navbar-collapse" id="navbarcontent">
+                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                      <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="#">Accueil</a> </li>
+                      <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">Boutique</a> </li>
+                      <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">PAGES</a> </li>
+                      <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">Panier</a> </li>
+                      <li class="nav-item"> <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a> </li>
+                  </ul>
+                  <div class="d-flex ms-auto">
+                    {% include "core/signup.html" %}
+                    {% include "core/login.html" %}
+                  </div>
+              </div>
+          </div>
+      </nav>
+          
+      {% block content %}
 
-    {% block content %}
-    {% endblock %}
+            
+
+      {% endblock %}
+
+    </div>
+          {% include "core/signup.html" %}
+          {% include "core/login.html" %}
 
     <footer>
       <div class="content p-5">

@@ -421,3 +421,16 @@ input{
 .row_cart:hover{
   background-color: #B9D3EE;
 }
+
+/* Home page */
+
+.navbar .navbar-nav .nav-item .active {
+    color: royalblue;
+}
+.btn{
+  outline: none;
+}
+button{
+  outline: none;
+  border: none;
+}
