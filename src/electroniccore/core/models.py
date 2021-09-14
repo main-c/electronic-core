@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_quill.fields import QuillField
 
 
 class Address(models.Model):
@@ -15,6 +16,7 @@ class Address(models.Model):
     def __str__(self):
         return f'{self.city} - {self.street}'
 
+
 class Newsletter(models.Model):
     email = models.EmailField()
 
@@ -23,7 +25,8 @@ class Customer(models.Model):
 
     user = models.OneToOneField(User, models.CASCADE)
     adress = models.OneToOneField(Address, models.CASCADE, null=True)
-    newsletter_id = models.ForeignKey(Newsletter, models.SET_NULL, null=True, default=None)
+    newsletter_id = models.ForeignKey(
+        Newsletter, models.SET_NULL, null=True, default=None)
 
     class Meta:
         verbose_name = 'Customer'
@@ -56,7 +59,7 @@ class Product(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     price = models.FloatField()
-    description = models.TextField()
+    description =  QuillField()
     qte = models.IntegerField()
     status = models.CharField(max_length=100, choices=STATUS, default='New')
     category_id = models.ForeignKey(Category, models.CASCADE)
@@ -68,7 +71,7 @@ class Product(models.Model):
 class ProductImage(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='products_image')
-    product_id = models.OneToOneField(Product, models.CASCADE)
+    product_id = models.ForeignKey(Product, models.CASCADE)
 
 
 class Order(models.Model):
@@ -76,13 +79,14 @@ class Order(models.Model):
         ('Validated', 'Validated'),
         ('In Cart', 'In Cart'),
         ('Paid', 'Paid'),
-        )
+    )
     note = models.TextField(null=True)
     ordered_on = models.DateTimeField(auto_now=True, null=True)
     price = models.IntegerField(default=0)
     adress = models.ForeignKey(Address, models.CASCADE, null=True)
     state = models.CharField(max_length=100, choices=STATE, default=STATE[1])
-    customer_id = models.ForeignKey(Customer, models.SET_NULL, null=True, default=None)
+    customer_id = models.ForeignKey(
+        Customer, models.SET_NULL, null=True, default=None)
 
     @property
     def total(self):

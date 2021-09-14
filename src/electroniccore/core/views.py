@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import View
@@ -14,8 +15,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class HomeView(TemplateView):
-
-	template_name = "core/home.html"
+    template_name = "core/home.html"
 
 
 class AccountView(TemplateView):  # Dashboard
@@ -110,6 +110,8 @@ class ListCartView(View):
     template_name = "core/cart.html"
 
     def get(self, request, *args, **kwargs):
+        cart = None
+        order_items = None
         if not request.user.is_authenticated():
             if 'cart' in request.session:
                 cart = list()
@@ -117,9 +119,6 @@ class ListCartView(View):
                     order_items = OrderItem(product=product.id, qte=qte)
                     order_items.total_price += order_items.total()
                     list.append(cart, order_items)
-            else:
-                cart = None
-                order_items = None
         else:
             cart = Order.objects.filter(
                 customer=request.user.id, state='In Cart')
@@ -127,9 +126,6 @@ class ListCartView(View):
                 order_items = OrderItem.objects.filter(order=cart.id)
                 for item in order_items:
                     order_items.total_price += item.total()
-            else:
-                cart = None
-                order_items = None
 
         context = {'cart': cart,
                    'order_items': order_items
@@ -156,7 +152,7 @@ class CheckoutView(View):  # Formulaire validation commande
         else:
             client = Customer.objects.get(user=request.user)
             if client.adress:
-                instance = Adress.objects.get(id=client.adress)
+                instance = Address.objects.get(id=client.adress)
                 form = self.form_class(request.GET, initial={
                                        'city': instance.city,
                                        'street': instance.street,
@@ -181,8 +177,11 @@ class CheckoutView(View):  # Formulaire validation commande
                 return render(request, self.template_name, {'form': form})
 
 
-class PaymentView(TemplateView):
+class PaymentView(View):
     template_name = "core/payment.html"
+
+    def get(self, request, *args, **kwargs):
+        pass
 
 
 class Login(View):
@@ -266,3 +265,4 @@ class SignupView(TemplateView):
     def get(self, request, *args, **kwargs):
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
+

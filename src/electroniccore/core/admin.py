@@ -1,5 +1,3 @@
-
-from re import search
 from django.contrib import admin
 from core.models import *
 
@@ -31,7 +29,7 @@ class PhotoInline(admin.StackedInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'price', 'qte', 'status', 'category_id')
+    list_display = ('title', 'price', 'qte', 'status', 'category_id',)
     list_filter = ('title', 'status', 'category_id', 'price')
     search_fields = ('title',)
     prepopulated_fields = {'slug': ('title',)}
