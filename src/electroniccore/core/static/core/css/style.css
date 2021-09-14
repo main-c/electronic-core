@@ -40,7 +40,7 @@ body, html {
 }
 
 #userform {
-  background: rgba(0,0,25,0.8);
+  background: rgba(241, 247, 255, .8);
 }
 #userform .form-control {
   border-radius: 0;
@@ -51,7 +51,7 @@ body, html {
   box-shadow: none;
 }
 #userform2 {
-  background: rgba(0,0,25,0.8);
+  background: rgba(241, 247, 255, .8);
 }
 #userform2 .form-control {
   border-radius: 0;
@@ -418,4 +418,43 @@ input{
 }
 .command{
   background: #B9D3EE;
+}
+
+/* cart page */
+
+.row_cart:hover{
+  background-color: #B9D3EE;
+}
+
+/* Home page */
+
+.navbar .navbar-nav .nav-item .active {
+    color: royalblue;
+}
+.btn{
+  outline: none;
+}
+button{
+  outline: none;
+  border: none;
+}
+
+/* Dashboard Page */
+
+.text_dashboard{
+  color: black;
+}
+.text_dashboard:hover{
+  color: ;
+  background-color: lightyellow;
+}
+.card_account a{
+  color: black;
+}
+.card_account a:hover{
+  color: royalblue;
+}
+.card_account:hover{
+  border-color: 1px solid royalblue;
+  background-color: lightyellow;
 }
