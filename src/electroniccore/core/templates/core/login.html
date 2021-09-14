@@ -1,32 +1,19 @@
+{% extends 'core/base.html' %}
 
 
-	<!-- Button trigger modal -->
-      <div class="d-flex">
-        <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#signin">
-          Connexion
-        </button>
-      </div>
+{% block content %}
 
-    <!-- Modal connexion -->
-    <div class="modal fade" id="signin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signinLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-primary">
-            <h3 class="modal-title fw-bold ms-auto text-white text-uppercase" id="signinLabel">Connexion</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="form2">
-            <div class="container">
+            <div class="container my-5">
               <div id="userform2" class="p-5 my-3">
                     <form> 
                       <div class="form-group">
                         <!--<label class="highlight">Nom<span class="req">*</span> </label>-->
-                        <input type="text" class="form-control bg-transparent text-white p-3 border-1" id="username" required data-validation-required-message="Entrez un username" autocomplete="on" placeholder="Username">
+                        <input type="text" class="form-control bg-transparent text-dark p-3 border-1" id="username" required data-validation-required-message="Entrez un username" autocomplete="on" placeholder="Username">
                         <p class="help-block text-danger"></p>
                       </div>
                       <div class="form-group">
                         <!--<label class="highlight"> Mot de passe<span class="req">*</span> </label>-->
-                        <input type="password" class="form-control bg-transparent text-white p-3 border-1" id="password" required data-validation-required-message="Mot de passe requis" autocomplete="off" placeholder="Mot de passe">
+                        <input type="password" class="form-control bg-transparent text-dark p-3 border-1" id="password" required data-validation-required-message="Mot de passe requis" autocomplete="off" placeholder="Mot de passe">
                         <p class="help-block text-danger"></p>
                       </div>
                       <div class="mrgn-30-top d-flex justify-content-center">
@@ -37,9 +24,5 @@
                     </form>
               </div>
             </div>
-            <!-- /.container --> 
-          </div>
-        </div>
-      </div>
-    </div>
 
+{% endblock %}

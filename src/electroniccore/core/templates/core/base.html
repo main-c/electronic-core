@@ -49,8 +49,12 @@
                       </li>
                   </ul>
                   <div class="d-flex ms-auto">
-                    {% include "core/signup.html" %}
-                    {% include "core/login.html" %}
+                    <a href="{% url 'core:signup' %}" class="btn btn-primary text-dark mx-1 bg-transparent border border-2 border-primary">
+                      S'inscrire
+                    </a>
+                    <a href="{% url 'core:login' %}" class="btn btn-primary mx-1">
+                      Login
+                    </a>
                   </div>
               </div>
           </div>

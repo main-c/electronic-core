@@ -40,7 +40,7 @@ body, html {
 }
 
 #userform {
-  background: rgba(0,0,25,0.8);
+  background: rgba(241, 247, 255, .8);
 }
 #userform .form-control {
   border-radius: 0;
@@ -51,7 +51,7 @@ body, html {
   box-shadow: none;
 }
 #userform2 {
-  background: rgba(0,0,25,0.8);
+  background: rgba(241, 247, 255, .8);
 }
 #userform2 .form-control {
   border-radius: 0;
@@ -442,5 +442,15 @@ button{
 }
 .text_dashboard:hover{
   color: ;
-  background-color: silver;
+  background-color: lightyellow;
+}
+.card_account a{
+  color: black;
+}
+.card_account a:hover{
+  color: royalblue;
+}
+.card_account:hover{
+  border-color: 1px solid royalblue;
+  background-color: lightyellow;
 }
