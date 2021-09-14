@@ -18,6 +18,10 @@ class HomeView(TemplateView):
     template_name = "core/home.html"
 
 
+class CartView(TemplateView):
+    template_name = "core/cart.html"
+
+
 class AccountView(TemplateView):  # Dashboard
     template_name = "core/account.html"
 
