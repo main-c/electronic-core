@@ -434,3 +434,13 @@ button{
   outline: none;
   border: none;
 }
+
+/* Dashboard Page */
+
+.text_dashboard{
+  color: black;
+}
+.text_dashboard:hover{
+  color: ;
+  background-color: silver;
+}

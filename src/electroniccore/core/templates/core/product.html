@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+
+	<div class="container-fluid my-5">
+		<a href="{% url 'core:home' %}" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+			<i class="fa fa-arrow-left"></i>
+        	retour à l'accueil
+        </a>
+		<div class="row">
+			<div class="col-lg-5 ms-lg-5 p-lg-5">
+				<img src="/static/core/images/clavier2.png" class="w-100">
+			</div>
+			<div class="col-lg-6 my-auto">
+				<div class="border p-3 rounded">
+					<p class="fs-3 text-primary">Clavier Lumière</p>
+					<div class="d-flex justify-content-between">
+						<div class="d-grid">
+							<p class="fs-5 fw-bold my-auto">18 000 XFA</p>
+							<p class="text-secondary my-auto">Taxes locales incluses</p>
+						</div>
+						<p class="my-auto text-success"><i class="fa fa-check"></i>En stock</p>
+					</div>
+					<p class="mt-lg-4 mt-3"><h5 class="text-dark">Description</h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+					<div class="d-flex justify-content-end">
+						<a href="{% url 'core:cart' %}" class="btn btn-larger btn-primary text-light mt-3 fw-bold btn-block px-3 p-2"/>
+							<i class="fa fa-shopping-cart"></i>
+				        	Ajouter au panier
+				        </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

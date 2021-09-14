@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+
+	<div class="container-fluid my-5">
+		<div class="row my-lg-5">
+			<div class="col-lg-3 mx-auto px-lg-5 pb-3">
+				<div class="p-2 border border-top-0 border-start-0 border-end-0">
+					<h5 class="fw-bold text-secondary">
+						<i class="fa fa-user"></i>
+						Mon compte
+					</h5>
+				</div>
+				<div class="d-grid my-3">
+					<a href="#" class="p-2 text_dashboard text-decoration-none">Tabeau de bord</a>
+					<a href="#" class="p-2 text_dashboard text-decoration-none">Commandes</a>
+					<a href="#" class="p-2 text_dashboard text-decoration-none">Adresses de facturation</a>
+					<a href="#" class="p-2 text_dashboard text-decoration-none">Détails du compte</a>
+					<a href="#" class="btn btn-larger fw-bold btn-block me-auto ms-2 p-2 mt-3">Déconnexion</a>
+				</div>
+			</div>
+			<div class="col-lg-7 mx-auto px-lg-5 border border-top-0 border-bottom-0 border-end-0">
+				<div class="my-auto mt-3">
+					<p class="text-secondary text-center">
+						À partir du tableau de bord de votre compte, vous pouvez visualiser vos commandes récentes, gérer vos adresses de livraison et de facturation ainsi que changer votre mot de passe et les détails de votre compte.
+					</p>
+					<div class="row mt-5 pt-lg-5 mx-auto">
+						<div class="col-lg-3 mx-auto border p-2 pt-lg-3 d-grid text-center rounded">
+							<i class="fa fa-file"></i>
+							<p class="text-uppercase mt-3">Commandes</p>
+						</div>
+						<div class="col-lg-3 mx-auto border p-2 pt-lg-3 d-grid text-center rounded">
+							<i class="fa fa-location-arrow"></i>
+							<p class="text-uppercase mt-3">Adresses</p>
+						</div>
+					</div>
+					<div class="row mt-3 pt-lg-5 mx-auto">
+						<div class="col-lg-3 mx-auto border p-2 pt-lg-3 d-grid text-center rounded">
+							<i class="fa fa-user"></i>
+							<p class="text-uppercase mt-3">Détails du compte</p>
+						</div>
+						<div class="col-lg-3 mx-auto border p-2 pt-lg-3 d-grid text-center rounded">
+							<i class="fa fa-sign-out"></i>
+							<p class="text-uppercase mt-3">Déconnexion</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
