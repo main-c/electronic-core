@@ -333,12 +333,16 @@ footer .bottom-details .bottom_text{
 
 
 
+.row{background: black;}
+
 
 /* Shop page */
 
 
 /* Price Range slider */
-
+.bg{
+  background: black;
+}
 .ui-widget-content {
   height: 4px;
   background-color: #b7b7b7;
@@ -414,33 +418,4 @@ input{
 }
 .command{
   background: #B9D3EE;
-}
-
-/* cart page */
-
-.row_cart:hover{
-  background-color: #B9D3EE;
-}
-
-/* Home page */
-
-.navbar .navbar-nav .nav-item .active {
-    color: royalblue;
-}
-.btn{
-  outline: none;
-}
-button{
-  outline: none;
-  border: none;
-}
-
-/* Dashboard Page */
-
-.text_dashboard{
-  color: black;
-}
-.text_dashboard:hover{
-  color: ;
-  background-color: silver;
 }

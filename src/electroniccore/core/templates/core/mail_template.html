@@ -1,0 +1,6 @@
+{% autoescape off %}
+Hi {{ user.last_name }},
+<br>Votre compte a été crée avec success.</br>
+Vous pouvez desormais vous connecter au site en utilisant votre login et votre mot de passe
+Cliquez sur le lien ci dessous pour vous connnecter,http://{{ domain }}{% url 'core:login' %}
+{% endautoescape %}

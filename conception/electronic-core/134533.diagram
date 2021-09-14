@@ -2,113 +2,102 @@ format 224
 
 classcanvas 128005 class_ref 134789 // Customer
   classdiagramsettings member_max_width 0 end
-  xyz 27.2 338.6 2000
+  xyzwh 35.2 168.6 2000 99 113
 end
 classcanvas 128133 class_ref 134917 // Order
   classdiagramsettings member_max_width 0 end
-  xyz 364.8 504.6 2000
+  xyz 368.8 310.6 2000
 end
 classcanvas 128261 class_ref 135045 // Product
   classdiagramsettings member_max_width 0 end
-  xyz 416.4 220.4 2005
+  xyzwh 335.4 121.4 2005 193 135
 end
 classcanvas 128389 class_ref 135173 // Category
   classdiagramsettings member_max_width 0 end
-  xyzwh 554 495 2000 75 53
+  xyzwh 729 165 2000 75 53
 end
 classcanvas 128517 class_ref 135301 // ProductImage
   classdiagramsettings member_max_width 0 end
-  xyz 598 92 2005
+  xyz 270 5 2005
 end
 classcanvas 128645 class_ref 135429 // FeedBack
   classdiagramsettings member_max_width 0 end
-  xyz 633 325 2000
-end
-classcanvas 128773 class_ref 135557 // Cart
-  classdiagramsettings member_max_width 0 end
-  xyz 380 51 2000
+  xyz 683 46 2000
 end
 classcanvas 128901 class_ref 135685 // Payment
   classdiagramsettings member_max_width 0 end
-  xyz 132 16 2000
+  xyzwh 14 382 2000 131 89
 end
-classcanvas 129029 class_ref 135813 // Post
+classcanvas 132869 class_ref 149381 // OrderItem
   classdiagramsettings member_max_width 0 end
-  xyz 121 617 2000
+  xyz 563 346 2000
 end
-classcanvas 129157 class_ref 135941 // Comment
+classcanvas 133765 class_ref 149637 // Adress
   classdiagramsettings member_max_width 0 end
-  xyz 450 714 2000
+  xyz 201 317 2000
 end
-classcanvas 131205 class_ref 148997 // ShippingAdress
+classcanvas 134277 class_ref 149253 // Newsletter
   classdiagramsettings member_max_width 0 end
-  xyz 689 612 2000
-end
-relationcanvas 129285 relation_ref 128005 // order
-  from ref 128005 z 2006 label "order" italic max_width 255 xyz 242.5 318 2006 to ref 128261
-  no_role_a no_role_b
-  multiplicity_a_pos 398 297 3000 multiplicity_b_pos 111 385 3000
-end
-relationcanvas 129413 relation_ref 134533 // contains
-  from ref 128261 z 2006 label "contains" italic max_width 255 xyz 391 406 2006 to ref 128133
-  no_role_a no_role_b
-  multiplicity_a_pos 390 482 3000 multiplicity_b_pos 420 352 3000
+  xyz 56 38 2005
 end
 relationcanvas 129541 relation_ref 134661 // have
-  decenter_end 782
-  from ref 128005 z 2001 label "have" italic max_width 255 xyz 218 488 2001 to ref 128133
+  decenter_end 54
+  from ref 128005 z 2001 label "have" italic max_width 255 xyz 205 228 2001 to point 303 257
+  line 132101 z 2001 to ref 128133
   no_role_a no_role_b
-  multiplicity_a_pos 346 616 3000 multiplicity_b_pos 111 424 3000
-end
-relationcanvas 129669 relation_ref 134789 // have
-  from ref 128901 z 2006 label "have" italic max_width 255 xyz 310.5 159.5 2006 to ref 128261
-  no_role_a no_role_b
-  multiplicity_a_pos 398 266 3000 multiplicity_b_pos 242 117 3000
+  multiplicity_a_pos 350 335 3000 multiplicity_b_pos 143 240 3000
 end
 relationcanvas 129797 relation_ref 134917 // make
-  from ref 128901 z 2001 label "make" italic max_width 255 xyz 107 204 2001 to ref 128005
+  from ref 128901 z 2001 label "make" italic max_width 255 xyz 64 314 2001 to ref 128005
   no_role_a no_role_b
-  multiplicity_a_pos 66 316 3000 multiplicity_b_pos 145 112 3000
-end
-relationcanvas 129925 relation_ref 135045 // contain
-  from ref 128261 z 2006 label "contain" italic max_width 255 xyz 401 144.5 2006 to ref 128773
-  no_role_a no_role_b
-  multiplicity_a_pos 392 111 3000 multiplicity_b_pos 418 198 3000
+  multiplicity_a_pos 64 288 3000 multiplicity_b_pos 62 360 3000
 end
 relationcanvas 130053 relation_ref 135173 // have
-  from ref 128261 z 2006 label "have" italic max_width 255 xyz 547.5 303.5 2006 to ref 128645
+  from ref 128261 z 2006 label "have" italic max_width 255 xyz 591 105 2006 to ref 128645
   no_role_a no_role_b
-  multiplicity_a_pos 615 356 3000 multiplicity_b_pos 500 305 3000
+  multiplicity_a_pos 665 98 3000 multiplicity_b_pos 537 155 3000
 end
 relationcanvas 130181 relation_ref 135301 // have
-  from ref 128261 z 2006 label "have" italic max_width 255 xyz 532.5 189 2006 to ref 128517
+  decenter_begin 150
+  from ref 128261 z 2006 label "have" italic max_width 255 xyz 338 81 2006 to ref 128517
   no_role_a no_role_b
-  multiplicity_a_pos 584 163 3000 multiplicity_b_pos 500 250 3000
-end
-relationcanvas 130309 relation_ref 135429 // have
-  from ref 129029 z 2001 label "have" italic max_width 255 xyz 310 692 2001 to ref 129157
-  no_role_a no_role_b
-  multiplicity_a_pos 431 741 3000 multiplicity_b_pos 209 694 3000
+  multiplicity_a_pos 327 83 3000 multiplicity_b_pos 342 99 3000
 end
 relationcanvas 130437 relation_ref 135557 // have
   decenter_end 119
-  from ref 128261 z 2006 label "have" italic max_width 255 xyz 512 402.5 2006 to ref 128389
+  from ref 128261 z 2006 label "have" italic max_width 255 xyz 614 163 2006 to ref 128389
   no_role_a no_role_b
-  multiplicity_a_pos 542 473 3000 multiplicity_b_pos 475 352 3000
+  multiplicity_a_pos 711 179 3000 multiplicity_b_pos 537 196 3000
 end
-relationcanvas 130565 relation_ref 135685 // belong
-  from ref 128005 z 2001 label "belong" italic max_width 255 xyz 221 208 2001 to ref 128773
+relationcanvas 132613 relation_ref 143109 // have
+  decenter_end 869
+  from ref 128901 z 2001 label "have" italic max_width 255 xyz 242 422 2001 to ref 128133
   no_role_a no_role_b
-  multiplicity_a_pos 362 95 3000 multiplicity_b_pos 111 352 3000
+  multiplicity_a_pos 350 458 3000 multiplicity_b_pos 154 427 3000
 end
-relationcanvas 130949 relation_ref 136069 // comment
-  from ref 128005 z 2001 label "comment" italic max_width 255 xyz 83 514 2001 to ref 129029
+relationcanvas 133125 relation_ref 143365 // <association>
+  from ref 128261 z 2006 to ref 132869
   no_role_a no_role_b
-  multiplicity_a_pos 118 595 3000 multiplicity_b_pos 65 452 3000
+  multiplicity_a_pos 541 324 3000 multiplicity_b_pos 477 263 3000
 end
-relationcanvas 131333 relation_ref 142597 // have
-  from ref 128133 z 2001 label "have" italic max_width 255 xyz 545 591 3000 to ref 131205
+relationcanvas 133253 relation_ref 143493 // <association>
+  from ref 128133 z 2001 to ref 132869
   no_role_a no_role_b
-  multiplicity_a_pos 671 650 3000 multiplicity_b_pos 438 584 3000
+  multiplicity_a_pos 532 398 3000 multiplicity_b_pos 442 398 3000
+end
+relationcanvas 134021 relation_ref 143877 // have
+  from ref 133765 z 2001 label "have" italic max_width 255 xyz 152.5 281 2001 to ref 128005
+  no_role_a no_role_b
+  multiplicity_a_pos 143 283 3000 multiplicity_b_pos 183 343 3000
+end
+relationcanvas 134149 relation_ref 150405 // send
+  from ref 133765 z 2001 label "send" italic max_width 255 xyz 300 353 3000 to ref 128133
+  no_role_a no_role_b
+  multiplicity_a_pos 350 391 3000 multiplicity_b_pos 269 367 3000
+end
+relationcanvas 134405 relation_ref 142981 // suscribe
+  from ref 128005 z 2006 label "suscribe" italic max_width 255 xyz 68 112 3000 to ref 134277
+  no_role_a no_role_b
+  multiplicity_a_pos 64 98 3000 multiplicity_b_pos 71 146 3000
 end
 end
