@@ -1,12 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import fields, models
-from core.models import (Adress, Newsletter, Customer, Category, Product,
+from core.models import (Address, Newsletter, Customer, Category, Product,
                          ProductImage, Order, Payment, FeedBack)
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={"autofocus": True}))
+    username = forms.EmailField()
     password = forms.CharField(
         strip=False,
         widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
@@ -52,7 +52,7 @@ class CustomerForm(forms.Form):
 class AdressForm(forms.ModelForm):
 
     class Meta:
-        model = Adress
+        model = Address
         fields = ('city', 'street', 'full_name', 'phone')
 
 

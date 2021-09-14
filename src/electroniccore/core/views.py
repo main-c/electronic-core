@@ -9,7 +9,7 @@ from django.utils.html import strip_tags
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from core.models import (Product, ProductImage,
-                         Category, Customer, OrderItem, Order, Adress)
+                         Category, Customer, OrderItem, Order, Address)
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -195,15 +195,11 @@ class Login(View):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            print('hello')
             user = authenticate(username=username, password=password)
             if user is not None:
-                print("non")
-                print(user)
                 login(request, user)
                 return redirect(valuenext)
             else:
-                print("salut")
                 error = ValidationError("Invalid email or password")
                 context = {"form": form, "error": error}
                 print(form.errors)
@@ -213,7 +209,6 @@ class Login(View):
             return render(request, self.template_name, {"form": form})
 
     def get(self, request, *args, **kwargs):
-        print('hello')
         form = LoginForm()
         return render(request, self.template_name, {'form': form})
 
@@ -225,11 +220,11 @@ class Logout(View):
 
 
 class SignupView(TemplateView):
-    template_name = "core/sign.html"
+    template_name = "core/signup.html"
     form_class = CustomerForm
-    
+
     def post(self, request, *args, **kwargs):
-        form = self.form_class()
+        form = self.form_class(data=request.POST)
         if form.is_valid():
             # on cree un compte
             customer = form.save()

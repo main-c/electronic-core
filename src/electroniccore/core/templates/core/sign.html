@@ -8,6 +8,7 @@
 <form method="POST">
 	{%csrf_token %}
 	{{ form.as_p}}
+	{{form.errors}}
 	<button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
                         Se connecter
 </form>

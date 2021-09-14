@@ -17,7 +17,7 @@
           <div class="modal-body" id="form">
             <div class="container">
               <div id="userform" class="p-5 my-3">
-                    <form method="POST">
+                    <form method="POST" action="{% url "core:signin" %}">
                       {%csrf_token%}
                       <div class="form-group">
                         <!--<label class="highlight">Nom<span class="req">*</span> </label>-->
@@ -35,7 +35,7 @@
                         <p class="help-block text-danger"></p>
                       </div>
                       <div class="mrgn-30-top d-flex justify-content-center">
-                        <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+                        <button type="submit" name="signup" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
                         S'inscrire
                         </button>
                       </div>

@@ -2,12 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Adress(models.Model):
+class Address(models.Model):
     city = models.CharField(max_length=20)
     street = models.CharField(max_length=100)
     full_name = models.CharField(max_length=200, null=True)
     phone = models.BigIntegerField(null=True)
 
+    class Meta:
+        verbose_name = 'Adresse'
+        verbose_name_plural = 'Addresses'
+
+    def __str__(self):
+        return f'{self.city} - {self.street}'
 
 class Newsletter(models.Model):
     email = models.EmailField()
@@ -16,13 +22,27 @@ class Newsletter(models.Model):
 class Customer(models.Model):
 
     user = models.OneToOneField(User, models.CASCADE)
-    adress = models.OneToOneField(Adress, models.CASCADE, null=True)
-    newsleteter_id = models.ForeignKey(Newsletter, models.SET_NULL, null=True, default=None)
+    adress = models.OneToOneField(Address, models.CASCADE, null=True)
+    newsletter_id = models.ForeignKey(Newsletter, models.SET_NULL, null=True, default=None)
+
+    class Meta:
+        verbose_name = 'Customer'
+        verbose_name_plural = 'Customers'
+
+    def __str__(self):
+        return f'{self.user.last_name}'
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=200)
-    slug = models.CharField(max_length=250)
+    name = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class Product(models.Model):
@@ -33,13 +53,16 @@ class Product(models.Model):
         ('Reached Limits', 'Reached Limits')
     )
 
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
     price = models.FloatField()
-    slug = models.CharField(max_length=255)
     description = models.TextField()
     qte = models.IntegerField()
     status = models.CharField(max_length=100, choices=STATUS, default='New')
-    category_id = models.OneToOneField(Category, models.CASCADE)
+    category_id = models.ForeignKey(Category, models.CASCADE)
+
+    def __str__(self):
+        return f'{self.title}'
 
 
 class ProductImage(models.Model):
@@ -57,7 +80,7 @@ class Order(models.Model):
     note = models.TextField(null=True)
     ordered_on = models.DateTimeField(auto_now=True, null=True)
     price = models.IntegerField(default=0)
-    adress = models.ForeignKey(Adress, models.CASCADE, null=True)
+    adress = models.ForeignKey(Address, models.CASCADE, null=True)
     state = models.CharField(max_length=100, choices=STATE, default=STATE[1])
     customer_id = models.ForeignKey(Customer, models.SET_NULL, null=True, default=None)
 
@@ -73,6 +96,9 @@ class Order(models.Model):
         order_items = OrderItem.objects.filter(order_id=self.id)
         return len(order_items)
 
+    def __str__(self):
+        return f'commande de {self.customer_id.user.last_name}'
+
 
 class OrderItem(models.Model):
     qte = models.IntegerField()
@@ -86,6 +112,7 @@ class OrderItem(models.Model):
 
 class Payment(models.Model):
     payment_mode = models.CharField(max_length=200)
+    token = models.CharField(max_length=200)
     amount = models.IntegerField()
     paid_on = models.DateTimeField(auto_now=True)
     customer_id = models.ForeignKey(Customer, models.SET_NULL, null=True)
@@ -93,6 +120,9 @@ class Payment(models.Model):
 
 
 class FeedBack(models.Model):
-    feedback = models.CharField(max_length=250)
+    feedback = models.TextField()
     add_on = models.DateTimeField(auto_now=True)
     product_id = models.OneToOneField(Product, models.CASCADE)
+
+    def __str__(self):
+        return f'avis sur le produit {self.product_id.title}'
