@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+
+	<div class="container d-flex my-5">
+		<div class="col-lg-8">
+			<h2 class="fw-bold my-5">Mon panier</h2>
+			<div class="row d-grid ps-4 me-0 py-4 border border-1 rounded">
+				<div class="row mb-1">
+					<div class="col-lg-2">
+						<p class="text-secondary">Echantillon</p>
+					</div>
+					<div class="col-lg-2 d-grid">
+						<p class="text-secondary">Nom</p>
+					</div>
+					<div class="col-lg-1 d-grid">
+						<p class="text-secondary">Qte</p>
+					</div>
+					<div class="col-lg-3 d-grid">
+						<p class="text-secondary">Prix</p>
+					</div>
+					<div class="col-lg-3 d-grid">
+						<p class="text-secondary">Total</p>
+					</div>
+					<div class="col-lg-1 d-grid">
+						<p class="text-secondary">Del</p>
+					</div>					
+				</div>
+				<div class="row row_cart my-1 pt-3">
+					<div class="col-lg-2">
+						<img src="/static/core/images/ecran2.png" class="w-50">
+					</div>
+					<div class="col-lg-2 d-grid">
+						<p class="fw-bold">Tablette</p>
+					</div>
+					<div class="col-lg-1 d-grid">
+						<p class="fw-bold">3</p>
+					</div>
+					<div class="col-lg-3 d-grid">
+						<p class="fw-bold">20 000 XFA</p>
+					</div>
+					<div class="col-lg-3 d-grid">
+						<p class="fw-bold">60 000 XFA</p>
+					</div>
+					<div class="col-lg-1">
+						<a href="#"><i class="fa fa-remove"></i></a>
+					</div>
+				</div>
+				<div class="row row_cart my-1 pt-3">
+					<div class="col-lg-2">
+						<img src="/static/core/images/clavier2.png" class="w-50">
+					</div>
+					<div class="col-lg-2 d-grid">
+						<p class="fw-bold">Clavier</p>
+					</div>
+					<div class="col-lg-1 d-grid">
+						<p class="fw-bold">1</p>
+					</div>
+					<div class="col-lg-3 d-grid">
+						<p class="fw-bold">10 000 XFA</p>
+					</div>
+					<div class="col-lg-3 d-grid">
+						<p class="fw-bold">10 000 XFA</p>
+					</div>
+					<div class="col-lg-1">
+						<a href="#"><i class="fa fa-remove"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="w-100 mt-2 py-2 d-flex justify-content-between">
+				<button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+					<i class="fa fa-arrow-left"></i>
+                    Poursuivre les achats
+                </button>
+                <button type="submit" class="btn btn-larger bg-primary text-light fw-bold btn-block px-3 p-2"/>
+                    Mettre à jour le panier
+                </button>
+			</div>
+		</div>
+		<div class="col-lg-4 mt-5 pt-lg-5 ms-lg-5">
+			<div class="command py-lg-5 my-lg-auto rounded">
+				<h3 class="text-dark text-center my-2">Total Panier</h3>
+				<h1 class="fw-bold text-secondary text-center my-3">70 000 XFA</h1>
+				<div class="d-flex justify-content-center mt-3 mt-lg-5">
+					<button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+	                    Valider la commande
+	                </button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

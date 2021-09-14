@@ -333,16 +333,12 @@ footer .bottom-details .bottom_text{
 
 
 
-.row{background: black;}
-
 
 /* Shop page */
 
 
 /* Price Range slider */
-.bg{
-  background: black;
-}
+
 .ui-widget-content {
   height: 4px;
   background-color: #b7b7b7;
@@ -418,4 +414,10 @@ input{
 }
 .command{
   background: #B9D3EE;
+}
+
+/* cart page */
+
+.row_cart:hover{
+  background-color: #B9D3EE;
 }
