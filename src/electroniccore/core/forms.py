@@ -5,11 +5,15 @@ from core.models import (Adress, Newsletter, Customer, Category, Product,
                          ProductImage, Order, Payment, FeedBack)
 
 
-class LoginForm(forms.ModelForm):
+class LoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={"autofocus": True}))
+    password = forms.CharField(
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
+    )
 
     class Meta:
-        model = User
-        fields = ('email', 'password')
+        fields = ("username", "password")
 
 
 class CustomerForm(forms.Form):
@@ -33,9 +37,9 @@ class CustomerForm(forms.Form):
         last_name = self.cleaned_data["last_name"]
         email = self.cleaned_data["email"]
         password = self.cleaned_data["password"]
-        user = User.objects.create(
+        user = User.objects.create_user(
             last_name=last_name,
-            email=email,
+            username=email,
             password=password,
 
         )

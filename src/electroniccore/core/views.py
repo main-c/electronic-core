@@ -188,23 +188,34 @@ class PaymentView(TemplateView):
 class Login(View):
     template_name = "core/login.html"
 
-    def get(self, request, *args, **kwargs):
-        form = LoginForm()
-        return render(request, self.template_name, {'form': form})
-
     def post(self, request, *args, **kwargs):
+
+        valuenext = request.GET.get("next", "/")
         form = LoginForm(data=request.POST)
         if form.is_valid():
-            email = form.cleaned_data.get('email')
+            username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(email=email, password=password)
+            print('hello')
+            user = authenticate(username=username, password=password)
             if user is not None:
+                print("non")
+                print(user)
                 login(request, user)
-                return redirect("core:home")
+                return redirect(valuenext)
             else:
+                print("salut")
                 error = ValidationError("Invalid email or password")
                 context = {"form": form, "error": error}
+                print(form.errors)
                 return render(request, self.template_name, context)
+        else:
+            print(form.errors)
+            return render(request, self.template_name, {"form": form})
+
+    def get(self, request, *args, **kwargs):
+        print('hello')
+        form = LoginForm()
+        return render(request, self.template_name, {'form': form})
 
 
 class Logout(View):
@@ -213,23 +224,16 @@ class Logout(View):
         return redirect("/")
 
 
-class SigninView(TemplateView):
-    template_name = "core/base.html"
-    form_class = CustomerForm
-
-    def get(self, request, *args, **kwargs):
-        form = self.form_class()
-        return render(request, self.template_name, {"form": form})
-
-
 class SignupView(TemplateView):
-	template_name = "core/signup.html"
-
+    template_name = "core/sign.html"
+    form_class = CustomerForm
+    
     def post(self, request, *args, **kwargs):
         form = self.form_class()
         if form.is_valid():
             # on cree un compte
             customer = form.save()
+            print(customer)
             # envoie d'un mail a l'utilisateur
             user_account = customer.user
             mail_subject = "Inscription réussie"
@@ -263,3 +267,7 @@ class SignupView(TemplateView):
         else:
             print(form.errors)
             return render(request, self.template_name, {"form": form})
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {"form": form})
