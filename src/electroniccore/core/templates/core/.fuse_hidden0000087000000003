@@ -111,10 +111,10 @@
           </ul>
           <ul class="box">
             <li class="link_name">Catégories</li>
-            {%for category in categories %}
-              <li><a href="#">category.name</a></li>
-            {% endfor %}
-             
+            <li><a href="#">Smartphones et tablettes</a></li>
+            <li><a href="#">Ordinateurs et laptop</a></li>
+            <li><a href="#">Téléviseurs</a></li>
+            <li><a href="#">Accessoires</a></li>      
           </ul>
           <ul class="box">
             <li class="link_name">Contact</li>
@@ -124,8 +124,6 @@
             
           
           </ul>
-            }
-            }
         </div>
       </div>
           <div class="bottom-details">

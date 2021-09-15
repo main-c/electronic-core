@@ -8,9 +8,17 @@
             <p> <a class="btn btn-primary p-3 w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapseCategorie" role="button" aria-expanded="true" aria-controls="collapseCategorie"> <i class="fa fa-bars"><span class="ps-3">Toutes les catégories</span></i> <i class="fa fa-chevron-down"></i> </a> </p>
             <div class="collapse show border" id="collapseCategorie">
                 <ul class="list-unstyled">
-                   {% for category in categories %}
-                        <li><a class="dropdown-item" href="{% url 'core:show_category' category.slug %}">{{ category.name }}</a></li>
-					{%endfor%}
+                    <li><a class="dropdown-item" href="#">Tablettes</a></li>
+                    <li><a class="dropdown-item" href="#">Desktop</a></li>
+                    <li><a class="dropdown-item" href="#">Laptops</a></li>
+                    <li><a class="dropdown-item" href="#">Téléphones</a></li>
+                    <li><a class="dropdown-item" href="#">Ecran Plasma</a></li>
+                    <li><a class="dropdown-item" href="#">Caméras</a></li>
+                    <li><a class="dropdown-item" href="#">Regulateur</a></li>
+                    <li><a class="dropdown-item" href="#">Casques</a></li>
+                    <li><a class="dropdown-item" href="#">Modem</a></li>
+                    <li><a class="dropdown-item" href="#">Accessoires</a></li>
+                    <li><a class="dropdown-item" href="#">Ordinateurs de bureau</a></li>
                 </ul>
             </div>
         </div>
@@ -19,18 +27,14 @@
                 <div class="d-lg-flex justify-content-between align-items-center border w-75">
                     <div class="dropdown my-lg-0 my-2"> <button class="btn btn-transparent d-flex justify-content-between align-items-center py-lg-2" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="true"> <span class="d-flex align-items-center"><span class="fw-lighter pe-3"> Categories</span> <i class="fa fa-chevron-down ms-auto"></i> </span> </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                        	{% for category in categories %}
-                            	<li><a class="dropdown-item" href="{% url 'core:show_category' category.slug %}">{{ category.name }}</a></li>
-							{%endfor%}
-                            
+                            <li><a class="dropdown-item" href="#">Tablettes</a></li>
+                            <li><a class="dropdown-item" href="#">Téléphones</a></li>
+                            <li><a class="dropdown-item" href="#">Laptops</a></li>
+                            <li><a class="dropdown-item" href="#">Accessoires</a></li>
                         </ul>
                     </div>
-                    <div class="d-flex align-items-center ps-lg-0 w-75">
-                    	<form class="d-flex" method='POST' action ="{% url 'core:search' %}">
-                                {%csrf_token%}
-						        <input class="py-lg-2 w-100 border-0" type="text" name="searched" placeholder="Rechercher un article">
-						        <button class="btn btn-primary py-lg-2 d-flex align-items-center justify-content-center" type="submit">Rechercher</button>
-						</form>
+                    <div class="d-flex align-items-center ps-lg-0 w-75"> <input class="py-lg-2 w-100 border-0" type="text" placeholder="Rechercher...">
+                        <div class="btn btn-primary py-lg-2 d-flex align-items-center justify-content-center"> Rechercher</div>
                     </div>
                 </div>
                 <!---->
@@ -61,7 +65,22 @@
     		<div class="border border-primary mx-auto w-25"></div>
     	</div>
     	<div class="row pt-5">
-    		
+    		<div class="col-lg-2 m-auto">
+    			<img src="/static/core/images/cable1.png" height="100px" class="img-fluid">
+    			<p class="text-secondary my-3 text-center">Accessoires</p>
+    		</div>
+    		<div class="col-lg-2 m-auto">
+    			<img src="/static/core/images/ordi1.png" height="100px" class="img-fluid">
+    			<p class="text-secondary my-3 text-center">Ordinateur</p>
+    		</div>
+    		<div class="col-lg-2 m-auto">
+    			<img src="/static/core/images/camera2.png" height="100px" class="img-fluid">
+    			<p class="text-secondary my-3 text-center">Caméra</p>
+    		</div>
+    		<div class="col-lg-2 m-auto">
+    			<img src="/static/core/images/souris2.png" height="100px" class="img-fluid">
+    			<p class="text-secondary my-3 text-center">Souris</p>
+    		</div>
     	</div>
     </div>
 
@@ -69,6 +88,8 @@
     <div class="container-fluid mt-5">
 	    <div class="row">
 		    <div class="col-lg-4 mx-auto shadow pt-5 rounded">
+
+
 		    	<div id="carouselExampleDark" class="carousel h-100 carousel-dark slide" data-bs-ride="carousel">
 					<div class="carousel-indicators">
 						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -110,8 +131,10 @@
 						<span class="visually-hidden">Next</span>
 					</button>
 					</div>
+
+
 		    </div>
-		    <div class="col-lg-8 mx-auto">
+		    <div class="col-lg-8 mx-auto mt-5">
 		    	<div class="mx-5 border border-1 border-top-0 border-start-0 border-end-0">
 		    		<h5 class="text-uppercase text-center">Aperçus produits</h5>
 		    		<div class="border border-primary mx-auto w-25"></div>
@@ -184,108 +207,13 @@
 						</div>
 					</div>
 				</div>
-				<!--Button here-->
-		    </div>
-		</div>
-		<!-- Second section of products -->
-		<div class="container">
-		<div class="row mt-5">
-			<div class="col-lg-3 mt-3">
-				<div class="product rounded p-2 h-100">
-				  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-				  <div class="overlay">
-				  	<div class="d-flex justify-content-center mt-5">
-					    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-shopping-cart"></i>
-			            </a>
-			            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-eye my-auto"></i>
-			            </a>
-		            </div>
-				   </div>
-				   <div class="ps-1 mt-3 w-100">
-						<p class="text-secondary my-0">Ordinateur</p>
-						<div class="d-flex justify-content-between">
-							<p class="fs-5 my-auto">Asus 4SP</p>
-							<p class="my-auto me-lg-3">200 000 XFA</p>
-						</div>
-				   </div>
-				</div>
-			</div>
-			<div class="col-lg-3 mt-3">
-				<div class="product rounded p-2 h-100">
-				  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-				  <div class="overlay">
-				  	<div class="d-flex justify-content-center mt-5">
-					    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-shopping-cart"></i>
-			            </a>
-			            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-eye my-auto"></i>
-			            </a>
-		            </div>
-				   </div>
-				   <div class="ps-1 mt-3 w-100">
-						<p class="text-secondary my-0">Ordinateur</p>
-						<div class="d-flex justify-content-between">
-							<p class="fs-5 my-auto">Asus 4SP</p>
-							<p class="my-auto me-lg-3">200 000 XFA</p>
-						</div>
-				   </div>
-				</div>
-			</div>
-			<div class="col-lg-3 mt-3">
-				<div class="product rounded p-2 h-100">
-				  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-				  <div class="overlay">
-				  	<div class="d-flex justify-content-center mt-5">
-					    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-shopping-cart"></i>
-			            </a>
-			            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-eye my-auto"></i>
-			            </a>
-		            </div>
-				   </div>
-				   <div class="ps-1 mt-3 w-100">
-						<p class="text-secondary my-0">Ordinateur</p>
-						<div class="d-flex justify-content-between">
-							<p class="fs-5 my-auto">Asus 4SP</p>
-							<p class="my-auto me-lg-3">200 000 XFA</p>
-						</div>
-				   </div>
-				</div>
-			</div>
-			<div class="col-lg-3 mt-3">
-				<div class="product rounded p-2 h-100">
-				  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-				  <div class="overlay">
-				  	<div class="d-flex justify-content-center mt-5">
-					    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-shopping-cart"></i>
-			            </a>
-			            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-eye my-auto"></i>
-			            </a>
-		            </div>
-				   </div>
-				   <div class="ps-1 mt-3 w-100">
-						<p class="text-secondary my-0">Ordinateur</p>
-						<div class="d-flex justify-content-between">
-							<p class="fs-5 my-auto">Asus 4SP</p>
-							<p class="my-auto me-lg-3">200 000 XFA</p>
-						</div>
-				   </div>
-				</div>
-			</div>
-				<!--Button here-->
 				<div class="d-flex justify-content-end me-lg-5 mr-3 mt-lg-5">
 					<a href="{% url 'core:shop' %}" class="btn btn-larger fw-bold btn-block px-3 p-2">
 		            	Visiter la boutique
 		            	<i class="fa fa-arrow-right"></i>
 		            </a>
 				</div>
-		</div>
+		    </div>
 		</div>
 	</div>
 
@@ -320,63 +248,5 @@
 
 		</div>
 	</div>
-    <div class="container my-5 pt-lg-5">
-    	<div class="mx-5 border border-1 border-top-0 border-start-0 border-end-0">
-    		<h5 class="text-uppercase text-center my-3">Aperçus produits</h5>
-    		<div class="border border-primary mx-auto w-25"></div>
-    	</div>
-		<div class="row pt-5">
-			<div class="col-lg-2 mx-auto mt-3">
-				<div class="product">
-				  <img src="/static/core/images/souris2.png" class="w-100" alt="" />
-				  <div class="overlay">
-				    <span class="fs-5">Souris 2</span>
-				  </div>
-				</div>
-				<div class="bg-primary ps-1 w-100">
-					<p class="text-light">Prix: 20 000 XFA</p>
-				 </div>
-			</div>
-			<div class="col-lg-2 mx-auto mt-3">
-				<div class="product">
-				  <img src="/static/core/images/ecran4.png" class="w-100" alt="" />
-				  <div class="overlay">
-				    <span class="fs-5">Ecran 4</span>
-				  </div>
-				</div>
-				<div class="bg-primary ps-1 w-100">
-					<p class="text-light">Prix: 20 000 XFA</p>
-				 </div>
-			</div>
-			<div class="col-lg-2 mx-auto mt-3">
-				<div class="product">
-				  <img src="/static/core/images/camera1.png" class="w-100" alt="" />
-				  <div class="overlay">
-				    <span class="fs-5">Camera 1</span>
-				  </div>
-				</div>
-				<div class="bg-primary ps-1 w-100">
-					<p class="text-light">Prix: 20 000 XFA</p>
-				 </div>
-			</div>
-			<div class="col-lg-2 mx-auto mt-3">
-				<div class="product">
-				  <img src="/static/core/images/clavier2.png" class="w-100" alt="" />
-				  <div class="overlay">
-				    <span class="fs-5">Clavier 2</span>
-				  </div>
-				</div>
-				<div class="bg-primary ps-1 w-100">
-					<p class="text-light">Prix: 20 000 XFA</p>
-				 </div>
-			</div>
-		</div>
-		<div class="d-flex justify-content-end me-lg-5 mr-3 mt-lg-5">
-			<a href="{% url 'core:shop' %}" class="btn btn-larger fw-bold btn-block px-3 p-2">
-            	Visiter la boutique
-            	<i class="fa fa-arrow-right"></i>
-            </a>
-		</div>
-    </div>
 
 {% endblock %}
