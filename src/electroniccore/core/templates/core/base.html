@@ -12,7 +12,12 @@
     <link rel="stylesheet" type="text/css" href="/static/core/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/core/css/style.css">
-    
+    <script>
+      $(document).on('click', '.map-point-sm', function() {
+        var show = $(this).data('show');
+        $(show).removeClass("hide").siblings().addClass("hide");
+      });
+    </script>
   </head>
   <body>
     <div class="container-fluid px-0 me-lg-5">

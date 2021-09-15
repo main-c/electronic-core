@@ -2,7 +2,8 @@ from django.urls import path
 from core.views import (DetailCategoryView, HomeView, AccountView, ShopView, ProductView,
                         CheckoutView, PaymentView, Login,
                         Logout, SignupView, CartView, SearchView, SortProductView, FilterProductView,
-                        CheckoutverView
+                        CheckoutverView, CommandView, CommandView, DashboardView, BillingaddressView,
+                        DetailaccountView
                         )
 CheckoutverView
 
@@ -23,5 +24,8 @@ urlpatterns = [
     path('articles/search', SearchView.as_view(), name='search'),
     path('articles/filter/<str:sort_type>', FilterProductView.as_view(), name='filter'),
     path('articles/sort/<str:sort_type>', SortProductView.as_view(), name='sort'),
-
+    path('command/', CommandView.as_view(), name='command'),
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('billing_address/', BillingaddressView.as_view(), name='billing_address'),
+    path('detail_account/', DetailaccountView.as_view(), name='detail_account'),
 ]

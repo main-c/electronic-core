@@ -415,6 +415,9 @@ button{
 
 /* Dashboard Page */
 
+.hide {
+  display: none;
+}
 .text_dashboard{
   color: black;
 }
@@ -440,3 +443,5 @@ button{
 }
 
 /* Fixed header on scroll */
+
+
