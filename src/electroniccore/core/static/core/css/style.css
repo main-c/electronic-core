@@ -1,6 +1,7 @@
 body, html {
   height:100%;
   overflow-x: hidden;
+  scroll-behavior: smooth;
   font-family: 'Dosis', sans-serif;
 }
 
@@ -16,8 +17,6 @@ body, html {
   -webkit-transition: all .3s;
   -moz-transition: all .3s;
   transition: all .3s;
-  
-
 }
 .btn-larger:hover, .btn-larger:focus, .btn-larger:active, .btn-larger.active, .open .dropdown-toggle.btn-larger {
   border-color: royalblue;
@@ -91,12 +90,6 @@ body, html {
 
 /* Footer */
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins" , sans-serif;
-}
 footer{
   background: #000;
   width: 100%;
@@ -333,7 +326,6 @@ footer .bottom-details .bottom_text{
 
 
 
-.row{background: black;}
 
 
 /* Shop page */
@@ -382,7 +374,7 @@ footer .bottom-details .bottom_text{
 
 .overlay{
   position: absolute;
-  background-color: rgba(65, 105, 255, .3);
+  background-color: rgba(65, 105, 255, 0.1);
   width: 100%;
   height: 100%;
   top: 0;
@@ -438,6 +430,12 @@ button{
   outline: none;
   border: none;
 }
+.contact_icon{
+  color: #B9D3EE;
+}
+.contact_icon:hover{
+  color: royalblue;
+}
 
 /* Dashboard Page */
 
@@ -458,3 +456,11 @@ button{
   border-color: 1px solid royalblue;
   background-color: lightyellow;
 }
+
+/* formulaire inscription connexion */
+
+.bg_signup{
+  background: #B9D3EE !important;
+}
+
+/* Fixed header on scroll */

@@ -101,6 +101,11 @@ class ShopView(View):
         return render(request, self.template_name, context)
 
 
+
+class CheckoutverView(TemplateView):
+    template_name = "core/checkout.html"
+
+
 class DetailCategoryView(View):
     template_name = "core/category.html"
 
