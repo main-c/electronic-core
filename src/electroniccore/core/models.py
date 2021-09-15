@@ -70,11 +70,14 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    def get_main_image(self):
+        return self.images.filter(title='main')
+
 
 class ProductImage(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='products_image')
-    product = models.ForeignKey(Product, models.CASCADE, related_name='produit')
+    product = models.ForeignKey(Product, models.CASCADE, related_name='images')
 
 
 class Order(models.Model):

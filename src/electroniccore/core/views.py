@@ -13,8 +13,25 @@ from core.models import (Product, ProductImage,
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-class HomeView(TemplateView):
+class HomeView(View):
     template_name = "core/home.html"
+
+    def get(self, request, *args, **kwargs):
+        product_list = Product.objects.all()
+
+        paginator = Paginator(product_list, 12)
+
+        page = request.GET.get('page')
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            products = paginator.page(paginator.num_pages)
+        context = {'products': products}
+        return render(request, self.template_name, context)
 
 
 class CartView(TemplateView):
@@ -99,11 +116,6 @@ class ShopView(View):
             products = paginator.page(paginator.num_pages)
         context = {'products':products}
         return render(request, self.template_name, context)
-
-
-
-class CheckoutverView(TemplateView):
-    template_name = "core/checkout.html"
 
 
 class DetailCategoryView(View):

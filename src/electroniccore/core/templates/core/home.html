@@ -118,71 +118,28 @@
 		    	</div>
 				<div class="row pt-5">
 					<div class="col-lg-4 mt-3">
-						<div class="product rounded p-2 h-100">
-						  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-						  <div class="overlay">
-						  	<div class="d-flex justify-content-center mt-5">
-							    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-							    	<i class="fa fa-shopping-cart"></i>
-					            </a>
-					            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-							    	<i class="fa fa-eye my-auto"></i>
-					            </a>
-				            </div>
-						   </div>
-						   <div class="ps-1 mt-3 w-100">
-								<p class="text-secondary my-0">Ordinateur</p>
-								<div class="d-flex justify-content-between">
-									<p class="fs-5 my-auto">Asus 4SP</p>
-									<p class="my-auto me-lg-3">200 000 XFA</p>
-								</div>
-						   </div>
-						</div>
-					</div>
-					<div class="col-lg-4 mt-3">
-						<div class="product rounded p-2 h-100">
-						  <img src="/static/core/images/tablette1.png" class="img-fluid" alt="" />
-						  <div class="overlay">
-						  	<div class="d-flex justify-content-center mt-5">
-							    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-							    	<i class="fa fa-shopping-cart"></i>
-					            </a>
-					            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-							    	<i class="fa fa-eye my-auto"></i>
-					            </a>
-				            </div>
-						   </div>
-						   <div class="ps-1 mt-3 w-100">
-								<p class="text-secondary my-0">Tablette</p>
-								<div class="d-flex justify-content-between">
-									<p class="fs-5 my-auto">Ipad</p>
-									<p class="my-auto me-lg-3">500 000 XFA</p>
-								</div>
-						   </div>
-						</div>
-					</div>
-					<div class="col-lg-4 mt-3">
-						<div class="product rounded p-2 h-100">
-						  <img src="/static/core/images/clavier2.png" class="img-fluid" alt="" />
-						  <div class="overlay">
-						  	<div class="d-flex justify-content-center mt-5">
-							    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-							    	<i class="fa fa-shopping-cart"></i>
-					            </a>
-					            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-							    	<i class="fa fa-eye my-auto"></i>
-					            </a>
-				            </div>
-						   </div>
-						   <div class="ps-1 mt-3 w-100">
-								<p class="text-secondary my-0">Ordinateur</p>
-								<div class="d-flex justify-content-between">
-									<p class="fs-5 my-auto">Clavier</p>
-									<p class="my-auto me-lg-3">15 000 XFA</p>
-								</div>
-						   </div>
-						</div>
-					</div>
+						{% for product in products %}
+							<div class="product rounded p-2 h-100">
+							  <img src="{{product.get_main_image}" class="img-fluid" alt="" />
+							  <div class="overlay">
+							  	<div class="d-flex justify-content-center mt-5">
+								    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
+								    	<i class="fa fa-shopping-cart"></i>
+						            </a>
+						            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
+								    	<i class="fa fa-eye my-auto"></i>
+						            </a>
+					            </div>
+							   </div>
+							   <div class="ps-1 mt-3 w-100">
+									<p class="text-secondary my-0">{{product.category_id}}</p>
+									<div class="d-flex justify-content-between">
+										<p class="fs-5 my-auto">{{product.title}}</p>
+										<p class="my-auto me-lg-3">{{product.price}} XFA</p>
+									</div>
+							   </div>
+							</div>
+					{% endfor %}
 				</div>
 				<!--Button here-->
 		    </div>
