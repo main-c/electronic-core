@@ -332,31 +332,7 @@ footer .bottom-details .bottom_text{
 
 
 /* Price Range slider */
-.bg{
-  background: black;
-}
-.ui-widget-content {
-  height: 4px;
-  background-color: #b7b7b7;
-  border: none !important;
-  position: relative;
-}
 
-.ui-widget-header {
-  background-color: #214472 !important;
-  position: absolute;
-  height: 100%;
-}
-
-.ui-slider-handle {
-  top: -8px !important;
-  height: 20px;
-  width: 20px;
-  background-color: #214472 !important;
-  border-radius: 10px;
-  border-color: #214472 !important;
-  position: absolute;
-}
 
 
 /* Product card */
