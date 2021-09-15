@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import View
@@ -30,14 +29,14 @@ class FilterProductView(View):
     template_name = "core/sale.html"
 
     def get(self, request, sort_type):
-        product_list = Product.objects.all()
+        product_list = Product.objects.all().prefetch_related('produit')
         if sort_type == 'on-solde':
-            product_list = Product.objects.filter(status="On Sale").all()
+            product_list = Product.objects.filter(status="On Sale").all().prefetch_related('produit')
         elif sort_type == 'new':
-            product_list = Product.objects.filter(status="New").all()
+            product_list = Product.objects.filter(status="New").all().prefetch_related('produit')
         elif sort_type == 'price' and request.POST['price']:
             products_list = Product.objects.filter(
-                price=request.POST['price']).all()
+                price=request.POST['price']).all().prefetch_related('produit')
 
         paginator = Paginator(product_list, 12)
 
@@ -58,15 +57,15 @@ class SortProductView(View):
     template_name = "core/sale.html"
 
     def get(self, request, sort_type):
-        product_list = Product.objects.all()
+        product_list = Product.objects.all().prefetch_related('produit')
         if sort_type == 'plus-recents':
-            product_list = Product.objects.order_by('-post_on')
+            product_list = Product.objects.order_by('-post_on').prefetch_related('produit')
         elif sort_type == 'plus-anciens':
-            product_list = Product.objects.order_by('+post_on')
+            product_list = Product.objects.order_by('+post_on').prefetch_related('produit')
         elif sort_type == 'bas-haut':
-            product_list = Product.objects.order_by('-price')
+            product_list = Product.objects.order_by('-price').prefetch_related('produit')
         elif sort_type == 'haut-bas':
-            product_list = Product.objects.order_by('+price')
+            product_list = Product.objects.order_by('+price').prefetch_related('produit')
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -86,7 +85,7 @@ class ShopView(View):
     template_name = "core/shop.html"
 
     def get(self, request, *args, **kwargs):
-        product_list = Product.objects.all()
+        product_list = Product.objects.all().prefetch_related('produit')
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -98,7 +97,7 @@ class ShopView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             products = paginator.page(paginator.num_pages)
-        context = {}
+        context = {'products':products}
         return render(request, self.template_name, context)
 
 
@@ -127,7 +126,7 @@ class ProductView(View):
     template_name = "core/product.html"
 
     def get(self, request, product_slug):
-        product = Product.objects.get_or_404(Product, slug=product_slug)
+        product = Product.objects.get_or_404(Product, slug=product_slug).prefetch_related('produit')
         pictures = ProductImage.objects.filter(product=product.id)
         context = {'product': product,
                    'pictures': pictures

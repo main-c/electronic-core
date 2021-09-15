@@ -74,7 +74,7 @@ class Product(models.Model):
 class ProductImage(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='products_image')
-    product = models.ForeignKey(Product, models.CASCADE)
+    product = models.ForeignKey(Product, models.CASCADE, related_name='produit')
 
 
 class Order(models.Model):
