@@ -29,6 +29,8 @@ class ShopView(TemplateView):
 class ProductView(TemplateView):
     template_name = "core/product.html"
 
+class CheckoutverView(TemplateView):
+    template_name = "core/checkout.html"
 
 class CartView(TemplateView): #Panier
     template_name = "core/cart.html"
