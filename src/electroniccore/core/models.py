@@ -62,7 +62,9 @@ class Product(models.Model):
     description =  QuillField()
     qte = models.IntegerField()
     status = models.CharField(max_length=100, choices=STATUS, default='New')
+    post_on = models.DateField(auto_now=True)
     category_id = models.ForeignKey(Category, models.CASCADE)
+
 
     def __str__(self):
         return f'{self.title}'

@@ -26,11 +26,83 @@ class AccountView(TemplateView):  # Dashboard
     template_name = "core/account.html"
 
 
-class ShopView(TemplateView):
+class FilterProductView(View):
+    template_name = "core/sale.html"
+
+    def get(self, request, sort_type):
+        product_list = Product.objects.all()
+        if sort_type == 'on-solde':
+            product_list = Product.objects.filter(status="On Sale").all()
+        elif sort_type == 'new':
+            product_list = Product.objects.filter(status="New").all()
+        elif sort_type == 'price' and request.POST['price']:
+            products_list = Product.objects.filter(
+                price=request.POST['price']).all()
+
+        paginator = Paginator(product_list, 12)
+
+        page = request.GET.get('page')
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            products = paginator.page(paginator.num_pages)
+        context = {"products": products}
+        return render(request, self.template_name, context)
+
+
+class SortProductView(View):
+    template_name = "core/sale.html"
+
+    def get(self, request, sort_type):
+        product_list = Product.objects.all()
+        if sort_type == 'plus-recents':
+            product_list = Product.objects.order_by('-post_on')
+        elif sort_type == 'plus-anciens':
+            product_list = Product.objects.order_by('+post_on')
+        elif sort_type == 'bas-haut':
+            product_list = Product.objects.order_by('-price')
+        elif sort_type == 'haut-bas':
+            product_list = Product.objects.order_by('+price')
+        paginator = Paginator(product_list, 12)
+
+        page = request.GET.get('page')
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            products = paginator.page(paginator.num_pages)
+        context = {"products": products}
+        return render(request, self.template_name, context)
+
+
+class ShopView(View):
     template_name = "core/shop.html"
 
+    def get(self, request, *args, **kwargs):
+        product_list = Product.objects.all()
+        paginator = Paginator(product_list, 12)
 
-class CateorygView(View):
+        page = request.GET.get('page')
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            products = paginator.page(paginator.num_pages)
+        context = {}
+        return render(request, self.template_name, context)
+
+
+class DetailCategoryView(View):
     template_name = "core/category.html"
 
     def get(self, request, category_slug):
@@ -270,3 +342,33 @@ class SignupView(TemplateView):
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
 
+
+class SearchView(View):
+    template_name = "core/search.html"
+
+    def post(self, request,  *args, **kwargs):
+        searched = request.POST["searched"]
+        results = Product.objects.filter(slug__icontains=searched)
+        nbre = len(results)
+        paginator = Paginator(results, 9)
+
+        page = request.GET.get('page')
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            products = paginator.page(paginator.num_pages)
+
+        context = {
+            "searched": searched,
+            "nbre": nbre,
+            "products": products,
+        }
+        return render(request, self.template_name, context)
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, self.template_name, context)

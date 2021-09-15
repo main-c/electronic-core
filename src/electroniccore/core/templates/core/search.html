@@ -20,8 +20,8 @@
 					<p class="my-auto">Prix: 100F à 1000000F</p>
 					<a href="#" class="py-1 px-2 text-decoration-none border border-1 border-primary">Filtrer</a>
 				</div>
-				<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 border-primary">En solde</a>
-				<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 border-primary">Nouveautés</a>
+				<a href="{% url "core:filter" 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 border-primary">En solde</a>
+				<a href="{% url "core:filter" 'new' %}" class="py-1 px-2 text-decoration-none border border-1 border-primary">Nouveautés</a>
 				<div class="mt-5 d-grid">
 					<p class="fw-bold mb-3">Filtrer par Catégorie</p>
 					{% for category in categories %}
@@ -36,18 +36,20 @@
 			<div class="col-lg-8 mx-auto py-5">
 
 				<div class="d-flex justify-content-between mb-5 border border-secondary border-top-0 border-start-0 border-end-0">
-					
-					<p class="text-secondary"><span class="text-danger">Tous</span> nos produits</p>
+					{% if nbre > 0 %}
+						<p class="text-secondary"><span class="text-danger">Aucun</span> Produit trouvé</p>
+					{% else %}
+						<p class="text-secondary"><span class="text-danger">{{nbre}}</span> Produits trouvés</p>
+					{% endif %}
 					<div class="d-flex">
 						<div>
 							<a class="nav-link dropdown-toggle text-secondary" href="#" id="sortBy" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							Trier par
 							</a>
 							<ul class="dropdown-menu dropdown-menu-light" aria-labelledby="sortBy">
-								<li><a class="dropdown-item" href="{% url 'core:sort' 'plus-recent' %}">Plus recents</a></li>
-								<li><a class="dropdown-item" href="{% url 'core:sort' 'plus-anciens' %}">Plus anciens</a></li>
-								<li><a class="dropdown-item" href="{% url 'core:sort' 'bas-haut' %}">Prix: bas - haut </a></li>
-								<li><a class="dropdown-item" href="{% url 'core:sort' 'haut-bas' %}">Prix: haut - bas </a></li>
+								<li><a class="dropdown-item" href="#">En solde</a></li>
+								<li><a class="dropdown-item" href="#">Nouveautés</a></li>
+								<li><a class="dropdown-item" href="#">Les plus vendus</a></li>
 							</ul>
 						</div>
 					</div>
