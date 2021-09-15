@@ -58,8 +58,9 @@ class Product(models.Model):
 
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    price = models.FloatField()
-    description =  QuillField()
+    price = models.IntegerField()
+    full_desc = QuillField(default='', null=True, blank=True)
+    mini_desc = QuillField(default='', null=True, blank=True)
     qte = models.IntegerField()
     status = models.CharField(max_length=100, choices=STATUS, default='New')
     post_on = models.DateField(auto_now=True)
@@ -73,7 +74,7 @@ class Product(models.Model):
 class ProductImage(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='products_image')
-    product_id = models.ForeignKey(Product, models.CASCADE)
+    product = models.ForeignKey(Product, models.CASCADE)
 
 
 class Order(models.Model):
