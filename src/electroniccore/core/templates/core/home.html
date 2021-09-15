@@ -120,7 +120,9 @@
 					<div class="col-lg-4 mt-3">
 						{% for product in products %}
 							<div class="product rounded p-2 h-100">
-							  <img src="{{product.get_main_image}" class="img-fluid" alt="" />
+								{% for picture in pictures %}
+							  		<img src="{{picture.url}}" class="img-fluid" alt="" />
+							  	{% endfor %}
 							  <div class="overlay">
 							  	<div class="d-flex justify-content-center mt-5">
 								    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
@@ -132,14 +134,15 @@
 					            </div>
 							   </div>
 							   <div class="ps-1 mt-3 w-100">
-									<p class="text-secondary my-0">{{product.category_id}}</p>
+									<p class="text-secondary my-0">{{ product.category_id }}</p>
 									<div class="d-flex justify-content-between">
-										<p class="fs-5 my-auto">{{product.title}}</p>
-										<p class="my-auto me-lg-3">{{product.price}} XFA</p>
+										<p class="fs-5 my-auto">{{ product.title }}</p>
+										<p class="my-auto me-lg-3">{{ product.price }} XFA</p>
 									</div>
 							   </div>
 							</div>
-					{% endfor %}
+						{% endfor %}
+					</div>
 				</div>
 				<!--Button here-->
 		    </div>

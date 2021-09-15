@@ -23,22 +23,19 @@
 			<div class="col-lg-3 mx-auto py-5">
 				<p class="fw-bold">Filtrer par prix</p>
 
-				<div class="bg">
-					<input type="hidden" name="min">
-					<input type="hidden" name="max">
-					<label>
-					  <span id="min"></span> à <span id="max"></span>
-					</label> 
-					<br><br>
-					<div id="slider-range" class="w-75"></div>
+				<div class="d-grid ms-2">
+					<div class="d-flex">
+						<input type="number" placeholder="min" min="0" name="min" class="text-center rounded-pill border w-25" style="-moz-appearance: textfield">
+						<input type="number" placeholder="max" min="0" name="max" class="text-center rounded-pill border w-25" style="-moz-appearance: textfield">
+						<button type="submit" class="py-1 px-3 text-decoration-none rounded-pill bg-primary text-center ms-lg-3 text-light">Filtrer</button>
+					</div>
 				</div>
 
-				<div class="d-flex justify-content-around">
-					<p class="my-auto">Prix: 100F à 1000000F</p>
-					<a href="#" class="py-1 px-2 text-decoration-none border border-1 border-primary">Filtrer</a>
+				<p class="fw-bold mt-3">Autre</p>
+				<div class="d-flex justify-content-start">
+					<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 rounded-pill border-primary mx-2">En solde</a>
+					<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 rounded-pill border-primary mx-2">Nouveautés</a>
 				</div>
-				<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 border-primary">En solde</a>
-				<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 border-primary">Nouveautés</a>
 				<div class="mt-5 d-grid">
 					<p class="fw-bold mb-3">Filtrer par Catégorie</p>
 					{% for category in categories %}
@@ -71,6 +68,7 @@
 				</div>
 
 				<div class="row">
+					<!--
 					{% for product in products %}
 						<div class="col-lg-3 mx-lg-4 mt-3">
 							<div class="product">
@@ -86,19 +84,45 @@
 						 	</div>
 						</div>
 					{% endfor %}
+					-->
+					<div class="col-lg-4 mt-3">
+						{% for product in products %}
+							<div class="product rounded p-2 h-100">
+								{% for picture in pictures %}
+							  		<img src="{{picture.url}}" class="img-fluid" alt="" />
+							  	{% endfor %}
+							  <div class="overlay">
+							  	<div class="d-flex justify-content-center mt-5">
+								    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
+								    	<i class="fa fa-shopping-cart"></i>
+						            </a>
+						            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
+								    	<i class="fa fa-eye my-auto"></i>
+						            </a>
+					            </div>
+							   </div>
+							   <div class="ps-1 mt-3 w-100">
+									<p class="text-secondary my-0">{{ product.category_id }}</p>
+									<div class="d-flex justify-content-between">
+										<p class="fs-5 my-auto">{{ product.title }}</p>
+										<p class="my-auto me-lg-3">{{ product.price }} XFA</p>
+									</div>
+							   </div>
+							</div>
+						{% endfor %}
+					</div>
 				</div>
+
 				<div class="row pull-right">
-                    <nav>
-                        <ul class="pagination">
-                            {% if products.has_previous %}
-                                <li class="previous"><a href="?page={{ products.previous_page_number }}"><span aria-hidden="true">&larr;</span> page précédente</a></li>
-                            {% endif %}
-                            <li class="disabled"><a href="#">Page {{ products.number }} sur {{ products.paginator.num_pages }}</a></li>
-                            {% if products.has_next %}
-                                <li><a href="?page={{ products.next_page_number }}"> page suivante <span aria-hidden="true">&rarr;</span></a></li>
-                            {% endif %}
-                        </ul>
-                    </nav>
+                    <ul class="pagination">
+                        {% if products.has_previous %}
+                            <li class="previous"><a href="?page={{ products.previous_page_number }}"><span aria-hidden="true">&larr;</span> page précédente</a></li>
+                        {% endif %}
+                        <li class="disabled"><a href="#">Page {{ products.number }} sur {{ products.paginator.num_pages }}</a></li>
+                        {% if products.has_next %}
+                            <li><a href="?page={{ products.next_page_number }}"> page suivante <span aria-hidden="true">&rarr;</span></a></li>
+                        {% endif %}
+                    </ul>
                 </div>
 
 			</div>
