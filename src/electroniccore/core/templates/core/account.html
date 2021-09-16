@@ -13,47 +13,49 @@
 					</h5>
 				</div>
 				<div class="d-grid my-3">
-					<a href="#" class="p-2 text_dashboard text-decoration-none">Tabeau de bord</a>
-					<a href="#" class="p-2 text_dashboard text-decoration-none">Commandes</a>
-					<a href="#" class="p-2 text_dashboard text-decoration-none">Adresses de facturation</a>
-					<a href="#" class="p-2 text_dashboard text-decoration-none">Détails du compte</a>
+					<a href="{% url 'core:dashboard' %}" class="p-2 text_dashboard text-decoration-none">Tabeau de bord</a>
+					<a href="{% url 'core:command' %}" class="p-2 text_dashboard text-decoration-none">Commandes</a>
+					<a href="{% url 'core:billing_address' %}" class="p-2 text_dashboard text-decoration-none">Adresses de facturation</a>
+					<a href="{% url 'core:detail_account' %}" class="p-2 text_dashboard text-decoration-none">Détails du compte</a>
 					<a href="#" class="btn btn-larger fw-bold btn-block me-auto ms-2 p-2 mt-3">Déconnexion</a>
 				</div>
 			</div>
 			<div class="col-lg-7 mx-auto px-lg-5 border border-top-0 border-bottom-0 border-end-0">
 				<div class="my-auto">
-					<p class="text-secondary text-center">
-						À partir du tableau de bord de votre compte, vous pouvez visualiser vos commandes déjà éffectuées, gérer vos adresses de livraison et de facturation ainsi que consulter les détails de votre compte.
-					</p>
-					<div class="row pt-lg-5 mx-auto">
-						<div class="col-lg-3 mx-auto card_account border p-2 pt-lg-3 d-grid text-center rounded">
-							<a href="#" class="text-decoration-none">
-								<i class="fa fa-3x fa-file"></i>
-								<p class="text-uppercase text-dark mt-3">Commandes</p>
-							</a>
+					{% block contentAccount %}
+						<p class="text-secondary text-center">
+							À partir du tableau de bord de votre compte, vous pouvez visualiser vos commandes déjà éffectuées, gérer vos adresses de livraison et de facturation ainsi que consulter les détails de votre compte.
+						</p>
+						<div class="row pt-lg-5 mx-auto">
+							<div class="col-lg-3 mx-auto card_account border p-2 pt-lg-3 d-grid text-center rounded">
+								<a href="{% url 'core:command' %}" class="text-decoration-none">
+									<i class="fa fa-3x fa-file"></i>
+									<p class="text-uppercase text-secondary mt-3">Commandes</p>
+								</a>
+							</div>
+							<div class="col-lg-3 mx-auto card_account border p-2 pt-lg-3 d-grid text-center rounded">
+								<a href="{% url 'core:billing_address' %}" class="text-decoration-none">
+									<i class="fa fa-3x fa-location-arrow"></i>
+									<p class="text-uppercase text-secondary mt-3">Adresses</p>
+								</a>
+							</div>
+							<div class="col-lg-3 mx-auto card_account border p-2 pt-lg-3 d-grid text-center rounded">
+								<a href="{% url 'core:detail_account' %}" class="text-decoration-none">
+									<i class="fa fa-3x fa-user"></i>
+									<p class="text-uppercase text-secondary mt-3">Détails du compte</p>
+								</a>
+							</div>
 						</div>
-						<div class="col-lg-3 mx-auto card_account border p-2 pt-lg-3 d-grid text-center rounded">
-							<a href="#" class="text-decoration-none">
-								<i class="fa fa-3x fa-location-arrow"></i>
-								<p class="text-uppercase text-dark mt-3">Adresses</p>
-							</a>
+						<div class="row mt-3 pt-lg-5 mx-auto">
+							
+							<div class="col-lg-3 mx-auto card_account border p-2 pt-lg-3 d-grid text-center rounded">
+								<a href="#" class="text-decoration-none">
+									<i class="fa fa-3x fa-sign-out"></i>
+									<p class="text-uppercase text-secondary mt-3">Déconnexion</p>
+								</a>
+							</div>
 						</div>
-						<div class="col-lg-3 mx-auto card_account border p-2 pt-lg-3 d-grid text-center rounded">
-							<a href="#" class="text-decoration-none">
-								<i class="fa fa-3x fa-user"></i>
-								<p class="text-uppercase text-dark mt-3">Détails du compte</p>
-							</a>
-						</div>
-					</div>
-					<div class="row mt-3 pt-lg-5 mx-auto">
-						
-						<div class="col-lg-3 mx-auto card_account border p-2 pt-lg-3 d-grid text-center rounded">
-							<a href="#" class="text-decoration-none">
-								<i class="fa fa-3x fa-sign-out"></i>
-								<p class="text-uppercase text-dark mt-3">Déconnexion</p>
-							</a>
-						</div>
-					</div>
+					{% endblock %}
 				</div>
 			</div>
 		</div>

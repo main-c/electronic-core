@@ -415,6 +415,9 @@ button{
 
 /* Dashboard Page */
 
+.hide {
+  display: none;
+}
 .text_dashboard{
   color: black;
 }
@@ -423,7 +426,7 @@ button{
   background-color: lightyellow;
 }
 .card_account a{
-  color: black;
+  color: grey;
 }
 .card_account a:hover{
   color: royalblue;
@@ -440,3 +443,19 @@ button{
 }
 
 /* Fixed header on scroll */
+
+
+/* Command page */
+
+.command_card{
+  border-left: 5px solid steelblue;
+}
+.command_card:hover{
+  background-color: #B9D3EE;
+  border-left: 5px solid royalblue;
+}
+
+
+.bg_notFound{
+  background-color: steelblue;
+}

@@ -1,14 +1,11 @@
-var nav = document.querySelector('.nav')
-var navbar = document.querySelector('.navbar')
+var wrap = $("#wrap");
 
+wrap.on("scroll", function(e) {
 
-window.addEventListener('scroll',()=>{
+  if (this.scrollTop > 147) {
+    wrap.addClass("fix-search");
+  } else {
+    wrap.removeClass("fix-search");
+  }
 
-	if(window.scrollY > 100){
-
-		nav.classList.add('navScroll')
-	}
-	else {
-		nav.classList.remove('navScroll')
-	}
 });

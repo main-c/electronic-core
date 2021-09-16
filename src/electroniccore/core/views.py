@@ -38,8 +38,32 @@ class CartView(TemplateView):
     template_name = "core/cart.html"
 
 
+class ProductTestView(TemplateView):
+    template_name = "core/product_test.html"
+
+
 class AccountView(TemplateView):  # Dashboard
     template_name = "core/account.html"
+
+
+class CommandView(TemplateView):
+    template_name = "core/command.html"
+
+
+class DashboardView(TemplateView):
+    template_name = "core/dashboard.html"
+
+
+class BillingaddressView(TemplateView):
+    template_name = "core/billing_address.html"
+
+
+class DetailaccountView(TemplateView):
+    template_name = "core/detail_account.html"
+
+
+class NotFoundView(TemplateView):
+    template_name = "core/not_found.html"
 
 
 class FilterProductView(View):
