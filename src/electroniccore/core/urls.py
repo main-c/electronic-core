@@ -1,6 +1,6 @@
 from django.urls import path
 from core.views import (DetailCategoryView, HomeView, AccountView, ShopView, ProductView,
-                        CheckoutView, PaymentView, Login,
+                        CheckoutView, PaymentView, Login, ProductTestView,
                         Logout, SignupView, CartView, SearchView, SortProductView, FilterProductView,
                         CheckoutverView, CommandView, CommandView, DashboardView, BillingaddressView,
                         DetailaccountView, NotFoundView
@@ -13,6 +13,7 @@ urlpatterns = [
     path('my-account/', AccountView.as_view(), name='account'),
     path('shop/', ShopView.as_view(), name='shop'),
     path('product/<str:product_slug>', ProductView.as_view(), name='product'),
+    path('product_test/', ProductTestView.as_view(), name='product_test'),
     path('checkout/<int:order_id>', CheckoutView.as_view(), name='checkouts'),
     path('checkout/', CheckoutverView.as_view(), name='checkout'),
     path('payment/', PaymentView.as_view(), name='payment'),

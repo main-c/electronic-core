@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="col-lg-9">
-            <div class="d-lg-flex">
+            <div class="d-lg-flex justify-content-between">
                 <div class="d-lg-flex justify-content-between align-items-center border w-75">
                     <div class="dropdown my-lg-0 my-2"> <button class="btn btn-transparent d-flex justify-content-between align-items-center py-lg-2" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="true"> <span class="d-flex align-items-center"><span class="fw-lighter pe-3"> Categories</span> <i class="fa fa-chevron-down ms-auto"></i> </span> </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
@@ -33,6 +33,10 @@
 						</form>
                     </div>
                 </div>
+                <i class="fa fa-heart text-danger my-auto mx-2"> <span class="num rounded-circle">0</span></i>
+                <a href="{% url 'core:cart' %}" class="me-lg-5 my-auto">
+		            <i class="fa fa-1x fa-shopping-bag text-primary mx-2"> <span class="num rounded-circle">0</span> </i>
+		        </a>
                 <!---->
             </div>
             <div class="row d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light py-lg-5 mt-5">
@@ -109,7 +113,7 @@
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="visually-hidden">Next</span>
 					</button>
-					</div>
+				</div>
 		    </div>
 		    <div class="col-lg-8 mx-auto">
 		    	<div class="mx-5 border border-1 border-top-0 border-start-0 border-end-0">
@@ -136,10 +140,15 @@
 							   <div class="ps-1 mt-3 w-100">
 									<p class="text-secondary my-0">{{ product.category_id }}</p>
 									<div class="d-flex justify-content-between">
-										<p class="fs-5 my-auto">{{ product.title }}</p>
+										<p class="fs-5 my-auto">{{ product.title|slice:":10" }}</p>
 										<p class="my-auto me-lg-3">{{ product.price }} XFA</p>
 									</div>
 							   </div>
+							</div>
+						{% empty %}
+							<div class="container d-grid">
+								<img src="/static/core/images/nothing.svg" class="img-fluid mx-auto">
+								<h5 class="fw-bold text-center text-center">Nothing here</h5>
 							</div>
 						{% endfor %}
 					</div>

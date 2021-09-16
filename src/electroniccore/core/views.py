@@ -21,6 +21,10 @@ class CartView(TemplateView):
     template_name = "core/cart.html"
 
 
+class ProductTestView(TemplateView):
+    template_name = "core/product_test.html"
+
+
 class AccountView(TemplateView):  # Dashboard
     template_name = "core/account.html"
 
