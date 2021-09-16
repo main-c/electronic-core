@@ -3,7 +3,7 @@ from core.views import (DetailCategoryView, HomeView, AccountView, ShopView, Pro
                         CheckoutView, PaymentView, Login,
                         Logout, SignupView, CartView, SearchView, SortProductView, FilterProductView,
                         CheckoutverView, CommandView, CommandView, DashboardView, BillingaddressView,
-                        DetailaccountView
+                        DetailaccountView, NotFoundView
                         )
 CheckoutverView
 
@@ -24,8 +24,9 @@ urlpatterns = [
     path('articles/search', SearchView.as_view(), name='search'),
     path('articles/filter/<str:sort_type>', FilterProductView.as_view(), name='filter'),
     path('articles/sort/<str:sort_type>', SortProductView.as_view(), name='sort'),
-    path('command/', CommandView.as_view(), name='command'),
-    path('dashboard/', DashboardView.as_view(), name='dashboard'),
-    path('billing_address/', BillingaddressView.as_view(), name='billing_address'),
-    path('detail_account/', DetailaccountView.as_view(), name='detail_account'),
+    path('my-account/command/', CommandView.as_view(), name='command'),
+    path('my-account/dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('my-account/billing_address/', BillingaddressView.as_view(), name='billing_address'),
+    path('my-account/detail_account/', DetailaccountView.as_view(), name='detail_account'),
+    path('error/', NotFoundView.as_view(), name='not_found'),
 ]

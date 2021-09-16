@@ -41,6 +41,10 @@ class DetailaccountView(TemplateView):
     template_name = "core/detail_account.html"
 
 
+class NotFoundView(TemplateView):
+    template_name = "core/not_found.html"
+
+
 class FilterProductView(View):
     template_name = "core/sale.html"
 

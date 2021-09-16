@@ -3,8 +3,27 @@
 
 {% block contentAccount %}
 
-	<h2 class="text-primary text-center">
-		Billing Address
-	</h2>
+	<div class="container-fluid">
+		<h5 class="text-start text-secondary text-uppercase mb-5">Adresses de facturation</h5>
+		<form>
+			<div id="userform" class="row p-2 pb-4 bg-light shadow-sm">
+				<div class="d-flex justify-content-around mt-3">
+					<div class="col-lg-4 d-grid">
+						<label class="text-secondary">Adresse 1</label>
+						<input type="text" name="" class="form-control shadow-sm">
+					</div>
+					<div class="col-lg-4 d-grid">
+						<label class="text-secondary">Adresse 2</label>
+						<input type="text" name="" class="form-control shadow-sm">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center mt-5">
+					<button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+                    	Enregistrer
+                    </button>
+				</div>
+			</div>
+		</form>
+	</div>
 
 {% endblock %}
