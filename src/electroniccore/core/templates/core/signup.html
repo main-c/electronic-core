@@ -10,28 +10,29 @@
                   <img src="/static/core/images/addcart.svg" class="img-fluid my-auto">
                 </div>
                 <div id="userform" class="col-lg-7 p-5 my-3 mx-auto bg_signup">
-                    <form> 
-                      <h2 class="text-center text-uppercase pb-2">Inscription</h2>
-                      <div class="form-group">
-                        <!--<label class="highlight">Nom<span class="req">*</span> </label>-->
-                        <input type="text" class="form-control bg-transparent text-dark p-3 border-1" id="username" required data-validation-required-message="Entrez un username" autocomplete="on" placeholder="Username">
-                        <p class="help-block text-danger"></p>
-                      </div>
-                      <div class="form-group">
-                        <!--<label class="highlight"> Adresse Email<span class="req">*</span> </label>-->
-                        <input type="email" class="form-control bg-transparent text-dark p-3 border-1" id="email" required data-validation-required-message="Entrez votre adresse Email" autocomplete="on" placeholder="Adresse Email">
-                        <p class="help-block text-danger"></p>
-                      </div>
-                      <div class="form-group">
-                        <!--<label class="highlight"> Mot de passe<span class="req">*</span> </label>-->
-                        <input type="password" class="form-control bg-transparent text-dark p-3 border-1" id="password" required data-validation-required-message="Mot de passe requis" autocomplete="off" placeholder="Mot de passe">
-                        <p class="help-block text-danger"></p>
-                      </div>
-                      <div class="mrgn-30-top d-flex justify-content-center">
-                        <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
-                        S'inscrire
-                        </button>
-                      </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <h2 class="text-center text-uppercase pb-2">Inscription</h2>
+                        <div class="form-group">
+                          <!--<label class="highlight">Nom<span class="req">*</span> </label>-->
+                          <input type="text" class="form-control bg-transparent text-dark p-3 border-1" id="username" name='last_name'required data-validation-required-message="Nom requis" autocomplete="on" placeholder="Nom complet">
+                          <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                          <!--<label class="highlight"> Adresse Email<span class="req">*</span> </label>-->
+                          <input type="email" class="form-control bg-transparent text-dark p-3 border-1" id="email" name='email'required data-validation-required-message="Entrez votre adresse Email" autocomplete="on" placeholder="Adresse mail">
+                          <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                          <!--<label class="highlight"> Mot de passe<span class="req">*</span> </label>-->
+                          <input type="password" class="form-control bg-transparent text-dark p-3 border-1" id="password" name="password" required data-validation-required-message="Mot de passe requis" autocomplete="off" placeholder="Mot de passe">
+                          <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="mrgn-30-top d-flex justify-content-center">
+                          <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+                          S'inscrire
+                          </button>
+                        </div>
                     </form>
                 </div>
               </div>

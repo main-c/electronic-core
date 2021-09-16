@@ -66,18 +66,20 @@ class Product(models.Model):
     post_on = models.DateField(auto_now=True)
     category_id = models.ForeignKey(Category, models.CASCADE)
 
-
     def __str__(self):
         return f'{self.title}'
 
     def get_main_image(self):
-        return self.images.filter(title='main')
+        return self.images.get(title='main').image.url
 
 
 class ProductImage(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='products_image')
     product = models.ForeignKey(Product, models.CASCADE, related_name='images')
+
+    def get_main_image(self):
+        return self.filter(title='main')
 
 
 class Order(models.Model):
@@ -91,8 +93,7 @@ class Order(models.Model):
     price = models.IntegerField(default=0)
     adress = models.ForeignKey(Address, models.CASCADE, null=True)
     state = models.CharField(max_length=100, choices=STATE, default=STATE[1])
-    customer_id = models.ForeignKey(
-        Customer, models.SET_NULL, null=True, default=None)
+    customer = models.ForeignKey(Customer, models.SET_NULL, null=True,)
 
     @property
     def total(self):
@@ -107,17 +108,20 @@ class Order(models.Model):
         return len(order_items)
 
     def __str__(self):
-        return f'commande de {self.customer_id.user.last_name}'
+        return f'commande de {self.customer.user.last_name}'
 
 
 class OrderItem(models.Model):
     qte = models.IntegerField()
     total_price = models.IntegerField(default=0)
-    order = models.ForeignKey(Order, models.CASCADE)
+    order = models.ForeignKey(Order, models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, models.CASCADE)
 
     def total(self):
         return (self.product.price * self.qte)
+
+    def decrease_product_qte(self):
+        self.product.qte -= 1
 
 
 class Payment(models.Model):

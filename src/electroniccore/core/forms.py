@@ -61,8 +61,21 @@ class CheckoutForm(forms.Form):
     city = forms.CharField(max_length=200, required=True)
     street = forms.CharField(max_length=200, required=True)
     note = forms.CharField(widget=forms.Textarea())
-    phone = forms.NumberInput()
-    policy = forms.CharField(widget=forms.CheckboxInput())
+    phone = forms.IntegerField(required=True)
+    policy = forms.CharField(widget=forms.CheckboxInput(), required=True)
 
     class Meta:
         fields = ('city', 'street', 'full_name', 'phone', 'note', 'policy')
+
+    def save(self, commit=False):
+        adress = Address.objects.create(city=self.cleaned_data['city'],
+                                        street=self.cleaned_data['street'],
+                                        phone=self.cleaned_data['phone'],
+                                        full_name=self.cleaned_data['full_name'],
+                                        )
+        return adress
+
+
+class UpdateCartForm(forms.Form):
+    qte = forms.IntegerField()
+    order_item_id = forms.IntegerField(widget=forms.HiddenInput())

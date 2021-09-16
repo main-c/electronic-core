@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import View
-from core.forms import LoginForm, CustomerForm, AdressForm, CheckoutForm
+from core.forms import LoginForm, CustomerForm, AdressForm, CheckoutForm, UpdateCartForm
 from django.contrib.auth import authenticate, login, logout
 from django.forms import ValidationError
 from django.template.loader import render_to_string
@@ -48,9 +48,11 @@ class FilterProductView(View):
     def get(self, request, sort_type):
         product_list = Product.objects.all().prefetch_related('produit')
         if sort_type == 'on-solde':
-            product_list = Product.objects.filter(status="On Sale").all().prefetch_related('produit')
+            product_list = Product.objects.filter(
+                status="On Sale").all().prefetch_related('produit')
         elif sort_type == 'new':
-            product_list = Product.objects.filter(status="New").all().prefetch_related('produit')
+            product_list = Product.objects.filter(
+                status="New").all().prefetch_related('produit')
         elif sort_type == 'price' and request.POST['price']:
             products_list = Product.objects.filter(
                 price=request.POST['price']).all().prefetch_related('produit')
@@ -76,13 +78,17 @@ class SortProductView(View):
     def get(self, request, sort_type):
         product_list = Product.objects.all().prefetch_related('produit')
         if sort_type == 'plus-recents':
-            product_list = Product.objects.order_by('-post_on').prefetch_related('produit')
+            product_list = Product.objects.order_by(
+                '-post_on').prefetch_related('produit')
         elif sort_type == 'plus-anciens':
-            product_list = Product.objects.order_by('+post_on').prefetch_related('produit')
+            product_list = Product.objects.order_by(
+                '+post_on').prefetch_related('produit')
         elif sort_type == 'bas-haut':
-            product_list = Product.objects.order_by('-price').prefetch_related('produit')
+            product_list = Product.objects.order_by(
+                '-price').prefetch_related('produit')
         elif sort_type == 'haut-bas':
-            product_list = Product.objects.order_by('+price').prefetch_related('produit')
+            product_list = Product.objects.order_by(
+                '+price').prefetch_related('produit')
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -102,7 +108,7 @@ class ShopView(View):
     template_name = "core/shop.html"
 
     def get(self, request, *args, **kwargs):
-        product_list = Product.objects.all().prefetch_related('produit')
+        product_list = Product.objects.all().prefetch_related('images')
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -114,7 +120,7 @@ class ShopView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             products = paginator.page(paginator.num_pages)
-        context = {'products':products}
+        context = {'products': products}
         return render(request, self.template_name, context)
 
 
@@ -143,7 +149,8 @@ class ProductView(View):
     template_name = "core/product.html"
 
     def get(self, request, product_slug):
-        product = Product.objects.get_or_404(Product, slug=product_slug).prefetch_related('produit')
+        product = Product.objects.get_or_404(
+            Product, slug=product_slug).prefetch_related('produit')
         pictures = ProductImage.objects.filter(product=product.id)
         context = {'product': product,
                    'pictures': pictures
@@ -152,59 +159,84 @@ class ProductView(View):
 
 
 class CreateCartView(View):  # Panier
-    template_name = "core/cart.html"
+    template_name = "core/home.html"
 
-    def get(self, request, product_slug, qte):
-        if not request.user.is_authenticated():
-            if 'cart' not in request.session:
-                cart = dict()
-            else:
-                cart = request.session['cart']
+    def get(self, request, product_slug, qte=0):
+        if not request.user.is_authenticated:
+            pass
+            """if 'cart' not in request.session:
+                    cart = dict()
+                else:
+                    cart = request.session['cart']
 
-            if product_slug in cart:
-                cart[product_slug] = int(cart[product_slug]) + int(qte)
-            else:
-                cart[product_slug] = qte
+                if product_slug in cart:
+                    cart[product_slug] = int(cart[product_slug]) + int(qte)
+                else:
+                    cart[product_slug] = qte
 
-            request.session['cart'] = cart
+                request.session['cart'] = cart"""
         else:
             client = Customer.objects.get(user=request.user)
-            if Order.objects.filter(customer=client.id, status='In Cart').exists():
-                cart = Order.objects.get(customer=client.id, status='In Cart')
+            product = Product.objects.get(slug=product_slug)
+            if Order.objects.filter(customer=client, state='In Cart').exists():
+                cart = Order.objects.get(customer=client, state='In Cart')
             else:
-                cart = Order(customer=client.id, state='In Cart')
+                cart = Order(customer=client, state='In Cart')
             if OrderItem.objects.filter(product__slug=product_slug, order=cart).exists():
-                order_item = OrderItem.objects.filter(
+                order_item = OrderItem.objects.get(
                     product__slug=product_slug, order=cart)
-                order_item.qte += int(qte)
+                order_item.qte += 1
+                order_item.product.qte -= 1
+                order_item.total_price = order_item.total()
+                cart.price += product.price
             else:
-                product = Product.objects.get(slug=product_slug)
-                order_item = OrderItem(product=product.id, order=cart, qte=qte)
+                order_item = OrderItem(product=product, order=cart, qte=1)
+                order_item.total_price = order_item.total()
+                order_item.decrease_product_qte()
+                cart.price += product.price
 
             cart.save()
             order_item.save()
-            return render(request, self.template_name, )
+            context = {"len_cart": cart.article_qty()}
+            return redirect('core:home')
+
+
+class DeleteItemView(View):
+    template_name = "core/cart.html"
+
+    def get(self, request, product_slug):
+        if not request.user.is_authenticated and 'cart' in request.session:
+            del request.session['cart']
+        else:
+            client = Customer.objects.get(user=request.user.id)
+            cart = Order.objects.filter(customer=client.id, state='In Cart')[0]
+            order_item = cart.items.filter(product__slug=product_slug)[0]
+            cart.price -= order_item.total_price
+            order_item.delete()
+            cart.save()
+        return redirect('core:list_cart')
 
 
 class DeleteCartView(View):
     template_name = "core/cart.html"
 
-    def get(self, request, product_slug):
-        if not request.user.is_authenticated() and 'cart' in request.session:
+    def get(self, request, order_id):
+        if not request.user.is_authenticated and 'cart' in request.session:
             del request.session['cart']
         else:
-            client = Customer.objects.get(user=request.user.id)
-            Order(customer=client.id, state='In Cart').delete()
-        return render(request, self.template_name,)
+            cart = Order.objects.filter(id=order_id)[0]
+            cart.delete()
+        return redirect('core:list_cart')
 
 
-class ListCartView(View):
+"""class UpdateCartView(View):
     template_name = "core/cart.html"
+    form_class = UpdateCartForm
 
     def get(self, request, *args, **kwargs):
         cart = None
         order_items = None
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             if 'cart' in request.session:
                 cart = list()
                 for product, qte in request.session.get('cart').iteritems():
@@ -213,67 +245,102 @@ class ListCartView(View):
                     list.append(cart, order_items)
         else:
             cart = Order.objects.filter(
-                customer=request.user.id, state='In Cart')
-            if cart.exist():
-                order_items = OrderItem.objects.filter(order=cart.id)
-                for item in order_items:
-                    order_items.total_price += item.total()
-
+                customer=request.user.customer, state='In Cart')[0]
+            order_items = cart.items.all()
         context = {'cart': cart,
                    'order_items': order_items
                    }
         return render(request, self.template_name, context=context)
 
+    def post(self, request):
+        form = self.form_class(data=request.POST)
+        order_item_id = form.cleaned_data.get('order_item_id')
+        qte = form.cleaned_data.get('qte')
+        if form.is_valid:
+            order_item = get_object_or_404(OrderItem, id=order_item_id)
+            order_item.qte += qte
+            context = {}
+            if order_item.qte > order_item.product.qte:
+                error_message = 'Limites des stocks atteints'
+                order_item.qte = order_item.product.qte
+                context = {"error_message": error_message}
+            context['qte'] = order_item.qte
+            return render(self, self.template_name, context)
+"""
 
-class CheckoutView(View):  # Formulaire validation commande
-    template_name = "core/checkout.html"
-    form_class = CheckoutForm
 
-    def get(self, request, order_id):
-        form = self.form_class()
+class ListCartView(View):
+    template_name = "core/cart.html"
+    context = {}
+
+    def get(self, request, *args, **kwargs):
         cart = None
         order_items = None
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             if 'cart' in request.session:
                 cart = list()
                 for product, qte in request.session.get('cart').iteritems():
                     order_items = OrderItem(product=product.id, qte=qte)
                     order_items.total_price += order_items.total()
                     list.append(cart, order_items)
-            return render(request, self.template_name, {'form': form})
         else:
-            client = Customer.objects.get(user=request.user)
-            if client.adress:
-                instance = Address.objects.get(id=client.adress)
-                form = self.form_class(request.GET, initial={
-                                       'city': instance.city,
-                                       'street': instance.street,
-                                       'phone': instance.phone,
-                                       'full_name': instance.full_name,
-                                       'note': ''})
-            cart = Order.objects.filter(
-                customer=request.user.id, state='In Cart')
-            if cart.exist():
-                order_items = OrderItem.objects.filter(order=cart.id)
-                for item in order_items:
-                    order_items.total_price += item.total()
-        context = {'cart': cart,
-                   'order_items': order_items
-                   }
-        return render(request, self.template_name, {'form': form})
+            client = Customer.objects.get(user=request.user.id) 
+            cart = Order.objects.filter(customer=client, state='In Cart').first()
+            if cart:
+                order_items = cart.items.all()
+                self.context = {'cart': cart, 'order_items': order_items}
+                return render(request, self.template_name, self.context)
+            else:
+                return render(request, self.template_name, {'error_message': "Panier Vide"})
+
+
+class CheckoutView(View):  # Formulaire validation commande
+    template_name = "core/checkout.html"
+    form_class = CheckoutForm
+    context = {}
+    
+    def get(self, request, order_id):
+        form = self.form_class()
+        cart = None
+        order_items = None
+        client = Customer.objects.get(user=request.user)
+        if client.adress:
+            instance = Address.objects.get(id=client.adress)
+            self.context['instance'] = instance
+        cart = Order.objects.filter(
+            customer=client, state='In Cart').first()
+        if cart:
+            order_items = OrderItem.objects.filter(order=cart.id)
+            for order in order_items:
+                order_items.total_price += item.total()
+        self.context['cart'] = cart
+        self.context['order_items'] = order_items
+        self.context['form'] = form
+
+        return render(request, self.template_name, self.context)
 
     def post(self, request, order_id):
-        if not request.user.is_authenticated():
-            form = self.form_class(request.POST)
-            if form.is_valid():
-                return render(request, self.template_name, {'form': form})
+        client = Customer.objects.get(user=request.user)
+        cart = Order.objects.filter(
+            customer=request.client, state='In Cart').first()
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            address = form.save()
+            client.address = address
+            cart.note = form.cleaned_data['note']
+            client.save()
+            address.save(commit=True)
+            cart.save()
+            return render(request, self.template_name)
+
 
 
 class PaymentView(View):
     template_name = "core/payment.html"
 
     def get(self, request, *args, **kwargs):
-        pass
+        return render(request, self.template_name, self.context)
+
 
 
 class Login(View):

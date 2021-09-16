@@ -120,12 +120,12 @@
 					<div class="col-lg-4 mt-3">
 						{% for product in products %}
 							<div class="product rounded p-2 h-100">
-								{% for picture in pictures %}
-							  		<img src="{{picture.url}}" class="img-fluid" alt="" />
-							  	{% endfor %}
+								
+							  	<img src="{{ product.get_main_image }}" class="img-fluid" alt="" />
+							  	
 							  <div class="overlay">
 							  	<div class="d-flex justify-content-center mt-5">
-								    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
+								    <a href="{% url 'core:add_cart' product.slug %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
 								    	<i class="fa fa-shopping-cart"></i>
 						            </a>
 						            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
@@ -150,186 +150,7 @@
 		<!-- Second section of products -->
 		<div class="container">
 		<div class="row mt-5">
-			<div class="col-lg-3 mt-3">
-				<div class="product rounded p-2 h-100">
-				  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-				  <div class="overlay">
-				  	<div class="d-flex justify-content-center mt-5">
-					    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-shopping-cart"></i>
-			            </a>
-			            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-eye my-auto"></i>
-			            </a>
-		            </div>
-				   </div>
-				   <div class="ps-1 mt-3 w-100">
-						<p class="text-secondary my-0">Ordinateur</p>
-						<div class="d-flex justify-content-between">
-							<p class="fs-5 my-auto">Asus 4SP</p>
-							<p class="my-auto me-lg-3">200 000 XFA</p>
-						</div>
-				   </div>
-				</div>
-			</div>
-			<div class="col-lg-3 mt-3">
-				<div class="product rounded p-2 h-100">
-				  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-				  <div class="overlay">
-				  	<div class="d-flex justify-content-center mt-5">
-					    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-shopping-cart"></i>
-			            </a>
-			            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-eye my-auto"></i>
-			            </a>
-		            </div>
-				   </div>
-				   <div class="ps-1 mt-3 w-100">
-						<p class="text-secondary my-0">Ordinateur</p>
-						<div class="d-flex justify-content-between">
-							<p class="fs-5 my-auto">Asus 4SP</p>
-							<p class="my-auto me-lg-3">200 000 XFA</p>
-						</div>
-				   </div>
-				</div>
-			</div>
-			<div class="col-lg-3 mt-3">
-				<div class="product rounded p-2 h-100">
-				  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-				  <div class="overlay">
-				  	<div class="d-flex justify-content-center mt-5">
-					    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-shopping-cart"></i>
-			            </a>
-			            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-eye my-auto"></i>
-			            </a>
-		            </div>
-				   </div>
-				   <div class="ps-1 mt-3 w-100">
-						<p class="text-secondary my-0">Ordinateur</p>
-						<div class="d-flex justify-content-between">
-							<p class="fs-5 my-auto">Asus 4SP</p>
-							<p class="my-auto me-lg-3">200 000 XFA</p>
-						</div>
-				   </div>
-				</div>
-			</div>
-			<div class="col-lg-3 mt-3">
-				<div class="product rounded p-2 h-100">
-				  <img src="/static/core/images/ecran4.png" class="img-fluid" alt="" />
-				  <div class="overlay">
-				  	<div class="d-flex justify-content-center mt-5">
-					    <a href="{% url 'core:cart' %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-shopping-cart"></i>
-			            </a>
-			            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-					    	<i class="fa fa-eye my-auto"></i>
-			            </a>
-		            </div>
-				   </div>
-				   <div class="ps-1 mt-3 w-100">
-						<p class="text-secondary my-0">Ordinateur</p>
-						<div class="d-flex justify-content-between">
-							<p class="fs-5 my-auto">Asus 4SP</p>
-							<p class="my-auto me-lg-3">200 000 XFA</p>
-						</div>
-				   </div>
-				</div>
-			</div>
-				<!--Button here-->
-				<div class="d-flex justify-content-end me-lg-5 mr-3 mt-lg-5">
-					<a href="{% url 'core:shop' %}" class="btn btn-larger fw-bold btn-block px-3 p-2">
-		            	Visiter la boutique
-		            	<i class="fa fa-arrow-right"></i>
-		            </a>
-				</div>
-		</div>
-		</div>
-	</div>
-
-    <div class="container-fluid mt-5 pt-lg-5" id="contact">
-    	<div class="container mx-auto border border-1 border-top-0 border-start-0 border-end-0">
-    		<h5 class="text-uppercase text-center my-3">Comment nous joindre ?</h5>
-    		<div class="border border-primary mx-auto w-25"></div>
-    	</div>
-		<div class="row py-5 mt-3 mt-lg-5" style="background-image: url(/static/core/images/bg_about.png); background-size: cover; background-attachment: fixed;">
-
-			<div class="col-lg-5 m-auto">
-				<h4 class="text-center my-1 fw-bold text-uppercase text-white">Contact</h4>
-				<div class="d-flex justify-content-around mx-lg-5 my-lg-3 bg-light rounded py-2 py-lg-3">
-					<a href="#" class="contact_icon"><i class="fa fa-4x fa-whatsapp"></i></a>
-					<a href="#" class="contact_icon"><i class="fa fa-4x fa-instagram"></i></a>
-					<a href="#" class="contact_icon"><i class="fa fa-4x fa-facebook"></i></a>
-					<a href="#" class="contact_icon"><i class="fa fa-4x fa-envelope"></i></a>
-				</div>
-			</div>
-
-			<div class="col-lg-5 mx-auto mt-3">
-				<h4 class="text-uppercase text-info">A propos de nous</h4>
-				<p class="text-light">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</p>
-			</div>
-
-		</div>
-	</div>
-    <div class="container my-5 pt-lg-5">
-    	<div class="mx-5 border border-1 border-top-0 border-start-0 border-end-0">
-    		<h5 class="text-uppercase text-center my-3">Aperçus produits</h5>
-    		<div class="border border-primary mx-auto w-25"></div>
-    	</div>
-		<div class="row pt-5">
-			<div class="col-lg-2 mx-auto mt-3">
-				<div class="product">
-				  <img src="/static/core/images/souris2.png" class="w-100" alt="" />
-				  <div class="overlay">
-				    <span class="fs-5">Souris 2</span>
-				  </div>
-				</div>
-				<div class="bg-primary ps-1 w-100">
-					<p class="text-light">Prix: 20 000 XFA</p>
-				 </div>
-			</div>
-			<div class="col-lg-2 mx-auto mt-3">
-				<div class="product">
-				  <img src="/static/core/images/ecran4.png" class="w-100" alt="" />
-				  <div class="overlay">
-				    <span class="fs-5">Ecran 4</span>
-				  </div>
-				</div>
-				<div class="bg-primary ps-1 w-100">
-					<p class="text-light">Prix: 20 000 XFA</p>
-				 </div>
-			</div>
-			<div class="col-lg-2 mx-auto mt-3">
-				<div class="product">
-				  <img src="/static/core/images/camera1.png" class="w-100" alt="" />
-				  <div class="overlay">
-				    <span class="fs-5">Camera 1</span>
-				  </div>
-				</div>
-				<div class="bg-primary ps-1 w-100">
-					<p class="text-light">Prix: 20 000 XFA</p>
-				 </div>
-			</div>
-			<div class="col-lg-2 mx-auto mt-3">
-				<div class="product">
-				  <img src="/static/core/images/clavier2.png" class="w-100" alt="" />
-				  <div class="overlay">
-				    <span class="fs-5">Clavier 2</span>
-				  </div>
-				</div>
-				<div class="bg-primary ps-1 w-100">
-					<p class="text-light">Prix: 20 000 XFA</p>
-				 </div>
-			</div>
+			
 		</div>
 		<div class="d-flex justify-content-end me-lg-5 mr-3 mt-lg-5">
 			<a href="{% url 'core:shop' %}" class="btn btn-larger fw-bold btn-block px-3 p-2">
