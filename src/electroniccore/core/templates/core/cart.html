@@ -4,75 +4,94 @@
 {% block content %}
 
 {%if  error_message %}
-	{{ error_message }}
-	
+
+	<div class="container pt-5" style="background-image: url(/static/core/images/nothing.svg); min-height: 70vh; background-size: contain; background-repeat: no-repeat;">
+		<div class="row">
+			<div class="col-lg-9"></div>
+			<div class="col-lg-3">
+				<h2 class="text-primary fw-bold text-center mt-5 mx-auto">
+					{{ error_message }}
+				</h2>
+				<p class="text-center mt-4 fs-5">Votre panier est vide pour l'instant!!</p>
+				<div class="d-flex justify-content-center">
+					<a href="{% url 'core:shop' %}" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+						<i class="fa fa-shopping-card"></i>
+	                    Visitez La boutique
+	                </a>
+				</div>	
+			</div>
+		</div>
+	</div>
 	
 {% else %}
 
 	<div class="container d-flex my-5">
-		<div class="col-lg-8">
-			<h2 class="fw-bold my-5">Mon panier</h2>
-			<div class="row d-grid ps-4 me-0 py-4 border border-1 rounded">
-				<div class="row mb-1">
-					<div class="col-lg-2">
-						<p class="text-secondary">Echantillon</p>
-					</div>
-					<div class="col-lg-2 d-grid">
-						<p class="text-secondary">Nom</p>
-					</div>
-					<div class="col-lg-1 d-grid">
-						<p class="text-secondary">Qte</p>
-					</div>
-					<div class="col-lg-3 d-grid">
-						<p class="text-secondary">Prix</p>
-					</div>
-					<div class="col-lg-3 d-grid">
-						<p class="text-secondary">Total</p>
-					</div>
-					<div class="col-lg-1 d-grid">
-						<p class="text-secondary">Del</p>
-					</div>					
-				</div>
-					<div class="row row_cart my-1 pt-3">
-					{% for item in order_items %}
+		<div class="row">
+			<div class="col-lg-8">
+				<h2 class="fw-bold my-5">Mon panier</h2>
+				<div class="row d-grid ps-4 me-0 py-4 border border-1 rounded">
+					<div class="row mb-1">
 						<div class="col-lg-2">
-							<img src="{{ item.product.get_main_image }}" class="w-50">
+							<p class="text-secondary">Echantillon</p>
 						</div>
 						<div class="col-lg-2 d-grid">
-							<p class="fw-bold">{{ item.product.title }}</p>
+							<p class="text-secondary">Nom</p>
 						</div>
 						<div class="col-lg-1 d-grid">
-							<input type="number" name="qte" min="1" placeholder="1" class="w-100 border border-1 bg-transparent text-center" style="-moz-appearance: textfield">
+							<p class="text-secondary">Qte</p>
 						</div>
 						<div class="col-lg-3 d-grid">
-							<p class="fw-bold">{{ item.product.price }} XFA</p>
+							<p class="text-secondary">Prix</p>
 						</div>
 						<div class="col-lg-3 d-grid">
-							<p class="fw-bold">{{ item.total_price }} XFA</p>
+							<p class="text-secondary">Total</p>
 						</div>
-						<div class="col-lg-1">
-							<a href="{% url 'core:delete_item' item.product.slug %}"><i class="fa fa-remove"></i></a>
-						</div>
-					{% endfor %}
+						<div class="col-lg-1 d-grid">
+							<p class="text-secondary">Del</p>
+						</div>					
+					</div>
+						<div class="row row_cart my-1 pt-3">
+						{% for item in order_items %}
+							<div class="col-lg-2">
+								<img src="{{ item.product.get_main_image }}" class="w-50">
+							</div>
+							<div class="col-lg-2 d-grid">
+								<p class="fw-bold">{{ item.product.title|slice:":20" }}</p>
+							</div>
+							<div class="col-lg-1 d-grid">
+								<input type="number" name="qte" min="1" placeholder="1" class="w-100 border border-1 bg-transparent text-center" style="-moz-appearance: textfield">
+							</div>
+							<div class="col-lg-3 d-grid">
+								<p class="fw-bold">{{ item.product.price }} XFA</p>
+							</div>
+							<div class="col-lg-3 d-grid">
+								<p class="fw-bold">{{ item.total_price }} XFA</p>
+							</div>
+							<div class="col-lg-1">
+								<a href="{% url 'core:delete_item' item.product.slug %}"><i class="fa fa-remove"></i></a>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="w-100 mt-2 py-2 d-flex justify-content-between">
+						<a href="{% url 'core:shop' %}" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+							<i class="fa fa-arrow-left"></i>
+		                    Poursuivre les achats
+		                </a>
+		                <a href="{% url 'core:delete_order' cart.id %}" class="btn btn-larger bg-primary text-light fw-bold btn-block px-3 p-2"/>
+		                    Vider le panier
+		                </a>
+					</div>
 				</div>
-			<div class="w-100 mt-2 py-2 d-flex justify-content-between">
-				<a href="{% url 'core:shop' %}" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
-					<i class="fa fa-arrow-left"></i>
-                    Poursuivre les achats
-                </a>
-                <a href="{% url 'core:delete_order' cart.id %}" class="btn btn-larger bg-primary text-light fw-bold btn-block px-3 p-2"/>
-                    Vider le panier
-                </a>
 			</div>
-		</div>
-		<div class="col-lg-4 mt-5 pt-lg-5 ms-lg-5">
-			<div class="command py-lg-5 my-lg-auto rounded">
-				<h3 class="text-dark text-center my-2">Total Panier</h3>
-				<h1 class="fw-bold text-secondary text-center my-3">{{cart.price}} XFA</h1>
-				<div class="d-flex justify-content-center mt-3 mt-lg-5">
-					<a href="{% url 'core:checkout' cart.id %}" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
-	                    Valider la commande
-	                </a>
+			<div class="col-lg-4 mt-5 pt-lg-5">
+				<div class="command py-lg-5 my-lg-auto rounded">
+					<h3 class="text-dark text-center my-2">Total Panier</h3>
+					<h1 class="fw-bold text-secondary text-center my-3">{{cart.price}} XFA</h1>
+					<div class="d-flex justify-content-center mt-3 mt-lg-5">
+						<a href="{% url 'core:checkout' cart.id %}" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+		                    Valider la commande
+		                </a>
+					</div>
 				</div>
 			</div>
 		</div>
