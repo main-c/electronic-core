@@ -24,8 +24,11 @@ class HomeView(View):
 
     def get(self, request, *args, **kwargs):
         product_list = Product.objects.all()
-        on_solde_set = Product.objects.filter(status='On sale')
-        item = on_solde_set[random.randint(0, len(on_solde_set))]
+        if Product.objects.filter(status='On sale'):
+            on_solde_set  = Product.objects.filter(status='On sale')
+            item = on_solde_set[random.randint(0, len(on_solde_set))]
+        else:
+            item = None
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -138,8 +141,11 @@ class FilterProductView(View):
 
     def get(self, request, sort_type):
         product_list = Product.objects.all()
-        on_solde_set = Product.objects.filter(status='On sale')
-        item = on_solde_set[random.randint(0, len(on_solde_set))]
+        if Product.objects.filter(status='On sale'):
+            on_solde_set  = Product.objects.filter(status='On sale')
+            item = on_solde_set[random.randint(0, len(on_solde_set))]
+        else:
+            item = None
         if sort_type == 'on-solde':
             product_list = Product.objects.filter(status="On Sale")
         else:
@@ -188,9 +194,11 @@ class SortProductView(View):
     template_name = "core/sort_product.html"
 
     def get(self, request, sort_type):
-        on_solde_set = Product.objects.filter(status='On sale')
-        item = on_solde_set[random.randint(0, len(on_solde_set))]
-
+        if Product.objects.filter(status='On sale').exists():
+            on_solde_set  = Product.objects.filter(status='On sale')
+            item = on_solde_set[random.randint(0, len(on_solde_set))]
+        else:
+            item = None
         product_list = Product.objects.order_by('?')
         if sort_type == 'plus-recents':
             product_list = Product.objects.order_by('+post_on')
@@ -426,8 +434,7 @@ class CheckoutView(View):  # Formulaire validation commande
         order_items = None
         client = Customer.objects.get(user=request.user)
         if client.adress:
-            instance = Address.objects.get(id=client.adress)
-            self.context['instance'] = instance
+            self.context['adress'] = client.adress
         cart = Order.objects.filter(
             customer=client, state='In Cart').first()
         if cart:

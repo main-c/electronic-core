@@ -16,6 +16,9 @@
                         <div class="form-group">
                           <!--<label class="highlight">Nom<span class="req">*</span> </label>-->
                           <input type="text" class="form-control bg-transparent text-dark p-3 border-1" id="username" name='last_name'required data-validation-required-message="Nom requis" autocomplete="on" placeholder="Nom complet">
+                          {% for error in form.last_name.errors %}
+                            <span class="text-danger" > {{ error }} </span>
+                          {% endfor %}
                           <p class="help-block text-danger"></p>
                           {% for error in form.last_name.errors %}
                             <span class="text-danger" > {{ error }} </span>
@@ -24,6 +27,9 @@
                         <div class="form-group">
                           <!--<label class="highlight"> Adresse Email<span class="req">*</span> </label>-->
                           <input type="email" class="form-control bg-transparent text-dark p-3 border-1" id="email" name='email'required data-validation-required-message="Entrez votre adresse Email" autocomplete="on" placeholder="Adresse mail">
+                          {% for error in form.email.errors %}
+                            <span class="text-danger" > {{ error }} </span>
+                          {% endfor %}
                           <p class="help-block text-danger"></p>
                           {% for error in form.email.errors %}
                             <span class="text-danger" > {{ error }} </span>

@@ -1,0 +1,114 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+
+	<div class="container-fluid my-5">
+		<a href="{% url 'core:home' %}" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+			<i class="fa fa-arrow-left"></i>
+        	retour à l'accueil
+        </a>
+		<div class="row">
+			<div class="col-lg-5 ms-lg-5 p-lg-5">
+				<img src="/static/core/images/clavier2.png" class="w-100">
+			</div>
+			<div class="col-lg-6 my-auto">
+				<div class="border p-3 rounded">
+					<p class="fs-3 text-primary">Clavier Lumière</p>
+					<div class="d-flex justify-content-between">
+						<div class="d-grid">
+							<p class="fs-5 fw-bold my-auto">18 000 XFA</p>
+							<p class="text-secondary my-auto">Taxes locales incluses</p>
+						</div>
+						<p class="my-auto text-success"><i class="fa fa-check"></i>En stock</p>
+					</div>
+					<div class="d-grid mt-3" style="width:100px;">
+						<input type="number" name="" min="1" placeholder="Quantité" class="w-100 border border-1 bg-transparent text-center border-primary" style="-moz-appearance: textfield;">
+					</div>
+					<p class="mt-lg-4 mt-3"><h5 class="text-dark">Description</h5>
+
+				<!--  Debut petite description  -->
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+				<!--  Fin petite description  -->
+
+					<div class="d-flex justify-content-end">
+						<a href="{% url 'core:cart' %}" class="btn btn-larger btn-primary text-light mt-3 fw-bold btn-block px-3 p-2"/>
+							<i class="fa fa-shopping-cart"></i>
+				        	Ajouter au panier
+				        </a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Détails lié au produit -->
+		<div class="container mt-5">
+			<div class="ps-0 mb-5 border border-primary border-top-0 border-start-0 border-end-0">
+				<div class="bg-primary d-flex p-2 justify-content-start" style="width: 80px;">
+					<p class="text-light m-auto">Détails</p>
+				</div>
+			</div>
+
+			<!--  Debut Slide  -->
+			<div id="carouselExampleDark" class="container carousel w-75 h-100 carousel-dark slide" data-bs-ride="carousel">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					</div>
+					<div class="carousel-inner">
+						<div class="carousel-item active" data-bs-interval="10000">
+							
+						  <img src="/static/core/images/casque1.png" class="d-block w-75 mx-auto" alt="...">
+						  <div class="my-5 py-5"></div>
+						  <div class="carousel-caption d-none d-md-block">
+						    <h5 class="fw-bold">Casques à gogo</h5>
+						    <p>Lorem ipsum sit amet consectur</p>
+						  </div>
+						</div>
+						<div class="carousel-item" data-bs-interval="2000">
+						  <img src="/static/core/images/ecran2.png" class="d-block w-75 mx-auto" alt="...">
+						  <div class="my-5 py-5"></div>
+						  <div class="carousel-caption d-none d-md-block">
+						    <h5 class="fw-bold">Votre bureau complet</h5>
+						    <p>Lorem ipsum sit amet consectur</p>
+						  </div>
+						</div>
+						<div class="carousel-item">
+						  <img src="/static/core/images/souris2.png" class="d-block w-75 mx-auto" alt="...">
+						  <div class="my-5 py-5"></div>
+						  <div class="carousel-caption d-none d-md-block mt-auto">
+						    <h5 class="fw-bold">Nouvelle souris</h5>
+						    <p>Lorem ipsum sit amet consectur</p>
+						  </div>
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+				<!--  Fin du slide  -->
+
+
+			<div class="pt-5">
+				<!--  Debut grande description  -->
+				<h2 class="fw-bold ">
+					Découvrez le Huawei watch GT 2 au meilleur prix du marché sur goltelho.cm
+				</h2>
+				<p>
+					La montre connectée huawei GT2 pas couteux est dotée d'un écran 1.39 inch AMOLED et se démarque par son élégance. Grace à ce GT2 vous bénéficiez d'une expérience visuelle proche de celle d'une montre traditionnelle ainsi que d'un confort d'utilisation incroyable. Cette montre est très jolie, se porte très bien et très agréable à votre poignet de main. Elle vous permet aussi de répondre à vos appels téléphonique, SMS mais pour cela faudrait que votre soit proche de vous c'est-à-dire 3 ou 4m de vous.
+				</p>
+				<!--  Fin grande description  -->
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
