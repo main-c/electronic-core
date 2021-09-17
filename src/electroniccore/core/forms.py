@@ -60,14 +60,14 @@ class CheckoutForm(forms.Form):
     full_name = forms.CharField(max_length=200, required=True)
     city = forms.CharField(max_length=200, required=True)
     street = forms.CharField(max_length=200, required=True)
-    note = forms.CharField(widget=forms.Textarea())
+    note = forms.CharField(widget=forms.Textarea(), required=False)
     phone = forms.IntegerField(required=True)
     policy = forms.CharField(widget=forms.CheckboxInput(), required=True)
 
     class Meta:
         fields = ('city', 'street', 'full_name', 'phone', 'note', 'policy')
 
-    def save(self, commit=False):
+    def save(self, commit=True):
         adress = Address.objects.create(city=self.cleaned_data['city'],
                                         street=self.cleaned_data['street'],
                                         phone=self.cleaned_data['phone'],

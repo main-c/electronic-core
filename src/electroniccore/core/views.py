@@ -9,7 +9,7 @@ from django.utils.html import strip_tags
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from core.models import (Product, ProductImage,
-                         Category, Customer, OrderItem, Order, Address)
+                         Category, Customer, OrderItem, Order, Address,Payment)
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -171,15 +171,12 @@ class DetailCategoryView(View):
 
 class ProductView(View):
     template_name = "core/product.html"
-
+    product = get_object_or_404(Product, id=3)
+    print(product)
     def get(self, request, product_slug):
-        product = Product.objects.get_or_404(
-            Product, slug=product_slug).prefetch_related('produit')
-        pictures = ProductImage.objects.filter(product=product.id)
-        context = {'product': product,
-                   'pictures': pictures
-                   }
-        return (request, self.template_name, context)
+        product = get_object_or_404(Product, id=3)
+        print(product)
+        return (request, self.template_name, {'product': 'product'})
 
 
 class CreateCartView(View):  # Panier
@@ -200,7 +197,7 @@ class CreateCartView(View):  # Panier
 
                 request.session['cart'] = cart"""
         else:
-            client = Customer.objects.get(user=request.user)
+            client = get_object_or_404(Customer, user=request.user)
             product = Product.objects.get(slug=product_slug)
             if Order.objects.filter(customer=client, state='In Cart').exists():
                 cart = Order.objects.get(customer=client, state='In Cart')
@@ -308,8 +305,9 @@ class ListCartView(View):
                     order_items.total_price += order_items.total()
                     list.append(cart, order_items)
         else:
-            client = Customer.objects.get(user=request.user.id) 
-            cart = Order.objects.filter(customer=client, state='In Cart').first()
+            client = Customer.objects.get(user=request.user.id)
+            cart = Order.objects.filter(
+                customer=client, state='In Cart').first()
             if cart:
                 order_items = cart.items.all()
                 self.context = {'cart': cart, 'order_items': order_items}
@@ -322,7 +320,7 @@ class CheckoutView(View):  # Formulaire validation commande
     template_name = "core/checkout.html"
     form_class = CheckoutForm
     context = {}
-    
+
     def get(self, request, order_id):
         form = self.form_class()
         cart = None
@@ -334,11 +332,11 @@ class CheckoutView(View):  # Formulaire validation commande
         cart = Order.objects.filter(
             customer=client, state='In Cart').first()
         if cart:
-            order_items = OrderItem.objects.filter(order=cart.id)
-            for order in order_items:
-                order_items.total_price += item.total()
-        self.context['cart'] = cart
-        self.context['order_items'] = order_items
+            order_item_set = OrderItem.objects.filter(order=cart)
+            for item in order_item_set:
+                item.total_price += item.total()
+                self.context['cart'] = cart
+                self.context['order_item_set'] = order_item_set
         self.context['form'] = form
 
         return render(request, self.template_name, self.context)
@@ -346,25 +344,43 @@ class CheckoutView(View):  # Formulaire validation commande
     def post(self, request, order_id):
         client = Customer.objects.get(user=request.user)
         cart = Order.objects.filter(
-            customer=request.client, state='In Cart').first()
+            customer=client, state='In Cart').first()
         form = self.form_class(data=request.POST)
         if form.is_valid():
             address = form.save()
-            client.address = address
             cart.note = form.cleaned_data['note']
             client.save()
-            address.save(commit=True)
+            cart.state = 'Validated'
             cart.save()
-            return render(request, self.template_name)
-
+            return render(request, self.template_name, {'client': client, 'cart': cart })
+        else:
+            return render(request, self.template_name, {'form': form})
 
 
 class PaymentView(View):
-    template_name = "core/payment.html"
+    template_name = "core/checkout.html"
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, self.context)
+        client = Customer.objects.get(user=request.user)
+        cart = Order.objects.filter(
+            customer=client, state='In Cart').first()
+        context = {'cart': cart}
+        return render(request, self.template_name, context)
 
+    def post(self, request, *args, **kwargs):
+        client = Customer.objects.get(user=request.user)
+        cart = Order.objects.filter(
+            customer=client, state='Validated').first()
+        if request.POST:
+            card = request.POST['card']
+            payment = Payment.objects.create(payment_mode='Credit Card',
+                                             totken=card,
+                                             amount=cart.price,
+                                             customer_id=client,
+                                             order_id=cart)
+            cart.state = 'Paid'
+            cart.save()
+        return render(request, self.template_name, {'cart': cart})
 
 
 class Login(View):

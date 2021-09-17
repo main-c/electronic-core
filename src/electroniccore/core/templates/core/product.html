@@ -14,24 +14,77 @@
 			</div>
 			<div class="col-lg-6 my-auto">
 				<div class="border p-3 rounded">
-					<p class="fs-3 text-primary">Clavier Lumière</p>
+					<p class="fs-3 text-primary">{{product.title}}</p>
 					<div class="d-flex justify-content-between">
 						<div class="d-grid">
-							<p class="fs-5 fw-bold my-auto">18 000 XFA</p>
+							<p class="fs-5 fw-bold my-auto">{{product.price}} XFA</p>
 							<p class="text-secondary my-auto">Taxes locales incluses</p>
 						</div>
 						<p class="my-auto text-success"><i class="fa fa-check"></i>En stock</p>
 					</div>
-					<p class="mt-lg-4 mt-3"><h5 class="text-dark">Description</h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+					<div class="d-grid mt-3" style="width:100px;">
+						<input type="number" name="" min="1" placeholder="Quantité" class="w-100 border border-1 bg-transparent text-center border-primary" style="-moz-appearance: textfield;">
+					</div>
+					<p class="mt-lg-4 mt-3"><h5 class="text-dark">Description</h5>
+
+				<!--  Debut petite description  -->
+					{{product.mini_desc}}</p>
+				<!--  Fin petite description  -->
+
 					<div class="d-flex justify-content-end">
-						<a href="{% url 'core:cart' %}" class="btn btn-larger btn-primary text-light mt-3 fw-bold btn-block px-3 p-2"/>
+						<a href="{% url 'core:cart' product.slug %}" class="btn btn-larger btn-primary text-light mt-3 fw-bold btn-block px-3 p-2"/>
 							<i class="fa fa-shopping-cart"></i>
 				        	Ajouter au panier
 				        </a>
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<!-- Détails lié au produit -->
+		<div class="container mt-5">
+			<div class="ps-0 mb-5 border border-primary border-top-0 border-start-0 border-end-0">
+				<div class="bg-primary d-flex p-2 justify-content-start" style="width: 80px;">
+					<p class="text-light m-auto">Détails</p>
+				</div>
+			</div>
+
+			<!--  Debut Slide  -->
+			<div id="carouselExampleDark" class="container carousel w-75 h-100 carousel-dark slide" data-bs-ride="carousel">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					</div>
+					<div class="carousel-inner">
+						{% for img in product.images %}
+						<div class="carousel-item active" data-bs-interval="10000">
+						  <img src="{{img.url}}" class="d-block w-75 mx-auto" alt="...">
+						  <div class="my-5 py-5"></div>
+						  <div class="carousel-caption d-none d-md-block">
+						    <h5 class="fw-bold">{{img.title}}</h5>
+						    <p>Lorem ipsum sit amet consectur</p>
+						  </div>
+						</div>
+
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+				<!--  Fin du slide  -->
+
+
+			<div class="pt-5">
+				<!--  Debut grande description  -->
+				{{product.full_desc}}
+				<!--  Fin grande description  -->
+
 			</div>
 		</div>
 	</div>

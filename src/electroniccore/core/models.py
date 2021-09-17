@@ -125,7 +125,7 @@ class OrderItem(models.Model):
 
 
 class Payment(models.Model):
-    payment_mode = models.CharField(max_length=200)
+    payment_mode = models.CharField(max_length=200,)
     token = models.CharField(max_length=200)
     amount = models.IntegerField()
     paid_on = models.DateTimeField(auto_now=True)

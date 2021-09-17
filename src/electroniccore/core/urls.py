@@ -1,7 +1,7 @@
 from django.urls import path
 
 from core.views import (DeleteItemView, DetailCategoryView, HomeView, AccountView, ShopView, ProductView,
-                        CheckoutView, PaymentView, Login, Logout, SignupView, CartView, SearchView, 
+                        CheckoutView, PaymentView, Login, Logout, SignupView, CartView, SearchView,
                         SortProductView, FilterProductView, CreateCartView, ListCartView,
                         DeleteCartView, NotFoundView, DetailaccountView, BillingaddressView,
                         CommandView, ProductTestView, DashboardView)
@@ -31,19 +31,22 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='cart'),
     path('my-cart/', ListCartView.as_view(), name='list_cart'),
 
-    path('cart/add/<str:product_slug>', CreateCartView.as_view(), name='add_cart'),
-    path('delete-item/<str:product_slug>', DeleteItemView.as_view(), name='delete_item'),
-    path('delete-cart/<int:order_id>', DeleteCartView.as_view(), name='delete_order'),
-    #path('update-cart/<int:qte>', UpdateCartView.as_view(), name='delete_order'),
-
-
-
-    path('articles/filter/<str:sort_type>', FilterProductView.as_view(), name='filter'),
-    path('articles/sort/<str:sort_type>', SortProductView.as_view(), name='sort'),
+    path('cart/add/<str:product_slug>',
+         CreateCartView.as_view(), name='add_cart'),
+    path('delete-item/<str:product_slug>',
+         DeleteItemView.as_view(), name='delete_item'),
+    path('delete-cart/<int:order_id>',
+         DeleteCartView.as_view(), name='delete_order'),
+    path('articles/filter/<str:sort_type>',
+         FilterProductView.as_view(), name='filter'),
+    path('articles/sort/<str:sort_type>',
+         SortProductView.as_view(), name='sort'),
     path('my-account/command/', CommandView.as_view(), name='command'),
     path('my-account/dashboard/', DashboardView.as_view(), name='dashboard'),
-    path('my-account/billing_address/', BillingaddressView.as_view(), name='billing_address'),
-    path('my-account/detail_account/', DetailaccountView.as_view(), name='detail_account'),
+    path('my-account/billing_address/',
+         BillingaddressView.as_view(), name='billing_address'),
+    path('my-account/detail_account/',
+         DetailaccountView.as_view(), name='detail_account'),
     path('error/', NotFoundView.as_view(), name='not_found'),
 
 ]

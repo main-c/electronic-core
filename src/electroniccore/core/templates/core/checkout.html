@@ -11,23 +11,38 @@
 					{% csrf_token %}
 			      <div class="d-grid my-3">
 			        <label class="mb-2 text-secondary">Noms et prénoms<span class="text-danger">*</span></label>
-			        <input type="text" name="full_name" value="" class="form-control shadow-sm" required data-validation-required-message="Entrez un Nom" autocomplete="on">
+			        <input type="text" name="full_name" value="{{form.full_name.value|default_if_none:''}}" class="form-control shadow-sm" required data-validation-required-message="Entrez un Nom" autocomplete="on">
+			        {% for error in form.full_name.errors %}
+						<span class="text-danger" > {{ error }} </span>
+					{% endfor %}
 			        </div>
 			      <div class="d-grid my-3">
 			        <label class="mb-2 text-secondary">Téléphone<span class="text-danger">*</span></label>
-			        <input type="tel" name="phone" class="form-control shadow-sm" required data-validation-required-message="Entrez un numéro de Téléphone" autocomplete="on">
+			        <input type="tel" name="phone" value="{{form.phone.value|default_if_none:''}}" class="form-control shadow-sm" required data-validation-required-message="Entrez un numéro de Téléphone" autocomplete="on">
+			        {% for error in form.phone.errors %}
+						<span class="text-danger" > {{ error }} </span>
+					{% endfor %}
 			      </div>
 			      <div class="d-grid my-3">
 			        <label class="my-2 text-secondary">Quartier<span class="text-danger">*</span></label>
-			        <input type="text" min="1" name="street" class="form-control shadow-sm" required data-validation-required-message="Entrez le nom du quartier" autocomplete="on">
+			        <input type="text" min="1" name="street" value="{{form.street.value|default_if_none:''}}" class="form-control shadow-sm" required data-validation-required-message="Entrez le nom du quartier" autocomplete="on">
+			        {% for error in form.street.errors %}
+						<span class="text-danger" > {{ error }} </span>
+					{% endfor %}
 			      </div>
 			      <div class="d-grid my-3">
 			        <label class="my-2 text-secondary">Ville<span class="text-danger">*</span></label>
-			        <input type="text" min="1" name="city" class="form-control shadow-sm" required data-validation-required-message="Entrez le nom de la ville" autocomplete="on">
+			        <input type="text" min="1" value="{{form.city.value|default_if_none:''}}" name="city" class="form-control shadow-sm" required data-validation-required-message="Entrez le nom de la ville" autocomplete="on">
+			        {% for error in form.city.errors %}
+						<span class="text-danger" > {{ error }} </span>
+					{% endfor %}
 			      </div>
 			      <div class="d-grid my-3">
 			        <label class="mb-2 text-secondary">Note sur la commande</label>
-			        <textarea type="text-area" name="note" class="form-control shadow-sm"></textarea>
+			        <textarea type="text-area" name="note" value="{{form.note.value|default_if_none:''}}" class="form-control shadow-sm"></textarea>
+			        {% for error in form.note.errors %}
+						<span class="text-danger"> {{ error }} </span>
+					{% endfor %}
 			      </div>
 				    
 			</div>
@@ -40,37 +55,30 @@
 						</div>
 
 						<div class="d-grid mt-3">
+							{% for order_item in order_items %}
 							<div class="d-flex px-3 justify-content-between py-3">
 								<div class="d-grid my-auto">
-									<p class="text-uppercase text-dark my-0">Ordinateur Asus * 3</p>
+									<p class="text-uppercase text-dark my-0">{{order_item.product.title|slice:':20'}} * {{order_item.qte}}</p>
 								</div>
-								<p class="text-uppercase text-secondary my-auto">250 000 XFA</p>
+								<p class="text-uppercase text-secondary my-auto">{{order_item.total_price}} XFA</p>
 							</div>
-							<div class="d-flex px-3 justify-content-between py-3">
-								<div class="d-grid my-auto">
-									<p class="text-uppercase text-dark my-0">Ecran plasma</p>
-								</div>
-								<p class="text-uppercase text-secondary my-auto">250 000 XFA</p>
-							</div>
-							<div class="d-flex px-3 justify-content-between py-3">
-								<div class="d-grid my-auto">
-									<p class="text-uppercase text-dark my-0">Casque audio</p>
-								</div>
-								<p class="text-uppercase text-secondary my-auto">250 000 XFA</p>
-							</div>
+							{% endfor %}
 						</div>
 
 						<div class="d-flex bg-transparent px-3 mt-3 justify-content-between pt-2 border border-1 border-primary border-bottom-0 border-start-0 border-end-0">
 							<p class="fs-5 text-uppercase text-dark fw-bold">Total</p>
-							<p class="fs-5 text-uppercase fw-bold text-primary">250 000 XFA</p>
+							<p class="fs-5 text-uppercase fw-bold text-primary">{{cart.price}} XFA</p>
 						</div>
 
 						<div class="d-flex mt-3 mt-lg-4">
-							<input type="checkbox" name="policy" class="border-primary my-auto">
+							<input type="checkbox" name="policy" class="border-primary my-auto" required data-validation-required-message="Entrez le nom du quartier" autocomplete="on">
 							<a href="#" class="text-success ms-2">J'accepte la politique de confidentialité</a>
+							{% for error in form.note.errors %}
+								<span class="text-danger"> {{ error }} </span>
+							{% endfor %}
 						</div>
 						<div class="mt-lg-3">
-					      	<button type="submit" class="button w-100 bg-transparent fw-bold text-primary border border-2 border-primary p-2">
+					      	<button type="submit" class="button w-100 bg-transparent fw-bold text-primary border border-2 border-primary p-2" data-bs-toggle="modal" data-bs-target="#payment">
 					      		Commander
 					      	</button>
 					    </div>
@@ -80,13 +88,41 @@
 
 
 					<div class="mt-lg-3">
-				      	{% include 'core/payment.html' %}
-				    </div>
 
+ <button type='submit' class="button w-100 bg-transparent fw-bold text-primary border border-2 border-primary p-2" data-bs-toggle="modal" data-bs-target="#payment">
+      Payer
+    </button>
+				      	  <!-- Modal connexion -->
+    <div class="modal fade mt-5 pt-lg-5" id="payment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signinLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h3 class="modal-title fw-bold ms-auto text-white text-uppercase" id="signinLabel">
+            <i class="fa fa-money"></i>
+            Paiement</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" style="background-image: url(/static/core/images/bg1.webp);" id="form2">
+            <div class="container">
+              <div id="userform2" class="p-5 my-3">
+                    <form method="POST" action="{% url 'core:payment' %}"> 
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="number" class="form-control bg-transparent text-dark p-3 border-1" id="username" required data-validation-required-message="Entrez un username" autocomplete="on" placeholder="Numéro carte de crédit">
+                        <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="mrgn-30-top d-flex justify-content-center">
+                        <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
+                        Payer {{cart.price }} XFA
+                        </button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+            <!-- /.container --> 
+          </div>
+        </div>
+      </div>
+    </div>
 
-				</div>
-			</div>
-
-	</div>
-
-{% endblock %}
+{%endblock%}

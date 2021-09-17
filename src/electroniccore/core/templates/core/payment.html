@@ -16,14 +16,15 @@
           <div class="modal-body" style="background-image: url(/static/core/images/bg1.webp);" id="form2">
             <div class="container">
               <div id="userform2" class="p-5 my-3">
-                    <form> 
+                    <form method="POST" action="{% url 'core:payment' %}"> 
+                      {{ csrf_token }}
                       <div class="form-group">
                         <input type="number" class="form-control bg-transparent text-dark p-3 border-1" id="username" required data-validation-required-message="Entrez un username" autocomplete="on" placeholder="Numéro carte de crédit">
                         <p class="help-block text-danger"></p>
                       </div>
                       <div class="mrgn-30-top d-flex justify-content-center">
                         <button type="submit" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
-                        Payer 25 000 XFA
+                        Payer {{cart.price }} XFA
                         </button>
                       </div>
                     </form>
