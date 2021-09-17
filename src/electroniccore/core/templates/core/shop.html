@@ -5,7 +5,7 @@
 
 	<div class="container-fluid py-3">
 		<div class="row">
-			<div class="col-lg-4 py-5 ms-lg-5 ps-5  rounded mx-auto">
+			<div class="col-lg-4 pb-5 pt-lg-5 pt-4 ms-lg-5 ps-lg-5 ps-3 order-lg-1 rounded mx-auto">
 				<h5 class="text-danger">Produit en solde</h5>
 				<h2 class="fw-bold text-secondary">Ordinteur KTS</h2>
 				<p class="text-success">120 000 XFA</p>
@@ -14,43 +14,45 @@
 				</div>
 				<a href="#" class="text-secondary">Voir les produits en solde</a>
 			</div>
-			<div class="col-lg-6 mx-auto">
+			<div class="col-lg-6 mx-auto order-lg-2">
 				<img src="/static/core/images/tablette1.png" class="w-100">
 			</div>
 		</div>
 
 		<div class="row mt-3">
-	<div class="row mt-3">
-			<div class="col-lg-3 mx-auto py-5">
-				<p class="fw-bold">Filtrer par prix</p>
+			<div class="col-lg-3 mx-auto pt-5">
+				<div class="mb-lg-0 mb-2">
+		            <p> <a class="btn btn-primary p-3 w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapseCategorie" role="button" aria-expanded="true" aria-controls="collapseCategorie"> <i class="fa fa-bars"><span class="ps-3">Filtrer les produits</span></i> <i class="fa fa-chevron-down"></i> </a> </p>
+		            <div class="collapse show border rounded" id="collapseCategorie">
+		            	<p class="ms-3 mt-3 text-uppercase text-secondary fw-bold">Filtrer par categorie</p>
+		                <ul class="list-unstyled">
+		                   {% for category in categories %}
+		                        <li class="my-2"><a class="dropdown-item" href="{% url 'core:show_category' category.slug %}">{{ category.name }}</a></li>
+							{%endfor%}
+		                </ul>
 
-				<div class="d-grid ms-2">
-					<div class="d-flex">
-						<input type="number" placeholder="min" min="0" name="min" class="text-center rounded-pill border w-25" style="-moz-appearance: textfield">
-						<input type="number" placeholder="max" min="0" name="max" class="text-center rounded-pill border w-25" style="-moz-appearance: textfield">
-						<button type="submit" class="py-1 px-3 text-decoration-none rounded-pill bg-primary text-center ms-lg-3 text-light">Filtrer</button>
-					</div>
-				</div>
+		                <p class="ms-3 mt-3 text-uppercase text-secondary fw-bold">Filtrer par prix</p>
+						<div class="d-grid ms-3">
+							<div class="d-flex">
+								<input type="number" placeholder="min" min="0" name="min" class="text-center rounded-pill border w-25" style="-moz-appearance: textfield">
+								<input type="number" placeholder="max" min="0" name="max" class="text-center rounded-pill border w-25" style="-moz-appearance: textfield">
+								<button type="submit" class="py-1 px-3 text-decoration-none rounded-pill bg-primary text-center ms-lg-3 text-light">Filtrer</button>
+							</div>
+						</div>
 
-				<p class="fw-bold mt-3">Autre</p>
-				<div class="d-flex justify-content-start">
-					<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 rounded-pill border-primary mx-2">En solde</a>
-					<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 rounded-pill border-primary mx-2">Nouveautés</a>
+						<p class="ms-3 mt-4 text-uppercase text-secondary fw-bold">Autre</p>
+						<div class="d-flex justify-content-start ms-3 mb-3">
+							<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 rounded-pill border-primary mx-2">En solde</a>
+							<a href="{% url 'core:filter' 'en-solde' %}" class="py-1 px-2 text-decoration-none border border-1 rounded-pill border-primary mx-2">Nouveautés</a>
+						</div>
+				    </div>
 				</div>
-				<div class="mt-5 d-grid">
-					<p class="fw-bold mb-3">Filtrer par Catégorie</p>
-					{% for category in categories %}
-                    	<a href="{% url 'core:show_category' category.slug %}" class="text-secondary my-2 text-decoration-none">
-						{{ category.name }}
-						</a>
-					{%endfor%}
-					
-				</div>
+				
 			</div>
 
-			<div class="col-lg-8 mx-auto py-5">
+			<div class="col-lg-8 mx-auto pt-5">
 
-				<div class="d-flex justify-content-between mb-5 border border-secondary border-top-0 border-start-0 border-end-0">
+				<div class="d-flex justify-content-between mb-3 border border-secondary border-top-0 border-start-0 border-end-0">
 					
 					<p class="text-secondary"><span class="text-danger">Tous</span> nos produits</p>
 					<div class="d-flex">
@@ -67,70 +69,58 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="row">
-					<!--
-					{% for product in products %}
-						<div class="col-lg-3 mx-lg-4 mt-3">
-							<div class="product">
-								{% for picture in pictures %}
-							  		<img src="{{picture.url}}" class="w-100" alt="" />
-							  	{% endfor %}
-							  	<div class="overlay">
-							    	<span class="fs-5">{{ product.title }}</span>
-							  	</div>
-							</div>
-							<div class="bg-primary ps-1 w-100">
-								<p class="text-light">Prix: {{ product.price}} XFA</p>
-						 	</div>
+				<div class="container-fluid">
+					<form method='POST' action ="{% url 'core:search' %}">
+	                	<div class="d-flex justify-content-between border rounded w-100">
+	                        {%csrf_token%}
+					        <input class="py-lg-3 ps-lg-3 border-0 w-100" type="text" name="searched" placeholder="Rechercher un article">
+					        <button class="btn btn-primary py-lg-2" type="submit">Rechercher</button>
 						</div>
-					{% endfor %}
-					-->
-					<div class="col-lg-4 mt-3">
-						{% for product in products %}
+	                </form>
+				</div>
+				<div class="row">
+					{% for product in products %}
+						<div class="col-lg-4 mt-3">
 							<div class="product rounded p-2 h-100">
-								
 							  	<img src="{{ product.get_main_image }}" class="img-fluid" alt="" />
-							  	
-							  <div class="overlay">
-							  	<div class="d-flex justify-content-center mt-5">
-								    <a href="{% url 'core:add_cart' product.slug %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-								    	<i class="fa fa-shopping-cart"></i>
-						            </a>
-						            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
-								    	<i class="fa fa-eye my-auto"></i>
-						            </a>
-					            </div>
-							   </div>
-							   <div class="ps-1 mt-3 w-100">
+							  	<div class="overlay">
+								  	<div class="d-flex justify-content-center mt-5">
+									    <a href="{% url 'core:add_cart' product.slug %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
+									    	<i class="fa fa-shopping-cart"></i>
+							            </a>
+							            <a href="#" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
+									    	<i class="fa fa-eye my-auto"></i>
+							            </a>
+						            </div>
+							   	</div>
+							   	<div class="ps-1 mt-3 w-100">
 									<p class="text-secondary my-0">{{ product.category_id }}</p>
 									<div class="d-flex justify-content-between">
 										<p class="fs-5 my-auto">{{ product.title|slice:":10" }}</p>
 										<p class="my-auto me-lg-3">{{ product.price }} XFA</p>
 									</div>
-							   </div>
+							   	</div>
 							</div>
-						{% empty %}
-							<div class="container d-grid">
-								<img src="/static/core/images/nothing.svg" class="img-fluid mx-auto">
-								<h5 class="fw-bold text-center text-center">Nothing here</h5>
-							</div>
-						{% endfor %}
-					</div>
+						</div>
+					{% empty %}
+						<div class="container d-grid">
+							<img src="/static/core/images/nothing.svg" class="img-fluid mx-auto">
+							<h5 class="fw-bold text-center text-center">Nothing here</h5>
+						</div>
+					{% endfor %}
 				</div>
 
-				<div class="row pull-right">
-                    <ul class="pagination">
-                        {% if products.has_previous %}
-                            <li class="previous"><a href="?page={{ products.previous_page_number }}"><span aria-hidden="true">&larr;</span> page précédente</a></li>
-                        {% endif %}
-                        <li class="disabled"><a href="#">Page {{ products.number }} sur {{ products.paginator.num_pages }}</a></li>
-                        {% if products.has_next %}
-                            <li><a href="?page={{ products.next_page_number }}"> page suivante <span aria-hidden="true">&rarr;</span></a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-
+				<div class="row pull-right mt-5 mx-auto">
+		            <ul class="pagination">
+		                {% if products.has_previous %}
+		                    <li class="previous"><a href="?page={{ products.previous_page_number }}"  class="text-decoration-none"><span aria-hidden="true">&larr;</span> page précédente</a></li>
+		                {% endif %}
+		                <li class="disabled"><a href="#" class="text-decoration-none">Page {{ products.number }} sur {{ products.paginator.num_pages }}</a></li>
+		                {% if products.has_next %}
+		                    <li><a href="?page={{ products.next_page_number }}"  class="text-decoration-none"> page suivante <span aria-hidden="true">&rarr;</span></a></li>
+		                {% endif %}
+		            </ul>
+		        </div>
 			</div>
 		</div>
 	</div>	
