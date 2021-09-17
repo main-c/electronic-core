@@ -3,7 +3,7 @@
 
 {% block content %}
 
-	<div class="row px-2 mb-lg-5">
+	<div class="row px-2 mb-lg-5 mt-2">
         <div class="col-lg-3 mb-lg-0 mb-2">
             <p> <a class="btn btn-primary p-3 w-100 d-flex align-items-center justify-content-between" data-bs-toggle="collapse" href="#collapseCategorie" role="button" aria-expanded="true" aria-controls="collapseCategorie"> <i class="fa fa-bars"><span class="ps-3">Toutes les catégories</span></i> <i class="fa fa-chevron-down"></i> </a> </p>
             <div class="collapse show border" id="collapseCategorie">
@@ -15,35 +15,27 @@
             </div>
         </div>
         <div class="col-lg-9">
-            <div class="d-lg-flex justify-content-between">
-                <div class="d-lg-flex justify-content-between align-items-center border w-75">
-                    <div class="dropdown my-lg-0 my-2"> <button class="btn btn-transparent d-flex justify-content-between align-items-center py-lg-2" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="true"> <span class="d-flex align-items-center"><span class="fw-lighter pe-3"> Categories</span> <i class="fa fa-chevron-down ms-auto"></i> </span> </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                        	{% for category in categories %}
-                            	<li class="my-2"><a class="dropdown-item" href="{% url 'core:show_category' category.slug %}">{{ category.name }}</a></li>
-							{%endfor%}
-                            
-                        </ul>
-                    </div>
-                    <div class="d-flex align-items-center ps-lg-0">
-                    	<form class="d-flex justify-content-between" method='POST' action ="{% url 'core:search' %}">
-                                {%csrf_token%}
-						        <input class="py-lg-2 w-100 border-0" type="text" name="searched" placeholder="Rechercher un article">
-						        <button class="btn btn-primary py-lg-2 d-flex justify-content-end" type="submit">Rechercher</button>
-						</form>
-                    </div>
+            <div class="d-flex justify-content-between w-100">
+            	<form method='POST' action ="{% url 'core:search' %}" class="w-75">
+                	<div class="d-flex justify-content-between border rounded w-100">
+                        {%csrf_token%}
+				        <input class="py-lg-2 ps-lg-3 border-0 w-100" type="text" name="searched" placeholder="Rechercher un article">
+				        <button class="btn btn-primary py-lg-2" type="submit">Rechercher</button>
+					</div>
+                </form>
+                <div class="my-auto d-flex justify-content-center mx-auto">
+                	<a href="{% url 'core:cart' %}">
+		            	<i class="fa fa-1x fa-shopping-cart text-primary my-auto mx-2"></i>
+		            </a>
+		            	<p class="my-auto text-primary">0</p>
                 </div>
-                <i class="fa fa-heart text-danger my-auto mx-2"> <span class="num rounded-circle">0</span></i>
-                <a href="{% url 'core:cart' %}" class="me-lg-5 my-auto">
-		            <i class="fa fa-1x fa-shopping-bag text-primary mx-2"> <span class="num rounded-circle">0</span> </i>
-		        </a>
                 <!---->
             </div>
             <div class="row d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light py-lg-5 mt-5">
-                <div class="col-lg-5 mx-auto">
-                    <p class="p-green text-success">Nouveau</p>
+                <div class="col-lg-5 mx-3 mt-3 mx-lg-auto">
+                    <p class="p-green text-success mb-0">Nouveau</p>
                     <P class="fs-5 fw-bold">Pack complet</P>
-                    <p class="fs-4 fw-bold">Téléphones et Tablette</p>
+                    <p class="fs-4 fw-bold mb-0">Téléphones et Tablette</p>
                     <p class="text-muted mb-4">une montre en bonus</p>
                     <div class="">
                     	<a href="{% url 'core:cart' %}" class="btn btn-secondary py-2 fw-bold px-3"/>
@@ -121,12 +113,10 @@
 		    		<div class="border border-primary mx-auto w-25"></div>
 		    	</div>
 				<div class="row pt-5">
-					<div class="col-lg-4 mt-3">
-						{% for product in products %}
+					{% for product in products %}
+						<div class="col-lg-4 mt-3">
 							<div class="product rounded p-2 h-100">
-								
-							  	<img src="{{ product.get_main_image }}" class="img-fluid" alt="" />
-							  	
+							  	<img src="{{ product.get_main_image }}" class="img-fluid" alt="" />						  	
 							  <div class="overlay">
 							  	<div class="d-flex justify-content-center mt-5">
 								    <a href="{% url 'core:add_cart' product.slug %}" class="btn btn-larger text-primary border-light bg-light fw-bold btn-block px-3 p-2 mx-2">
@@ -137,36 +127,63 @@
 						            </a>
 					            </div>
 							   </div>
-							   <div class="ps-1 mt-3 w-100">
 									<p class="text-secondary my-0">{{ product.category_id }}</p>
 									<div class="d-flex justify-content-between">
 										<p class="fs-5 my-auto">{{ product.title|slice:":10" }}</p>
 										<p class="my-auto me-lg-3">{{ product.price }} XFA</p>
 									</div>
-							   </div>
+							  	</div>
 							</div>
-						{% empty %}
-							<div class="container d-grid">
-								<img src="/static/core/images/nothing.svg" class="img-fluid mx-auto">
-								<h5 class="fw-bold text-center text-center">Nothing here</h5>
-							</div>
-						{% endfor %}
-					</div>
+						</div>
+					{% empty %}
+						<div class="container d-grid">
+							<img src="/static/core/images/nothing.svg" class="img-fluid mx-auto">
+							<h5 class="fw-bold text-center text-center">Nothing here</h5>
+						</div>
+					{% endfor %}
 				</div>
 				<!--Button here-->
 		    </div>
 		</div>
-		<!-- Second section of products -->
-		<div class="container">
-		<div class="row mt-5">
-			
-		</div>
-		<div class="d-flex justify-content-end me-lg-5 mr-3 mt-lg-5">
+		<div class="d-flex justify-content-end me-lg-5 mr-3 my-lg-5">
 			<a href="{% url 'core:shop' %}" class="btn btn-larger fw-bold btn-block px-3 p-2">
             	Visiter la boutique
             	<i class="fa fa-arrow-right"></i>
             </a>
 		</div>
-    </div>
+
+		<!-- About us and contact -->
+		<div class="container-fluid px-0 mt-5 pt-lg-5" id="contact">
+	    	<div class="container mx-auto border border-1 border-top-0 border-start-0 border-end-0">
+	    		<h5 class="text-uppercase text-center my-3">Comment nous joindre ?</h5>
+	    		<div class="border border-primary mx-auto w-25"></div>
+	    	</div>
+			<div class="row py-5 mt-3 mt-lg-5" style="background-image: url(/static/core/images/bg_about.png); background-size: cover; background-attachment: fixed;">
+
+				<div class="col-lg-5 m-auto">
+					<h4 class="text-center my-1 fw-bold text-uppercase text-white">Contact</h4>
+					<div class="d-flex justify-content-around mx-lg-5 my-lg-3 bg-light rounded py-2 py-lg-3">
+						<a href="#" class="contact_icon"><i class="fa fa-4x fa-whatsapp"></i></a>
+						<a href="#" class="contact_icon"><i class="fa fa-4x fa-instagram"></i></a>
+						<a href="#" class="contact_icon"><i class="fa fa-4x fa-facebook"></i></a>
+						<a href="#" class="contact_icon"><i class="fa fa-4x fa-envelope"></i></a>
+					</div>
+				</div>
+
+				<div class="col-lg-5 mx-auto mt-3">
+					<h4 class="text-uppercase text-info">A propos de nous</h4>
+					<p class="text-light">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</p>
+				</div>
+
+			</div>
+		</div>
+
 
 {% endblock %}
