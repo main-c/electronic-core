@@ -10,7 +10,7 @@
         </a>
 		<div class="row">
 			<div class="col-lg-5 ms-lg-5 p-lg-5">
-				<img src="/static/core/images/clavier2.png" class="w-100">
+				<img src="{{product.get_main_image}}" class="w-100">
 			</div>
 			<div class="col-lg-6 my-auto">
 				<div class="border p-3 rounded">
@@ -28,11 +28,11 @@
 					<p class="mt-lg-4 mt-3"><h5 class="text-dark">Description</h5>
 
 				<!--  Debut petite description  -->
-					{{product.mini_desc}}</p>
+					{{product.mini_desc.html|safe}}</p>
 				<!--  Fin petite description  -->
 
 					<div class="d-flex justify-content-end">
-						<a href="{% url 'core:cart' product.slug %}" class="btn btn-larger btn-primary text-light mt-3 fw-bold btn-block px-3 p-2"/>
+						<a href="{% url 'core:add_cart' product.slug %}" class="btn btn-larger btn-primary text-light mt-3 fw-bold btn-block px-3 p-2"/>
 							<i class="fa fa-shopping-cart"></i>
 				        	Ajouter au panier
 				        </a>
@@ -40,6 +40,16 @@
 				</div>
 			</div>
 		</div>
+
+			<div class="container d-flex justify-content-center">
+				<div class="row">
+					{% for img in pictures %}
+					<div class="col-lg-2">
+						<img src="{{img.image.url}}" class="img-fluid shadow-sm rounded">
+					</div>
+					{%endfor%}
+				</div>
+			</div>
 
 		<!-- Détails lié au produit -->
 		<div class="container mt-5">
@@ -49,40 +59,10 @@
 				</div>
 			</div>
 
-			<!--  Debut Slide  -->
-			<div id="carouselExampleDark" class="container carousel w-75 h-100 carousel-dark slide" data-bs-ride="carousel">
-					<div class="carousel-indicators">
-						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-					</div>
-					<div class="carousel-inner">
-						{% for img in product.images %}
-						<div class="carousel-item active" data-bs-interval="10000">
-						  <img src="{{img.url}}" class="d-block w-75 mx-auto" alt="...">
-						  <div class="my-5 py-5"></div>
-						  <div class="carousel-caption d-none d-md-block">
-						    <h5 class="fw-bold">{{img.title}}</h5>
-						    <p>Lorem ipsum sit amet consectur</p>
-						  </div>
-						</div>
-
-					</div>
-					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
-				</div>
-				<!--  Fin du slide  -->
-
 
 			<div class="pt-5">
 				<!--  Debut grande description  -->
-				{{product.full_desc}}
+				{{product.full_desc.html|safe}}
 				<!--  Fin grande description  -->
 
 			</div>

@@ -1,9 +1,23 @@
 {% extends 'core/base.html' %}
 
+
 {% block content %}
 
 	<div class="container-fluid py-3">
-		
+		<div class="row">
+			<div class="col-lg-4 pb-5 pt-lg-5 pt-4 ms-lg-5 ps-lg-5 ps-3 order-lg-1 rounded mx-auto">
+				<h5 class="text-danger">{{item.title}}</h5>
+				<h2 class="fw-bold text-secondary">{{item.category}}</h2>
+				<p class="text-success">{{item.price}} XFA</p>
+				<div class="mt-auto d-flex mb-1">
+					<a href="{% url 'core:add_cart' item.slug %}" class="p-2 fw-bold text-light bg-primary text-decoration-none rounded">Ajouter au panier</a>
+				</div>
+				<a href="{% url 'core:on_sale' %}" class="text-secondary">Voir les produits en solde</a>
+			</div>
+			<div class="col-lg-6 mx-auto order-lg-2">
+				<img src="{{item.get_main_image}}" class="w-100">
+			</div>
+		</div>
 
 		<div class="row mt-3">
 			<div class="col-lg-3 mx-auto pt-5">
@@ -110,20 +124,6 @@
 		                {% endif %}
 		            </ul>
 		        </div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-4 pb-5 pt-lg-5 pt-4 ms-lg-5 ps-lg-5 ps-3 order-lg-1 rounded mx-auto">
-				<h5 class="text-danger">Produit en solde</h5>
-				<h2 class="fw-bold text-secondary">Ordinteur KTS</h2>
-				<p class="text-success">120 000 XFA</p>
-				<div class="mt-auto d-flex mb-1">
-					<a href="#" class="p-2 fw-bold text-light bg-primary text-decoration-none rounded">Ajouter au panier</a>
-				</div>
-				<a href="#" class="text-secondary">Voir les produits en solde</a>
-			</div>
-			<div class="col-lg-6 mx-auto order-lg-2">
-				<img src="/static/core/images/tablette1.png" class="w-100">
 			</div>
 		</div>
 	</div>	

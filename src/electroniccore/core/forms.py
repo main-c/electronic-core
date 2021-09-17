@@ -29,7 +29,7 @@ class CustomerForm(forms.Form):
 
     def clean_email(self):
         email = self.data["email"]
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(username=email).exists():
             raise forms.ValidationError("Email already used.")
         return email
 
@@ -76,6 +76,21 @@ class CheckoutForm(forms.Form):
         return adress
 
 
-class UpdateCartForm(forms.Form):
-    qte = forms.IntegerField()
-    order_item_id = forms.IntegerField(widget=forms.HiddenInput())
+class FilterForm(forms.Form):
+    min_price = forms.IntegerField()
+    max_price = forms.IntegerField()
+
+    def clean_max_price(self):
+        max_price = self.data['max_price']
+        if not type(max_price) == int:
+            raise forms.ValidationError("max value is not correct.")
+        return max_price
+
+    def clean_min_price(self):
+        min_price = self.data['min_price']
+        if  not type(max_price) == int:
+            raise forms.ValidationError("min value is not correct.")
+        return min_price
+
+    class Meta:
+        fields = ('min_price', 'max_price')

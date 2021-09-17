@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import View
-from core.forms import LoginForm, CustomerForm, AdressForm, CheckoutForm, UpdateCartForm
+from core.forms import LoginForm, CustomerForm, AdressForm, CheckoutForm, FilterForm
 from django.contrib.auth import authenticate, login, logout
 from django.forms import ValidationError
 from django.template.loader import render_to_string
@@ -9,8 +9,14 @@ from django.utils.html import strip_tags
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from core.models import (Product, ProductImage,
-                         Category, Customer, OrderItem, Order, Address,Payment)
+                         Category, Customer, OrderItem, Order, Address, Payment)
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+import random 
+decorators_holder = [
+    login_required(login_url="core:login", redirect_field_name="next"),
+]
 
 
 class HomeView(View):
@@ -18,7 +24,8 @@ class HomeView(View):
 
     def get(self, request, *args, **kwargs):
         product_list = Product.objects.all()
-
+        on_solde_set = Product.objects.filter(status='On sale')
+        item = on_solde_set[random.randint(0, len(on_solde_set))]
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -30,36 +37,96 @@ class HomeView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             products = paginator.page(paginator.num_pages)
-        context = {'products': products}
+        context = {'products': products, 'item': item}
         return render(request, self.template_name, context)
 
 
-class CartView(TemplateView):
-    template_name = "core/cart.html"
+class ProductView(View):
+    template_name = "core/product.html"
+
+    def get(self, request, product_slug):
+        product = get_object_or_404(Product, slug=product_slug)
+        pictures = ProductImage.objects.filter(product=product)
+        return render(request, self.template_name, {'product': product, 'pictures':pictures})
 
 
-class ProductTestView(TemplateView):
-    template_name = "core/product_test.html"
-
-
+@method_decorator(decorators_holder, name="get")
 class AccountView(TemplateView):  # Dashboard
     template_name = "core/account.html"
 
+    def get(self, request, *args, **kwargs):
+        customer = request.user.customer
+        orders = Order.objects.filter(customer=customer)
+        context = {'customer': customer, 'orders': orders}
+        return render(request, self.template_name, context)
 
+
+@method_decorator(decorators_holder, name="get")
 class CommandView(TemplateView):
     template_name = "core/command.html"
 
+    def get(self, request, *args, **kwargs):
+        customer = Customer.objects.get(user=request.user)
+        orders = Order.objects.filter(customer=customer)
+        items_set = list()
+        for order in orders:
+            order_item = OrderItem.objects.filter(order=order)
+            for item in order_item:
+                items_set.append(item)
+        paginator = Paginator(items_set, 3)
 
+        page = request.GET.get('page')
+        try:
+            order_items = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            order_items = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            order_items = paginator.page(paginator.num_pages)
+        context = {'customer': customer, 'orders': orders, 'order_items': order_items }
+        return render(request, self.template_name, context)
+
+
+@method_decorator(decorators_holder, name="get")
 class DashboardView(TemplateView):
     template_name = "core/dashboard.html"
 
 
+@method_decorator(decorators_holder, name="get")
 class BillingaddressView(TemplateView):
     template_name = "core/billing_address.html"
 
+    def get(self, request, *args, **kwargs):
+        customer = Customer.objects.get(user=request.user)
+        if customer.adress:
+            return render(request, self.template_name, {"adress": customer.adress})
+        else:
+            form = CheckoutForm()
+            return render(request, self.template_name, {"form": form})
 
+    def post(self, request, *args, **kwargs):
+        client = Customer.objects.get(user=request.user)
+        form = CheckoutForm(data=request.POST)
+        if form.is_valid():
+            address = form.save()
+            if not client.adress:
+                client.adress = address
+                client.save()
+            else:
+                return render(request, self.template_name, {"adress": client.adress})
+        else:
+            return render(request, self.template_name, {'form': form})
+
+
+@method_decorator(decorators_holder, name="get")
 class DetailaccountView(TemplateView):
     template_name = "core/detail_account.html"
+
+    def get(self, request, *args, **kwargs):
+        customer = Customer.objects.get(user=request.user)
+        context = {'customer': customer}
+        return render(request, self.template_name, context)
 
 
 class NotFoundView(TemplateView):
@@ -67,20 +134,16 @@ class NotFoundView(TemplateView):
 
 
 class FilterProductView(View):
-    template_name = "core/sale.html"
+    template_name = "core/filter_product.html"
 
     def get(self, request, sort_type):
-        product_list = Product.objects.all().prefetch_related('produit')
+        product_list = Product.objects.all()
+        on_solde_set = Product.objects.filter(status='On sale')
+        item = on_solde_set[random.randint(0, len(on_solde_set))]
         if sort_type == 'on-solde':
-            product_list = Product.objects.filter(
-                status="On Sale").all().prefetch_related('produit')
-        elif sort_type == 'new':
-            product_list = Product.objects.filter(
-                status="New").all().prefetch_related('produit')
-        elif sort_type == 'price' and request.POST['price']:
-            products_list = Product.objects.filter(
-                price=request.POST['price']).all().prefetch_related('produit')
-
+            product_list = Product.objects.filter(status="On Sale")
+        else:
+            product_list = Product.objects.filter(status="New")
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -92,27 +155,51 @@ class FilterProductView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             products = paginator.page(paginator.num_pages)
-        context = {"products": products}
+        form = FilterForm()
+        context = {"products": products, 'form': form, 'item': item}
         return render(request, self.template_name, context)
+
+    """def post(self, request, *args, **kwargs):
+                 form = FilterForm(data=request.POST)
+                 if form.is_valid and request.POST:
+                     min_price = form.clean_min_price()
+                     max_price = form.clean_max_price()
+                     min_query = Product.objects.filter(price__gt=min_price)
+                     max_query = Product.objects.filter(price__lt=max_price)
+                     product_list = Product.objects.intersection(min_query, max_query)
+                 else:
+                     product_list = None
+                 paginator = Paginator(product_list, 12)
+         
+                 page = request.GET.get('page')
+                 try:
+                     products = paginator.page(page)
+                 except PageNotAnInteger:
+                     # If page is not an integer, deliver first page.
+                     products = paginator.page(1)
+                 except EmptyPage:
+                     # If page is out of range (e.g. 9999), deliver last page of results.
+                     products = paginator.page(paginator.num_pages)
+                 context = {"products": products}
+                 return render(request, self.template_name, context)"""
 
 
 class SortProductView(View):
-    template_name = "core/sale.html"
+    template_name = "core/sort_product.html"
 
     def get(self, request, sort_type):
-        product_list = Product.objects.all().prefetch_related('produit')
+        on_solde_set = Product.objects.filter(status='On sale')
+        item = on_solde_set[random.randint(0, len(on_solde_set))]
+
+        product_list = Product.objects.order_by('?')
         if sort_type == 'plus-recents':
-            product_list = Product.objects.order_by(
-                '-post_on').prefetch_related('produit')
+            product_list = Product.objects.order_by('+post_on')
         elif sort_type == 'plus-anciens':
-            product_list = Product.objects.order_by(
-                '+post_on').prefetch_related('produit')
+            product_list = Product.objects.order_by('-post_on')
         elif sort_type == 'bas-haut':
-            product_list = Product.objects.order_by(
-                '-price').prefetch_related('produit')
+            product_list = Product.objects.order_by('price')
         elif sort_type == 'haut-bas':
-            product_list = Product.objects.order_by(
-                '+price').prefetch_related('produit')
+            product_list = Product.objects.order_by('-price')
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -124,7 +211,7 @@ class SortProductView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             products = paginator.page(paginator.num_pages)
-        context = {"products": products}
+        context = {"products": products, 'item': item}
         return render(request, self.template_name, context)
 
 
@@ -132,7 +219,7 @@ class ShopView(View):
     template_name = "core/shop.html"
 
     def get(self, request, *args, **kwargs):
-        product_list = Product.objects.all().prefetch_related('images')
+        product_list = Product.objects.all()
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -147,13 +234,37 @@ class ShopView(View):
         context = {'products': products}
         return render(request, self.template_name, context)
 
+    def post(self, request,  *args, **kwargs):
+        searched = request.POST["searched"]
+        results = Product.objects.filter(slug__icontains=searched)
+        nbre = len(results)
+        paginator = Paginator(results, 9)
+
+        page = request.GET.get('page')
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            products = paginator.page(paginator.num_pages)
+
+        context = {
+            "searched": searched,
+            "nbre": nbre,
+            "products": products,
+        }
+        return render(request, self.template_name, context)
+
+
 
 class DetailCategoryView(View):
     template_name = "core/category.html"
 
     def get(self, request, category_slug):
         category = get_object_or_404(Category, slug=category_slug)
-        product_list = Product.object.filter(category=category).all()
+        product_list = Product.objects.filter(category_id=category).all()
         paginator = Paginator(product_list, 12)
 
         page = request.GET.get('page')
@@ -169,16 +280,7 @@ class DetailCategoryView(View):
         return render(request, self.template_name, {'category': category, 'products': products})
 
 
-class ProductView(View):
-    template_name = "core/product.html"
-    product = get_object_or_404(Product, id=3)
-    print(product)
-    def get(self, request, product_slug):
-        product = get_object_or_404(Product, id=3)
-        print(product)
-        return (request, self.template_name, {'product': 'product'})
-
-
+@method_decorator(decorators_holder, name="get")
 class CreateCartView(View):  # Panier
     template_name = "core/home.html"
 
@@ -219,9 +321,10 @@ class CreateCartView(View):  # Panier
             cart.save()
             order_item.save()
             context = {"len_cart": cart.article_qty()}
-            return redirect('core:home')
+            return render(request, self.template_name, context)
 
 
+@method_decorator(decorators_holder, name="get")
 class DeleteItemView(View):
     template_name = "core/cart.html"
 
@@ -238,6 +341,7 @@ class DeleteItemView(View):
         return redirect('core:list_cart')
 
 
+@method_decorator(decorators_holder, name="get")
 class DeleteCartView(View):
     template_name = "core/cart.html"
 
@@ -290,6 +394,7 @@ class DeleteCartView(View):
 """
 
 
+@method_decorator(decorators_holder, name="get")
 class ListCartView(View):
     template_name = "core/cart.html"
     context = {}
@@ -297,25 +402,19 @@ class ListCartView(View):
     def get(self, request, *args, **kwargs):
         cart = None
         order_items = None
-        if not request.user.is_authenticated:
-            if 'cart' in request.session:
-                cart = list()
-                for product, qte in request.session.get('cart').iteritems():
-                    order_items = OrderItem(product=product.id, qte=qte)
-                    order_items.total_price += order_items.total()
-                    list.append(cart, order_items)
+    
+        client = Customer.objects.get(user=request.user)
+        cart = Order.objects.filter(
+            customer=client, state='In Cart').first()
+        if cart:
+            order_items = cart.items.all()
+            self.context = {'cart': cart, 'order_items': order_items}
+            return render(request, self.template_name, self.context)
         else:
-            client = Customer.objects.get(user=request.user.id)
-            cart = Order.objects.filter(
-                customer=client, state='In Cart').first()
-            if cart:
-                order_items = cart.items.all()
-                self.context = {'cart': cart, 'order_items': order_items}
-                return render(request, self.template_name, self.context)
-            else:
-                return render(request, self.template_name, {'error_message': "Panier Vide"})
+            return render(request, self.template_name, {'error_message': "Panier Vide"})
 
 
+@method_decorator(decorators_holder, name="get")
 class CheckoutView(View):  # Formulaire validation commande
     template_name = "core/checkout.html"
     form_class = CheckoutForm
@@ -357,6 +456,7 @@ class CheckoutView(View):  # Formulaire validation commande
             return render(request, self.template_name, {'form': form})
 
 
+@method_decorator(decorators_holder, name="get")
 class PaymentView(View):
     template_name = "core/checkout.html"
 
@@ -427,12 +527,11 @@ class SignupView(TemplateView):
             # on cree un compte
             customer = form.save()
             print(customer)
+
             # envoie d'un mail a l'utilisateur
             user_account = customer.user
             mail_subject = "Inscription réussie"
-            to_email = [
-                user_account.email,
-            ]
+            to_email = [user_account.email,]
             current_site = get_current_site(request)
             html_message = render_to_string(
                 "core/mail_template.html",
@@ -442,7 +541,7 @@ class SignupView(TemplateView):
             send_mail(
                 mail_subject,
                 plain_message,
-                "FindInvest info <stage-dev@yaknema.com>",
+                "Electronic-Core info <stage-dev@yaknema.com>",
                 to_email,
                 fail_silently=False,
                 html_message=html_message,
@@ -495,3 +594,30 @@ class SearchView(View):
     def get(self, request, *args, **kwargs):
         context = {}
         return render(request, self.template_name, context)
+
+
+class OnSaleView(View):
+    template_name = "core/sale_product.html"
+
+    def get(self, request, *args, **kwargs):
+        results = Product.objects.filter(status='On sale')
+        nbre = len(results)
+        paginator = Paginator(results, 9)
+
+        page = request.GET.get('page')
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            products = paginator.page(paginator.num_pages)
+
+        context = {
+            "nbre": nbre,
+            "products": products,
+        }
+        return render(request, self.template_name, context)
+  
+        return render(request, self.template_name, {'item': item})

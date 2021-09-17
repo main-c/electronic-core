@@ -23,7 +23,7 @@ class Newsletter(models.Model):
 
 class Customer(models.Model):
 
-    user = models.OneToOneField(User, models.CASCADE)
+    user = models.OneToOneField(User, models.CASCADE, related_name='customer')
     adress = models.OneToOneField(Address, models.CASCADE, null=True)
     newsletter_id = models.ForeignKey(
         Newsletter, models.SET_NULL, null=True, default=None)

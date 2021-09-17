@@ -26,6 +26,9 @@
                 <center><span class="text-danger">{{forms.errors}}</span></center>
                  <center><span class="text-danger">{{error}}</span></center>
                 <div class="mrgn-30-top d-flex justify-content-center">
+                          {% for error in form.errors %}
+                            <span class="text-danger" > {{ error }} </span>
+                          {% endfor %}
                   <button type="submit" name="login" class="btn btn-larger fw-bold btn-block px-3 p-2"/>
                   Se connecter
                   </button>

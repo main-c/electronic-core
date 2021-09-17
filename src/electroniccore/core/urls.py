@@ -1,10 +1,10 @@
 from django.urls import path
 
 from core.views import (DeleteItemView, DetailCategoryView, HomeView, AccountView, ShopView, ProductView,
-                        CheckoutView, PaymentView, Login, Logout, SignupView, CartView, SearchView,
+                        CheckoutView, PaymentView, Login, Logout, SignupView, SearchView,
                         SortProductView, FilterProductView, CreateCartView, ListCartView,
                         DeleteCartView, NotFoundView, DetailaccountView, BillingaddressView,
-                        CommandView, ProductTestView, DashboardView)
+                        CommandView, DashboardView)
 
 app_name = 'core'
 urlpatterns = [
@@ -13,8 +13,6 @@ urlpatterns = [
     path('shop/', ShopView.as_view(), name='shop'),
     path('product/<str:product_slug>', ProductView.as_view(), name='product'),
     path('checkout/<int:order_id>', CheckoutView.as_view(), name='checkout'),
-
-    path('product_test/', ProductTestView.as_view(), name='product_test'),
     path('payment/', PaymentView.as_view(), name='payment'),
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
@@ -28,7 +26,6 @@ urlpatterns = [
     path('articles/sort/<str:sort_type>',
          SortProductView.as_view(), name='sort'),
     # Cart urls
-    path('cart/', CartView.as_view(), name='cart'),
     path('my-cart/', ListCartView.as_view(), name='list_cart'),
 
     path('cart/add/<str:product_slug>',
