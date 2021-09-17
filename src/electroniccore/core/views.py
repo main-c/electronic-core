@@ -329,7 +329,7 @@ class CreateCartView(View):  # Panier
             cart.save()
             order_item.save()
             context = {"len_cart": cart.article_qty()}
-            return render(request, self.template_name, context)
+            return redirect('core:home')
 
 
 @method_decorator(decorators_holder, name="get")
