@@ -31,23 +31,23 @@
                 </div>
                 <!---->
             </div>
-            <div class="row d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light py-lg-5 mt-5">
-                <div class="col-lg-5 mx-3 mt-3 mx-lg-auto">
-                    <p class="p-green text-success mb-0">Nouveau</p>
-                    <P class="fs-5 fw-bold">Pack complet</P>
-                    <p class="fs-4 fw-bold mb-0">Téléphones et Tablette</p>
-                    <p class="text-muted mb-4">une montre en bonus</p>
-                    <div class="">
-                    	<a href="{% url 'core:list_cart' %}" class="btn btn-secondary py-2 fw-bold px-3"/>
-							<i class="fa fa-shopping-cart me-2"></i>
-				        	Ajouter au panier
-				        </a>
-                    </div>
-                </div>
-                <div class="col-lg-5 mx-auto">
-                	<img src="/static/core/images/phone2.png" class="w-100" alt="">
-                </div>
-            </div>
+            {% if on_sale %}
+	            <div class="row d-lg-flex flex-lg-row d-flex flex-column-reverse bg-light py-lg-5 mt-5">
+	                <div class="col-lg-5 mx-3 mt-3 mx-lg-auto">
+	                    <p class="p-green text-danger mb-0">En Solde</p>
+	                    <p class="fs-4 fw-bold mb-0">{{ on_sale.title }}</p>
+	                    <div class="">
+	                    	<a href="{% url 'core:add_cart' on_sale.slug %}" class="btn btn-secondary py-2 fw-bold px-3"/>
+								<i class="fa fa-shopping-cart me-2"></i>
+					        	Ajouter au panier
+					        </a>
+	                    </div>
+	                </div>
+	                <div class="col-lg-5 mx-auto">
+	                	<img src="{{on_sale.get_main_image}}" class="w-100" alt="">
+	                </div>
+	            </div>
+			{% endif %}
         </div>
     </div>
 

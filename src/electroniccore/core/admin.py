@@ -19,7 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'adress', 'newsletter_id')
+    list_display = ('id', 'user', 'adress', 'newsletter_id')
     search_fields = ('user__last_name', 'user__email')
 
 

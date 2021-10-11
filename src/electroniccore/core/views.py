@@ -14,7 +14,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 import random 
-decorators_holder = [
+
+decorators = [
     login_required(login_url="core:login", redirect_field_name="next"),
 ]
 
@@ -23,13 +24,20 @@ class HomeView(View):
     template_name = "core/home.html"
 
     def get(self, request, *args, **kwargs):
+        customer = request.user.customer
+        customer_cart = Order.objects.filter(customer=customer, state='In Cart').first()
+        len_cart = 0
+        if customer_cart:
+            len_cart = customer_cart.article_qty()
+        
         product_list = Product.objects.all()
-        if Product.objects.filter(status='On sale'):
-            on_solde_set  = Product.objects.filter(status='On sale')
-            item = on_solde_set[random.randint(0, len(on_solde_set))]
+        if Product.objects.filter(status='On Sale').exists():
+            products_on_sale = Product.objects.filter(status='On Sale')
+            on_sale = products_on_sale[random.randint(0, len(products_on_sale)-1)]
+            
         else:
-            item = None
-        paginator = Paginator(product_list, 12)
+            on_sale = None
+        paginator = Paginator(product_list, 9)
 
         page = request.GET.get('page')
         try:
@@ -40,7 +48,7 @@ class HomeView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             products = paginator.page(paginator.num_pages)
-        context = {'products': products, 'item': item}
+        context = {'products': products, 'on_sale': on_sale, 'len_cart':len_cart}
         return render(request, self.template_name, context)
 
 
@@ -53,7 +61,7 @@ class ProductView(View):
         return render(request, self.template_name, {'product': product, 'pictures':pictures})
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class AccountView(TemplateView):  # Dashboard
     template_name = "core/account.html"
 
@@ -64,7 +72,7 @@ class AccountView(TemplateView):  # Dashboard
         return render(request, self.template_name, context)
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class CommandView(TemplateView):
     template_name = "core/command.html"
 
@@ -91,12 +99,12 @@ class CommandView(TemplateView):
         return render(request, self.template_name, context)
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class DashboardView(TemplateView):
     template_name = "core/dashboard.html"
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class BillingaddressView(TemplateView):
     template_name = "core/billing_address.html"
 
@@ -122,7 +130,7 @@ class BillingaddressView(TemplateView):
             return render(request, self.template_name, {'form': form})
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class DetailaccountView(TemplateView):
     template_name = "core/detail_account.html"
 
@@ -288,7 +296,7 @@ class DetailCategoryView(View):
         return render(request, self.template_name, {'category': category, 'products': products})
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class CreateCartView(View):  # Panier
     template_name = "core/home.html"
 
@@ -332,7 +340,7 @@ class CreateCartView(View):  # Panier
             return redirect('core:home')
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class DeleteItemView(View):
     template_name = "core/cart.html"
 
@@ -349,7 +357,7 @@ class DeleteItemView(View):
         return redirect('core:list_cart')
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class DeleteCartView(View):
     template_name = "core/cart.html"
 
@@ -402,7 +410,7 @@ class DeleteCartView(View):
 """
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class ListCartView(View):
     template_name = "core/cart.html"
     context = {}
@@ -422,53 +430,36 @@ class ListCartView(View):
             return render(request, self.template_name, {'error_message': "Panier Vide"})
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class CheckoutView(View):  # Formulaire validation commande
     template_name = "core/checkout.html"
-    form_class = CheckoutForm
-    context = {}
+    
 
     def get(self, request, order_id):
-        form = self.form_class()
+        
         cart = None
-        order_items = None
+        order_item_set = None
         client = Customer.objects.get(user=request.user)
-        if client.adress:
-            self.context['adress'] = client.adress
         cart = Order.objects.filter(
             customer=client, state='In Cart').first()
         if cart:
             order_item_set = OrderItem.objects.filter(order=cart)
             for item in order_item_set:
                 item.total_price += item.total()
-                self.context['cart'] = cart
-                self.context['order_item_set'] = order_item_set
-        self.context['form'] = form
-
-        return render(request, self.template_name, self.context)
-
-    def post(self, request, order_id):
-        client = Customer.objects.get(user=request.user)
-        cart = Order.objects.filter(
-            customer=client, state='In Cart').first()
-        form = self.form_class(data=request.POST)
-        if form.is_valid():
-            address = form.save()
-            cart.note = form.cleaned_data['note']
-            client.save()
-            cart.state = 'Validated'
-            cart.save()
-            return render(request, self.template_name, {'client': client, 'cart': cart })
-        else:
-            return render(request, self.template_name, {'form': form})
+               
+        context = {'customer':client, 'cart':cart, 'items':order_item_set}
+        return render(request, self.template_name, context)
 
 
-@method_decorator(decorators_holder, name="get")
+@method_decorator(decorators, name="get")
 class PaymentView(View):
     template_name = "core/checkout.html"
 
     def get(self, request, *args, **kwargs):
         client = Customer.objects.get(user=request.user)
+        if not client.adress:
+            return redirect('core:billing_address')
+
         cart = Order.objects.filter(
             customer=client, state='In Cart').first()
         context = {'cart': cart}
@@ -534,8 +525,15 @@ class SignupView(TemplateView):
             # on cree un compte
             customer = form.save()
             print(customer)
-
-            # envoie d'un mail a l'utilisateur
+            
+            # connexion de l'utilisateur directement sur la plateforme
+            user = authenticate(username=customer.user.email,
+                                password=customer.user.password)
+            login(request, user)
+            return redirect("core:home")
+            
+            
+            """# envoie d'un mail a l'utilisateur
             user_account = customer.user
             mail_subject = "Inscription réussie"
             to_email = [user_account.email,]
@@ -552,19 +550,9 @@ class SignupView(TemplateView):
                 to_email,
                 fail_silently=False,
                 html_message=html_message,
-            )
-            # connexion de l'utilisateur directement sur la plateforme
-            user = authenticate(email=user_account.email,
-                                password=user_account.password)
-            if user is not None:
-                login(request, user)
-                return redirect("core:home")
-            else:
-                error = ValidationError("Invalid email or password")
-                context = {"form": form, "error": error}
-                return render(request, self.template_name, context)
+            )"""
+            
         else:
-            print(form.errors)
             return render(request, self.template_name, {"form": form})
 
     def get(self, request, *args, **kwargs):

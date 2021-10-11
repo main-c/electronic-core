@@ -10,36 +10,39 @@
 				<div class="d-grid bg-light shadow-sm py-3 rounded">
 					<div class="row text-center me-lg-5">
 						<i class="fa fa-5x fa-user text-primary"></i>
-						<p class="fw-bold text-secondary">Kimmy Black</p>
+						<p class="fw-bold text-secondary">{{customer.user.username}}</p>
 					</div>
-					<div class="row d-grid rounded p-3">
-						<div class="row mt-2 mx-auto">
-							<i class="fa fa-3x fa-phone col-lg-3 mx-auto text-primary"></i>
-							<div class="d-grid col-lg-5 me-auto">
-								<p class="text-uppercase my-0">Mobile</p>
-								<p class="text-secondary">+237 656 580 339</p>
+					{% if customer.adress %}
+						<div class="row d-grid rounded p-3">
+							<div class="row mt-2 mx-auto">
+								<i class="fa fa-3x fa-phone col-lg-3 mx-auto text-primary"></i>
+								<div class="d-grid col-lg-5 me-auto">
+									<p class="text-uppercase my-0">Mobile</p>
+									<p class="text-secondary">customer.adress.phone</p>
+								</div>
+							</div>
+							<div class="row mt-2 mx-auto">
+								<i class="fa fa-3x col-lg-3 fa-map-marker mx-auto text-primary"></i>
+								<div class="d-grid col-lg-5 me-auto">
+									<p class="text-uppercase my-0">Ville</p>
+									<p class="text-secondary">customer.adress.city</p>
+								</div>
+							</div>
+							<div class="row mt-2 mx-auto">
+								<i class="fa fa-3x col-lg-3 fa-map-marker mx-auto text-primary"></i>
+								<div class="d-grid col-lg-5 me-auto">
+									<p class="text-uppercase my-0">Quartier</p>
+									<p class="text-secondary">customer.adress.street</p>
+								</div>
 							</div>
 						</div>
-						<div class="row mt-2 mx-auto">
-							<i class="fa fa-3x col-lg-3 fa-map-marker mx-auto text-primary"></i>
-							<div class="d-grid col-lg-5 me-auto">
-								<p class="text-uppercase my-0">Ville</p>
-								<p class="text-secondary">Douala</p>
-							</div>
-						</div>
-						<div class="row mt-2 mx-auto">
-							<i class="fa fa-3x col-lg-3 fa-map-marker mx-auto text-primary"></i>
-							<div class="d-grid col-lg-5 me-auto">
-								<p class="text-uppercase my-0">Quartier</p>
-								<p class="text-secondary">New Bell</p>
-							</div>
-						</div>
-					</div>
-					<div class="mt-lg-3 d-flex justify-content-center">
-				      	<a href="#" class="bg-transparent text-decoration-none fw-bold text-primary border border-2 border-primary p-2">
-				      		Ajouter une adresse
-				      	</a>
-				    </div>
+					{% else %}
+						<div class="mt-lg-3 d-flex justify-content-center">
+					      	<a href="#" class="bg-transparent text-decoration-none fw-bold text-primary border border-2 border-primary p-2">
+					      		Ajouter une adresse
+					      	</a>
+					    </div>
+					{% endif %}
 				
 				</div>	    
 			</div>
@@ -52,10 +55,10 @@
 					</div>
 
 					<div class="d-grid mt-3">
-						{% for order_item in order_items %}
+						{% for order_item in items %}
 						<div class="d-flex px-3 justify-content-between py-3">
 							<div class="d-grid my-auto">
-								<p class="text-uppercase text-dark my-0">{{order_item.product.title|slice:':20'}} * {{order_item.qte}}</p>
+								<p class="text-lowercase text-dark my-0">{{order_item.product.title}} X {{order_item.qte}}</p>
 							</div>
 							<p class="text-uppercase text-secondary my-auto">{{order_item.total_price}} XFA</p>
 						</div>

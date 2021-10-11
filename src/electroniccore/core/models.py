@@ -52,7 +52,7 @@ class Product(models.Model):
 
     STATUS = (
         ('New', 'New'),
-        ('On Sale', 'On Salee'),
+        ('On Sale', 'On Sale'),
         ('Reached Limits', 'Reached Limits')
     )
 
