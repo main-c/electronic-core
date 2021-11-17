@@ -24,12 +24,6 @@ class HomeView(View):
     template_name = "core/home.html"
 
     def get(self, request, *args, **kwargs):
-        customer = request.user.customer
-        customer_cart = Order.objects.filter(customer=customer, state='In Cart').first()
-        len_cart = 0
-        if customer_cart:
-            len_cart = customer_cart.article_qty()
-        
         product_list = Product.objects.all()
         if Product.objects.filter(status='On Sale').exists():
             products_on_sale = Product.objects.filter(status='On Sale')
@@ -48,7 +42,16 @@ class HomeView(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             products = paginator.page(paginator.num_pages)
-        context = {'products': products, 'on_sale': on_sale, 'len_cart':len_cart}
+
+        if request.user.is_authenticated:
+            customer = request.user.customer
+            customer_cart = Order.objects.filter(customer=customer, state='In Cart').first()
+            len_cart = 0
+            if customer_cart:
+                len_cart = customer_cart.article_qty()
+                context = {'products': products, 'on_sale': on_sale, 'len_cart':len_cart}
+            
+        context = {'products': products, 'on_sale': on_sale}
         return render(request, self.template_name, context)
 
 
