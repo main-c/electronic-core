@@ -110,6 +110,8 @@ class Order(models.Model):
     def __str__(self):
         return f'commande de {self.customer.user.last_name}'
 
+    
+
 
 class OrderItem(models.Model):
     qte = models.IntegerField()
